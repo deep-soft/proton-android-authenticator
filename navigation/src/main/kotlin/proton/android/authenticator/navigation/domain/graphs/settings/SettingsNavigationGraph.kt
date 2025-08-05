@@ -18,6 +18,7 @@
 
 package proton.android.authenticator.navigation.domain.graphs.settings
 
+import androidx.compose.material.navigation.bottomSheet
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
@@ -26,6 +27,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.compose.navigation
 import proton.android.authenticator.features.imports.completion.ui.ImportsCompletionScreen
 import proton.android.authenticator.features.imports.errors.ui.ImportsErrorScreen
+import proton.android.authenticator.features.imports.menus.ui.ImportsMenuScreen
 import proton.android.authenticator.features.imports.onboarding.ui.ImportsOnboardingScreen
 import proton.android.authenticator.features.imports.options.ui.ImportsOptionsScreen
 import proton.android.authenticator.features.imports.passwords.ui.ImportsPasswordScreen
@@ -151,6 +153,13 @@ internal fun NavGraphBuilder.settingsNavigationGraph(
                 onNavigationClick = {
                     onNavigate(NavigationCommand.NavigateUp)
                 },
+                onMenuRequired = { importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = SettingsImportMenuNavigationDestination(
+                            importType = importType
+                        )
+                    ).also(onNavigate)
+                },
                 onHelpClick = { url ->
                     NavigationCommand.NavigateToUrl(
                         url = url,
@@ -227,6 +236,14 @@ internal fun NavGraphBuilder.settingsNavigationGraph(
                         destination = SettingsMasterNavigationDestination,
                         inclusive = false
                     ).also(onNavigate)
+                }
+            )
+        }
+
+        bottomSheet<SettingsImportMenuNavigationDestination> {
+            ImportsMenuScreen(
+                onDismissed = {
+                    onNavigate(NavigationCommand.NavigateUp)
                 }
             )
         }

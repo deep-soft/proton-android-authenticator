@@ -103,6 +103,9 @@ internal fun NavGraphBuilder.onboardingNavigationGraph(onNavigate: (NavigationCo
                 onNavigationClick = {
                     onNavigate(NavigationCommand.NavigateUp)
                 },
+                onMenuRequired = {
+
+                },
                 onHelpClick = { url ->
                     NavigationCommand.NavigateToUrl(
                         url = url,

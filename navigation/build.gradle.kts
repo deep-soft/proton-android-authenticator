@@ -35,6 +35,7 @@ dependencies {
     implementation(projects.features.home.scan)
     implementation(projects.features.imports.completion)
     implementation(projects.features.imports.errors)
+    implementation(projects.features.imports.menus)
     implementation(projects.features.imports.onboarding)
     implementation(projects.features.imports.options)
     implementation(projects.features.imports.passwords)

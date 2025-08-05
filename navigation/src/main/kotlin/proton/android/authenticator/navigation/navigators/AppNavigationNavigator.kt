@@ -1,5 +1,7 @@
 package proton.android.authenticator.navigation.navigators
 
+import androidx.compose.material.navigation.ModalBottomSheetLayout
+import androidx.compose.material.navigation.rememberBottomSheetNavigator
 import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
@@ -70,7 +72,8 @@ internal class AppNavigationNavigator @Inject constructor(
                         StepDestination.Onboarding -> OnboardingNavigationDestination
                     }
                 }
-                val navController = rememberNavController()
+                val bottomSheetNavigator = rememberBottomSheetNavigator()
+                val navController = rememberNavController(bottomSheetNavigator)
                 val scope = rememberCoroutineScope()
                 val snackbarHostState = remember { SnackbarHostState() }
                 val context = LocalContext.current
@@ -133,42 +136,44 @@ internal class AppNavigationNavigator @Inject constructor(
                     }
                 }
 
-                NavHost(
-                    navController = navController,
-                    startDestination = startDestination
-                ) {
-                    backupsNavigationGraph(snackbarHostState = snackbarHostState) { navCommand ->
-                        navigationCommandHandler.handle(navCommand, navController)
-                    }
+                ModalBottomSheetLayout(bottomSheetNavigator = bottomSheetNavigator) {
+                    NavHost(
+                        navController = navController,
+                        startDestination = startDestination
+                    ) {
+                        backupsNavigationGraph(snackbarHostState = snackbarHostState) { navCommand ->
+                            navigationCommandHandler.handle(navCommand, navController)
+                        }
 
-                    exportsNavigationGraph { navCommand ->
-                        navigationCommandHandler.handle(navCommand, navController)
-                    }
+                        exportsNavigationGraph { navCommand ->
+                            navigationCommandHandler.handle(navCommand, navController)
+                        }
 
-                    homeNavigationGraph(
-                        snackbarHostState = snackbarHostState,
-                        onLaunchNavigationFlow = onLaunchNavigationFlow,
-                        onEntryCreated = onAskForReview,
-                        onOpenSettings = onAskForReview,
-                        onEntriesRearranged = onAskForReview
-                    ) { navCommand ->
-                        navigationCommandHandler.handle(navCommand, navController)
-                    }
+                        homeNavigationGraph(
+                            snackbarHostState = snackbarHostState,
+                            onLaunchNavigationFlow = onLaunchNavigationFlow,
+                            onEntryCreated = onAskForReview,
+                            onOpenSettings = onAskForReview,
+                            onEntriesRearranged = onAskForReview
+                        ) { navCommand ->
+                            navigationCommandHandler.handle(navCommand, navController)
+                        }
 
-                    onboardingNavigationGraph { navCommand ->
-                        navigationCommandHandler.handle(navCommand, navController)
-                    }
+                        onboardingNavigationGraph { navCommand ->
+                            navigationCommandHandler.handle(navCommand, navController)
+                        }
 
-                    settingsNavigationGraph(snackbarHostState = snackbarHostState) { navCommand ->
-                        navigationCommandHandler.handle(navCommand, navController)
-                    }
+                        settingsNavigationGraph(snackbarHostState = snackbarHostState) { navCommand ->
+                            navigationCommandHandler.handle(navCommand, navController)
+                        }
 
-                    syncNavigationGraph(onLaunchNavigationFlow = onLaunchNavigationFlow) { navCommand ->
-                        navigationCommandHandler.handle(navCommand, navController)
-                    }
+                        syncNavigationGraph(onLaunchNavigationFlow = onLaunchNavigationFlow) { navCommand ->
+                            navigationCommandHandler.handle(navCommand, navController)
+                        }
 
-                    unlockNavigationGraph { navCommand ->
-                        navigationCommandHandler.handle(navCommand, navController)
+                        unlockNavigationGraph { navCommand ->
+                            navigationCommandHandler.handle(navCommand, navController)
+                        }
                     }
                 }
             }

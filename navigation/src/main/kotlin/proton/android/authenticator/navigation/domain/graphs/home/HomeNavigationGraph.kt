@@ -175,6 +175,9 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                 onNavigationClick = {
                     onNavigate(NavigationCommand.NavigateUp)
                 },
+                onMenuRequired = {
+
+                },
                 onHelpClick = { url ->
                     NavigationCommand.NavigateToUrl(
                         url = url,

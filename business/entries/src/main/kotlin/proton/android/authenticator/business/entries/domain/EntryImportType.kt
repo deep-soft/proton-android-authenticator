@@ -21,46 +21,57 @@ package proton.android.authenticator.business.entries.domain
 import proton.android.authenticator.shared.common.domain.models.MimeType
 
 enum class EntryImportType(
+    val hasOptions: Boolean,
     val isSupported: Boolean,
     val mimeTypes: List<MimeType>
 ) {
     Aegis(
+        hasOptions = false,
         isSupported = true,
         mimeTypes = listOf(MimeType.Json)
     ),
     Authy(
+        hasOptions = false,
         isSupported = false,
         mimeTypes = emptyList()
     ),
     Bitwarden(
+        hasOptions = false,
         isSupported = true,
         mimeTypes = listOf(MimeType.CommaSeparatedValues, MimeType.Csv, MimeType.Json)
     ),
     Ente(
+        hasOptions = false,
         isSupported = true,
         mimeTypes = listOf(MimeType.Text)
     ),
     Google(
+        hasOptions = true,
         isSupported = true,
         mimeTypes = listOf(MimeType.Image)
     ),
     LastPass(
+        hasOptions = false,
         isSupported = true,
         mimeTypes = listOf(MimeType.Json)
     ),
     Microsoft(
+        hasOptions = false,
         isSupported = false,
         mimeTypes = emptyList()
     ),
     ProtonAuthenticator(
+        hasOptions = false,
         isSupported = true,
         mimeTypes = listOf(MimeType.Json)
     ),
     ProtonPass(
+        hasOptions = false,
         isSupported = true,
         mimeTypes = listOf(MimeType.Zip)
     ),
     TwoFas(
+        hasOptions = false,
         isSupported = true,
         mimeTypes = listOf(MimeType.Binary)
     )

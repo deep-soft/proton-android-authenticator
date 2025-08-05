@@ -30,7 +30,7 @@ import proton.android.authenticator.shared.ui.R as uiR
 @Stable
 internal data class ImportOnboardingState(
     internal val event: ImportOnboardingEvent,
-    private val importType: EntryImportType
+    internal val importType: EntryImportType
 ) {
 
     internal val helpUrl: String = UrlConstants.CUSTOMER_SUPPORT
@@ -90,5 +90,7 @@ internal data class ImportOnboardingState(
         EntryImportType.Authy,
         EntryImportType.Microsoft -> R.array.imports_onboarding_unsupported_steps
     }
+
+    internal val showMenuOptions: Boolean = importType.hasOptions
 
 }
