@@ -16,23 +16,12 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.imports.menus.presentation
+package proton.android.authenticator.navigation.domain.graphs.home
 
-internal sealed interface ImportsMenuEvent {
+import kotlinx.serialization.Serializable
+import proton.android.authenticator.navigation.domain.destinations.NavigationDestination
 
-    data object Idle : ImportsMenuEvent
-
-    data class OnImportFailed(internal val reason: Int) : ImportsMenuEvent
-
-    data class OnImportPasswordRequired(
-        internal val uri: String,
-        internal val importType: Int
-    ) : ImportsMenuEvent
-
-    data class OnImportSucceeded(internal val importedEntriesCount: Int) : ImportsMenuEvent
-
-    data class OnScanQrCode(internal val importType: Int) : ImportsMenuEvent
-
-    data object OnSelectFromGallery : ImportsMenuEvent
-
-}
+@Serializable
+internal data class HomeImportMenuNavigationDestination(
+    internal val importType: Int
+) : NavigationDestination

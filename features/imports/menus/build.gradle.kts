@@ -8,4 +8,5 @@ android {
 
 dependencies {
     implementation(projects.business.entries)
+    implementation(projects.features.imports.shared)
 }

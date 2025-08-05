@@ -1,5 +1,6 @@
 package proton.android.authenticator.navigation.domain.graphs.home
 
+import androidx.compose.material.navigation.bottomSheet
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
@@ -13,6 +14,7 @@ import proton.android.authenticator.features.home.permissions.ui.HomePermissionS
 import proton.android.authenticator.features.home.scan.ui.HomeScanScreen
 import proton.android.authenticator.features.imports.completion.ui.ImportsCompletionScreen
 import proton.android.authenticator.features.imports.errors.ui.ImportsErrorScreen
+import proton.android.authenticator.features.imports.menus.ui.ImportsMenuScreen
 import proton.android.authenticator.features.imports.onboarding.ui.ImportsOnboardingScreen
 import proton.android.authenticator.features.imports.options.ui.ImportsOptionsScreen
 import proton.android.authenticator.features.imports.passwords.ui.ImportsPasswordScreen
@@ -175,8 +177,10 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                 onNavigationClick = {
                     onNavigate(NavigationCommand.NavigateUp)
                 },
-                onMenuRequired = {
-
+                onMenuRequired = { importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportMenuNavigationDestination(importType = importType)
+                    ).also(onNavigate)
                 },
                 onHelpClick = { url ->
                     NavigationCommand.NavigateToUrl(
@@ -272,6 +276,42 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                         destination = HomeMasterNavigationDestination,
                         inclusive = false
                     ).also(onNavigate)
+                }
+            )
+        }
+
+        bottomSheet<HomeImportMenuNavigationDestination> {
+            ImportsMenuScreen(
+                onDismissed = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onCompleted = { importedEntriesCount ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = HomeImportCompletionNavigationDestination(
+                            importedEntriesCount = importedEntriesCount
+                        ),
+                        popDestination = HomeImportNavigationDestination
+                    ).also(onNavigate)
+                },
+                onFailed = { errorReason ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = HomeImportErrorNavigationDestination(
+                            errorReason = errorReason
+                        ),
+                        popDestination = HomeImportNavigationDestination
+                    ).also(onNavigate)
+                },
+                onPasswordRequired = { uri, importType ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = HomeImportPasswordNavigationDestination(
+                            uri = uri,
+                            importType = importType
+                        ),
+                        popDestination = HomeImportNavigationDestination
+                    ).also(onNavigate)
+                },
+                onScanQrCode = { importType ->
+
                 }
             )
         }

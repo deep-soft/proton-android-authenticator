@@ -244,6 +244,34 @@ internal fun NavGraphBuilder.settingsNavigationGraph(
             ImportsMenuScreen(
                 onDismissed = {
                     onNavigate(NavigationCommand.NavigateUp)
+                },
+                onCompleted = { importedEntriesCount ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = SettingsImportCompletionNavigationDestination(
+                            importedEntriesCount = importedEntriesCount
+                        ),
+                        popDestination = SettingsImportOptionsNavigationDestination
+                    ).also(onNavigate)
+                },
+                onFailed = { errorReason ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = SettingsImportErrorNavigationDestination(
+                            errorReason = errorReason
+                        ),
+                        popDestination = SettingsImportOptionsNavigationDestination
+                    ).also(onNavigate)
+                },
+                onPasswordRequired = { uri, importType ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = SettingsImportPasswordNavigationDestination(
+                            uri = uri,
+                            importType = importType
+                        ),
+                        popDestination = SettingsImportOptionsNavigationDestination
+                    ).also(onNavigate)
+                },
+                onScanQrCode = { importType ->
+
                 }
             )
         }

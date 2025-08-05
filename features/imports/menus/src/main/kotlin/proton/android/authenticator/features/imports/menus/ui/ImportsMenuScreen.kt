@@ -33,7 +33,13 @@ import proton.android.authenticator.shared.common.domain.models.MimeType
 import proton.android.authenticator.shared.ui.domain.screens.BottomSheetScreen
 
 @Composable
-fun ImportsMenuScreen(onDismissed: () -> Unit) = with(hiltViewModel<ImportsMenuViewModel>()) {
+fun ImportsMenuScreen(
+    onDismissed: () -> Unit,
+    onCompleted: (Int) -> Unit,
+    onFailed: (Int) -> Unit,
+    onPasswordRequired: (String, Int) -> Unit,
+    onScanQrCode: (Int) -> Unit
+) = with(hiltViewModel<ImportsMenuViewModel>()) {
     val state by stateFlow.collectAsStateWithLifecycle()
 
     val launcher = rememberLauncherForActivityResult(
@@ -52,11 +58,23 @@ fun ImportsMenuScreen(onDismissed: () -> Unit) = with(hiltViewModel<ImportsMenuV
     )
 
     LaunchedEffect(key1 = state.event) {
-        when (state.event) {
+        when (val event = state.event) {
             ImportsMenuEvent.Idle -> Unit
 
-            ImportsMenuEvent.OnScanQrCode -> {
-                println("JIBIRI: Scan QR Code")
+            is ImportsMenuEvent.OnImportFailed -> {
+                onFailed(event.reason)
+            }
+
+            is ImportsMenuEvent.OnImportPasswordRequired -> {
+                onPasswordRequired(event.uri, event.importType)
+            }
+
+            is ImportsMenuEvent.OnImportSucceeded -> {
+                onCompleted(event.importedEntriesCount)
+            }
+
+            is ImportsMenuEvent.OnScanQrCode -> {
+                onScanQrCode(event.importType)
             }
 
             ImportsMenuEvent.OnSelectFromGallery -> {

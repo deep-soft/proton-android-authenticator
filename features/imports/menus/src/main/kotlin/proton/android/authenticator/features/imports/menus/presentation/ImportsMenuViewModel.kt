@@ -30,12 +30,17 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import proton.android.authenticator.business.entries.application.importall.ImportEntriesReason
 import proton.android.authenticator.business.entries.domain.EntryImportType
+import proton.android.authenticator.features.imports.shared.usecases.ImportEntriesUseCase
+import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 import javax.inject.Inject
 
 @[HiltViewModel OptIn(ExperimentalCoroutinesApi::class)]
 internal class ImportsMenuViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val importEntriesUseCase: ImportEntriesUseCase
 ) : ViewModel() {
 
     private val importType = requireNotNull<Int>(savedStateHandle[ARGS_IMPORT_TYPE])
@@ -64,17 +69,57 @@ internal class ImportsMenuViewModel @Inject constructor(
     }
 
     internal fun onFilesPicked(uris: List<Uri>) {
-        if (uris.isEmpty()) return
+        if (uris.isEmpty()) {
+            AuthenticatorLogger.i(TAG, "Import canceled: no files selected")
+
+            return
+        }
+
+        viewModelScope.launch {
+            importEntriesUseCase(uris, importType).fold(
+                onFailure = { reason ->
+                    AuthenticatorLogger.w(TAG, "Failed to import entries for $importType: $reason")
+
+                    when (reason) {
+                        ImportEntriesReason.BadContent,
+                        ImportEntriesReason.BadPassword,
+                        ImportEntriesReason.DecryptionFailed,
+                        ImportEntriesReason.FileTooLarge -> {
+                            ImportsMenuEvent.OnImportFailed(reason = reason.ordinal)
+                        }
+
+                        ImportEntriesReason.MissingPassword -> {
+                            ImportsMenuEvent.OnImportPasswordRequired(
+                                uri = uris.first().toString(),
+                                importType = importType.ordinal
+                            )
+                        }
+                    }
+                },
+                onSuccess = { importedEntriesCount ->
+                    AuthenticatorLogger.i(TAG, "Entries import succeeded for $importType")
+
+                    ImportsMenuEvent.OnImportSucceeded(importedEntriesCount = importedEntriesCount)
+                }
+            ).also { event -> eventFlow.update { event } }
+        }
     }
 
     internal fun onOptionSelected(option: ImportsMenuOption) {
         when (option.optionType) {
-            ImportsMenuOptionType.ScanQrCode -> ImportsMenuEvent.OnScanQrCode
-            ImportsMenuOptionType.SelectFromGallery -> ImportsMenuEvent.OnSelectFromGallery
+            ImportsMenuOptionType.ScanQrCode -> {
+                ImportsMenuEvent.OnScanQrCode(importType = importType.ordinal)
+            }
+
+            ImportsMenuOptionType.SelectFromGallery -> {
+                ImportsMenuEvent.OnSelectFromGallery
+            }
         }.also { event -> eventFlow.update { event } }
     }
 
     private companion object {
+
+        private const val TAG = "ImportsMenuViewModel"
 
         private const val ARGS_IMPORT_TYPE = "importType"
 
