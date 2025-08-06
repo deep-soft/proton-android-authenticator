@@ -16,16 +16,12 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.backups.master.presentation
+package proton.android.authenticator.navigation.domain.graphs.backups
 
-import proton.android.authenticator.business.backups.application.generate.GenerateBackupReason
+import kotlinx.serialization.Serializable
+import proton.android.authenticator.navigation.domain.destinations.NavigationDestination
 
-internal sealed interface BackupMasterEvent {
-
-    data object Idle : BackupMasterEvent
-
-    data class OnBackupError(internal val reason: GenerateBackupReason) : BackupMasterEvent
-
-    data class OnBackupPassword(internal val uri: String) : BackupMasterEvent
-
-}
+@Serializable
+internal data class BackupsPasswordsNavigationDestination(
+    internal val uri: String
+) : NavigationDestination

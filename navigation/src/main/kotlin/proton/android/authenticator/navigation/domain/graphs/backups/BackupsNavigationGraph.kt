@@ -25,6 +25,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.compose.navigation
 import proton.android.authenticator.features.backups.errors.ui.BackupsErrorsScreen
 import proton.android.authenticator.features.backups.master.ui.BackupsMasterScreen
+import proton.android.authenticator.features.backups.passwords.ui.BackupsPasswordScreen
 import proton.android.authenticator.navigation.domain.commands.NavigationCommand
 
 internal fun NavGraphBuilder.backupsNavigationGraph(
@@ -42,12 +43,25 @@ internal fun NavGraphBuilder.backupsNavigationGraph(
                     NavigationCommand.NavigateTo(
                         destination = BackupsErrorsNavigationDestination(errorReason = errorReason)
                     ).also(onNavigate)
+                },
+                onBackupPassword = { uri ->
+                    NavigationCommand.NavigateTo(
+                        destination = BackupsPasswordsNavigationDestination(uri = uri)
+                    ).also(onNavigate)
                 }
             )
         }
 
         dialog<BackupsErrorsNavigationDestination> {
             BackupsErrorsScreen(
+                onDismissed = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                }
+            )
+        }
+
+        dialog<BackupsPasswordsNavigationDestination> {
+            BackupsPasswordScreen(
                 onDismissed = {
                     onNavigate(NavigationCommand.NavigateUp)
                 }

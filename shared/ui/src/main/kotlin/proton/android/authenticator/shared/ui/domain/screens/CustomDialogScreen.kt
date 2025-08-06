@@ -21,6 +21,7 @@ package proton.android.authenticator.shared.ui.domain.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -45,6 +46,9 @@ fun CustomDialogScreen(
     onDismissed: () -> Unit,
     modifier: Modifier = Modifier,
     isConfirmEnabled: Boolean = true,
+    cancelText: UiText? = null,
+    isCancelEnabled: Boolean = true,
+    onCancelClick: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     BasicAlertDialog(
@@ -76,12 +80,21 @@ fun CustomDialogScreen(
 
             content()
 
-            DialogActionTextButton(
-                modifier = Modifier.align(alignment = Alignment.End),
-                text = confirmText,
-                isEnabled = isConfirmEnabled,
-                onClick = onConfirmClick
-            )
+            Row(Modifier.align(alignment = Alignment.End)) {
+                cancelText?.let { text ->
+                    DialogActionTextButton(
+                        text = text,
+                        isEnabled = isCancelEnabled,
+                        onClick = onCancelClick
+                    )
+                }
+
+                DialogActionTextButton(
+                    text = confirmText,
+                    isEnabled = isConfirmEnabled,
+                    onClick = onConfirmClick
+                )
+            }
         }
     }
 }

@@ -16,16 +16,10 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.backups.master.presentation
+package proton.android.authenticator.features.backups.passwords.presentation
 
-import proton.android.authenticator.business.backups.application.generate.GenerateBackupReason
+internal sealed interface BackupsPasswordEvent {
 
-internal sealed interface BackupMasterEvent {
-
-    data object Idle : BackupMasterEvent
-
-    data class OnBackupError(internal val reason: GenerateBackupReason) : BackupMasterEvent
-
-    data class OnBackupPassword(internal val uri: String) : BackupMasterEvent
+    data object Idle : BackupsPasswordEvent
 
 }
