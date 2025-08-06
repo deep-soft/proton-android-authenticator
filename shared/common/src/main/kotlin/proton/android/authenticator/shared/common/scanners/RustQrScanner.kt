@@ -40,11 +40,7 @@ internal class RustQrScanner @Inject constructor(
         try {
             contentResolver.openInputStream(uri)
                 ?.use(InputStream::readBytes)
-                ?.let { imageByteArray ->
-                    withContext(appDispatchers.default) {
-                        qrCodeScanner.scanQrCode(image = imageByteArray)
-                    }
-                }
+                ?.let { imageByteArray -> scan(bytes = imageByteArray) }
         } catch (error: FileNotFoundException) {
             AuthenticatorLogger.w(TAG, "There was an error while scanning the QR code: FileNotFoundException")
             AuthenticatorLogger.w(TAG, error)
@@ -56,6 +52,10 @@ internal class RustQrScanner @Inject constructor(
 
             null
         }
+    }
+
+    override suspend fun scan(bytes: ByteArray): String? = withContext(appDispatchers.default) {
+        qrCodeScanner.scanQrCode(image = bytes)
     }
 
     private companion object {

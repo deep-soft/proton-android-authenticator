@@ -16,14 +16,12 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.shared.common.domain.scanners
+package proton.android.authenticator.navigation.domain.graphs.home
 
-import android.net.Uri
+import kotlinx.serialization.Serializable
+import proton.android.authenticator.navigation.domain.destinations.NavigationDestination
 
-interface QrScanner {
-
-    suspend fun scan(uri: Uri): String?
-
-    suspend fun scan(bytes: ByteArray): String?
-
-}
+@Serializable
+internal data class HomeImportScanNavigationDestination(
+    internal val importType: Int
+) : NavigationDestination

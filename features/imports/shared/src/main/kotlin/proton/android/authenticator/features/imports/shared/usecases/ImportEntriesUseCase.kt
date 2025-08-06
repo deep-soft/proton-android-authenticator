@@ -28,11 +28,20 @@ import javax.inject.Inject
 
 class ImportEntriesUseCase @Inject constructor(private val commandBus: CommandBus) {
 
+    suspend operator fun invoke(bytes: ByteArray, importType: EntryImportType): Answer<Int, ImportEntriesReason> =
+        ImportEntriesCommand.FromBytes(
+            contentBytes = bytes.toList(),
+            importType = importType
+        ).let { command -> commandBus.dispatch(command) }
+
     suspend operator fun invoke(
         uris: List<Uri>,
         importType: EntryImportType,
         password: String? = null
-    ): Answer<Int, ImportEntriesReason> = ImportEntriesCommand(uris, importType, password)
-        .let { command -> commandBus.dispatch(command) }
+    ): Answer<Int, ImportEntriesReason> = ImportEntriesCommand.FromUris(
+        contentUris = uris,
+        importType = importType,
+        password = password
+    ).let { command -> commandBus.dispatch(command) }
 
 }

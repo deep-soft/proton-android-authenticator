@@ -16,14 +16,21 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.shared.common.domain.scanners
+package proton.android.authenticator.features.imports.scan.ui
 
-import android.net.Uri
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import proton.android.authenticator.shared.ui.domain.components.camera.CameraQrScan
 
-interface QrScanner {
-
-    suspend fun scan(uri: Uri): String?
-
-    suspend fun scan(bytes: ByteArray): String?
-
+@Composable
+internal fun ImportsScanContent(
+    onQrCodeScanned: (ByteArray) -> Unit,
+    onCameraError: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    CameraQrScan(
+        modifier = modifier,
+        onCameraError = onCameraError,
+        onQrCodeScanned = { _, qrCodeBytes -> onQrCodeScanned(qrCodeBytes) }
+    )
 }

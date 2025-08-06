@@ -51,7 +51,7 @@ internal fun ImportsMenuContent(
                     vertical = ThemePadding.Small
                 ),
                 text = stringResource(id = R.string.imports_menu_title),
-                style = Theme.typography.body1Bold
+                style = Theme.typography.bodyBold
             )
         }
 
@@ -62,7 +62,7 @@ internal fun ImportsMenuContent(
                     .clickable { onOptionSelected(menuOption) }
                     .padding(all = ThemePadding.Medium),
                 text = menuOption.titleText.asString(),
-                style = Theme.typography.body2Regular
+                style = Theme.typography.body1Regular
             )
         }
     }

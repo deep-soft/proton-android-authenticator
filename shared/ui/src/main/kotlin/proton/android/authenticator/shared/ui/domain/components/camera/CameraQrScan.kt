@@ -16,7 +16,7 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.home.scan.ui
+package proton.android.authenticator.shared.ui.domain.components.camera
 
 import android.view.ViewGroup
 import androidx.camera.core.CameraSelector
@@ -43,8 +43,8 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import proton.android.authenticator.shared.ui.domain.analyzers.QrCodeAnalyzer
 
 @Composable
-internal fun HomeScanCamera(
-    onQrCodeScanned: (String) -> Unit,
+fun CameraQrScan(
+    onQrCodeScanned: (String, ByteArray) -> Unit,
     onCameraError: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -147,7 +147,7 @@ internal fun HomeScanCamera(
         }
     )
 
-    HomeScanCameraQrMask(cutoutRect = cutoutRect)
+    CameraQrScanMask(cutoutRect = cutoutRect)
 
     LaunchedEffect(key1 = previewViewSize) {
         if (previewViewSize == Size.Zero) return@LaunchedEffect
@@ -165,11 +165,11 @@ internal fun HomeScanCamera(
         imageAnalysis.setAnalyzer(
             ContextCompat.getMainExecutor(context),
             QrCodeAnalyzer(
-                onQrCodeScanned = { qrCode ->
+                onQrCodeScanned = { qrCodeValue, qrCodeBytes ->
                     if (canScanCode) {
                         canScanCode = false
 
-                        onQrCodeScanned(qrCode)
+                        onQrCodeScanned(qrCodeValue, qrCodeBytes)
                     }
                 }
             )

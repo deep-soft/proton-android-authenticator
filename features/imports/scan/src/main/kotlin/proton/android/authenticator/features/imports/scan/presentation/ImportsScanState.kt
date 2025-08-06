@@ -16,25 +16,31 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.business.entries.application.importall
+package proton.android.authenticator.features.imports.scan.presentation
 
-import android.net.Uri
+import androidx.compose.runtime.Stable
 import proton.android.authenticator.business.entries.domain.EntryImportType
-import proton.android.authenticator.shared.common.domain.infrastructure.commands.Command
+import proton.android.authenticator.shared.common.domain.models.MimeType
 
-sealed interface ImportEntriesCommand : Command {
+@Stable
+internal data class ImportsScanState(
+    internal val event: ImportsScanEvent,
+    internal val importType: EntryImportType
+) {
 
-    val importType: EntryImportType
+    internal val isMultiSelectionAllowed: Boolean = when (importType) {
+        EntryImportType.Google -> true
+        EntryImportType.Aegis,
+        EntryImportType.Authy,
+        EntryImportType.Bitwarden,
+        EntryImportType.Ente,
+        EntryImportType.LastPass,
+        EntryImportType.Microsoft,
+        EntryImportType.ProtonAuthenticator,
+        EntryImportType.ProtonPass,
+        EntryImportType.TwoFas -> false
+    }
 
-    data class FromBytes(
-        override val importType: EntryImportType,
-        internal val contentBytes: List<Byte>
-    ) : ImportEntriesCommand
-
-    data class FromUris(
-        override val importType: EntryImportType,
-        internal val contentUris: List<Uri>,
-        internal val password: String?
-    ) : ImportEntriesCommand
+    internal val mimeTypes: List<String> = importType.mimeTypes.map(MimeType::value)
 
 }

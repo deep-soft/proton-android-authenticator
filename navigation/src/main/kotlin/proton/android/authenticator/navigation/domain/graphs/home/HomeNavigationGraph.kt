@@ -18,6 +18,7 @@ import proton.android.authenticator.features.imports.menus.ui.ImportsMenuScreen
 import proton.android.authenticator.features.imports.onboarding.ui.ImportsOnboardingScreen
 import proton.android.authenticator.features.imports.options.ui.ImportsOptionsScreen
 import proton.android.authenticator.features.imports.passwords.ui.ImportsPasswordScreen
+import proton.android.authenticator.features.imports.scan.ui.ImportsScanScreen
 import proton.android.authenticator.features.sync.master.ui.SyncMasterScreen
 import proton.android.authenticator.navigation.domain.commands.NavigationCommand
 import proton.android.authenticator.navigation.domain.flows.NavigationFlow
@@ -311,7 +312,39 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                     ).also(onNavigate)
                 },
                 onScanQrCode = { importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportScanNavigationDestination(importType = importType)
+                    ).also(onNavigate)
+                }
+            )
+        }
 
+        composable<HomeImportScanNavigationDestination> {
+            ImportsScanScreen(
+                onCloseClick = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onCompleted = { importedEntriesCount ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportCompletionNavigationDestination(
+                            importedEntriesCount = importedEntriesCount
+                        )
+                    ).also(onNavigate)
+                },
+                onFailed = { errorReason ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportErrorNavigationDestination(
+                            errorReason = errorReason
+                        )
+                    ).also(onNavigate)
+                },
+                onPasswordRequired = { uri, importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportPasswordNavigationDestination(
+                            uri = uri,
+                            importType = importType
+                        )
+                    ).also(onNavigate)
                 }
             )
         }

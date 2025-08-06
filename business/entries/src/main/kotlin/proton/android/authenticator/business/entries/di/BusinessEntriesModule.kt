@@ -86,8 +86,15 @@ internal abstract class BusinessEntriesModule {
     @[Binds Singleton IntoMap QueryHandlerKey(FindAllEntriesQuery::class)]
     internal abstract fun bindFindAllEntriesQueryHandler(impl: FindAllEntriesQueryHandler): QueryHandler<*, *>
 
-    @[Binds Singleton IntoMap CommandHandlerKey(ImportEntriesCommand::class)]
-    internal abstract fun bindImportEntriesCommandHandler(impl: ImportEntriesCommandHandler): CommandHandler<*, *, *>
+    @[Binds Singleton IntoMap CommandHandlerKey(ImportEntriesCommand.FromBytes::class)]
+    internal abstract fun bindImportEntriesFromBytesCommandHandler(
+        impl: ImportEntriesCommandHandler
+    ): CommandHandler<*, *, *>
+
+    @[Binds Singleton IntoMap CommandHandlerKey(ImportEntriesCommand.FromUris::class)]
+    internal abstract fun bindImportEntriesFromUriCommandHandler(
+        impl: ImportEntriesCommandHandler
+    ): CommandHandler<*, *, *>
 
     @[Binds Singleton IntoMap CommandHandlerKey(RestoreEntryCommand::class)]
     internal abstract fun bindRestoreEntryCommandHandler(impl: RestoreEntryCommandHandler): CommandHandler<*, *, *>

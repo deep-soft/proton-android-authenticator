@@ -16,14 +16,19 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.shared.common.domain.scanners
+package proton.android.authenticator.features.imports.scan.presentation
 
-import android.net.Uri
+internal sealed interface ImportsScanEvent {
 
-interface QrScanner {
+    data object Idle : ImportsScanEvent
 
-    suspend fun scan(uri: Uri): String?
+    data class OnImportFailed(internal val reason: Int) : ImportsScanEvent
 
-    suspend fun scan(bytes: ByteArray): String?
+    data class OnImportPasswordRequired(
+        internal val uri: String,
+        internal val importType: Int
+    ) : ImportsScanEvent
+
+    data class OnImportSucceeded(internal val importedEntriesCount: Int) : ImportsScanEvent
 
 }

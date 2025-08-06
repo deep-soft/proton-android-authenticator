@@ -48,6 +48,8 @@
     <string name="authenticator_proton_authenticator" translatable="false">Proton Authenticator</string>
     <string name="authenticator_proton_pass" translatable="false">Proton Pass</string>
 
+    <string name="camera_scan_qr_code_hint">Point your camera at the QR code.</string>
+
     <string name="date_format_today">Today, %1$s</string>
     <string name="date_format_yesterday">Yesterday, %1$s</string>
     <string name="date_format_full_compact_month" comment="This format outputs the date in the format: 09 Jun 10:30. Do not add any extra characters, just change the order if needed of grouped characters to match local date format order">dd LLL HH:mm</string>

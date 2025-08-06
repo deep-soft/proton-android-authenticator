@@ -33,13 +33,24 @@ internal class ImportEntriesCommandHandler @Inject constructor(
 ) : CommandHandler<ImportEntriesCommand, Int, ImportEntriesReason> {
 
     override suspend fun handle(command: ImportEntriesCommand): Answer<Int, ImportEntriesReason> = try {
-        val result = importer.import(
-            contentUris = command.contentUris,
-            importType = command.importType,
-            password = command.password
-        )
-        AuthenticatorLogger.i(TAG, "Successfully imported $result entries")
-        Answer.Success(result)
+        when (command) {
+            is ImportEntriesCommand.FromBytes -> {
+                importer.import(
+                    contentBytes = command.contentBytes,
+                    importType = command.importType
+                )
+            }
+
+            is ImportEntriesCommand.FromUris -> {
+                importer.import(
+                    contentUris = command.contentUris,
+                    importType = command.importType,
+                    password = command.password
+                )
+            }
+        }.also { entriesCount ->
+            AuthenticatorLogger.i(TAG, "Successfully imported $entriesCount entries")
+        }.let(Answer<Int, ImportEntriesReason>::Success)
     } catch (e: AuthenticatorImportException.BadContent) {
         ErrorLoggingUtils.logAndReturnFailure(
             exception = e,
@@ -99,6 +110,9 @@ internal class ImportEntriesCommandHandler @Inject constructor(
     }
 
     private companion object {
+
         private const val TAG = "ImportEntriesCommandHandler"
+
     }
+
 }
