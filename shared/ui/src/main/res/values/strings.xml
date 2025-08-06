@@ -35,6 +35,7 @@
     <string name="action_skip">Skip</string>
     <string name="action_undo">Undo</string>
     <string name="action_unlock">Unlock</string>
+    <string name="action_yes">Yes</string>
 
     <string name="authenticator_2fas" translatable="false">2FAS</string>
     <string name="authenticator_aegis" translatable="false">Aegis Authenticator</string>

@@ -7,6 +7,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.core.crypto)
+
     implementation(projects.business.backups)
     implementation(projects.shared.crypto)
 }

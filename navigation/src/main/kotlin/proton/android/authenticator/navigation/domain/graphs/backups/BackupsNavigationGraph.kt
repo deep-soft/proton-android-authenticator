@@ -64,6 +64,17 @@ internal fun NavGraphBuilder.backupsNavigationGraph(
             BackupsPasswordScreen(
                 onDismissed = {
                     onNavigate(NavigationCommand.NavigateUp)
+                },
+                onBackupEnableError = { errorReason ->
+                    NavigationCommand.NavigateTo(
+                        destination = BackupsErrorsNavigationDestination(errorReason = errorReason)
+                    ).also(onNavigate)
+                },
+                onBackupEnableSuccess = {
+                    NavigationCommand.PopupTo(
+                        destination = BackupsMasterNavigationDestination,
+                        inclusive = false
+                    ).also(onNavigate)
                 }
             )
         }

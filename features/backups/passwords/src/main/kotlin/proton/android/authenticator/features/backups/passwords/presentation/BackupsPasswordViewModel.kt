@@ -31,9 +31,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import me.proton.core.crypto.common.keystore.EncryptedString
 import proton.android.authenticator.features.shared.usecases.backups.ObserveBackupUseCase
 import proton.android.authenticator.features.shared.usecases.backups.UpdateBackupUseCase
+import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 import proton.android.authenticator.shared.crypto.domain.contexts.EncryptionContextProvider
 import javax.inject.Inject
 
@@ -75,6 +78,10 @@ internal class BackupsPasswordViewModel @Inject constructor(
         passwordState.value = newPassword
     }
 
+    internal fun onPasswordVisibilityChange(newIsVisible: Boolean) {
+        isPasswordVisibleFlow.update { newIsVisible }
+    }
+
     internal fun onEnableBackupWithPassword() {
         passwordState.value?.let { password ->
             viewModelScope.launch {
@@ -86,21 +93,44 @@ internal class BackupsPasswordViewModel @Inject constructor(
     }
 
     internal fun onEnableBackupWithoutPassword() {
-        enableBackup(password = null)
+        enableBackup(encryptedPassword = null)
     }
 
-    private fun enableBackup(password: String?) {
+    private fun enableBackup(encryptedPassword: EncryptedString?) {
         viewModelScope.launch {
             observeBackupUseCase().first()
                 .copy(
                     isEnabled = true,
-                    directoryUri = backupUri
+                    directoryUri = backupUri,
+                    encryptedPassword = encryptedPassword
                 )
-                .also { backup -> updateBackupUseCase(newBackup = backup) }
+                .let { backup ->
+                    updateBackupUseCase(newBackup = backup)
+                }
+                .fold(
+                    onFailure = { reason ->
+                        AuthenticatorLogger.w(TAG, "Backup enable failed due to: $reason")
+
+                        BackupsPasswordEvent.OnBackupEnableError(errorReason = reason.ordinal)
+                    },
+                    onSuccess = {
+                        AuthenticatorLogger.i(TAG, "Backup successfully enabled")
+
+                        BackupsPasswordEvent.OnBackupEnableSuccess
+                    }
+                )
+                .also {
+                    passwordState.value = null
+                }
+                .also { event ->
+                    eventFlow.update { event }
+                }
         }
     }
 
     private companion object {
+
+        private const val TAG = "BackupsPasswordViewModel"
 
         private const val ARGS_URI = "uri"
 

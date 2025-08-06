@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.core.crypto)
     implementation(libs.core.utilKotlin)
 
     implementation(projects.business.backups)

@@ -45,7 +45,8 @@ internal class DataStoreBackupPreferencesDataSource @Inject constructor(
                     .seconds
                     .takeIf { lastBackupSeconds -> lastBackupSeconds > 0 }
                     ?.times(DateConstants.ONE_SECOND_IN_MILLIS),
-                directoryUri = backupPreferences.directoryUri.toUri()
+                directoryUri = backupPreferences.directoryUri.toUri(),
+                encryptedPassword = backupPreferences.encryptedPassword.takeIf { it.isNotBlank() }
             )
         }
 
@@ -63,6 +64,7 @@ internal class DataStoreBackupPreferencesDataSource @Inject constructor(
                         .build()
                 )
                 .setDirectoryUri(preferences.directoryUri.toString())
+                .setEncryptedPassword(preferences.encryptedPassword.orEmpty())
                 .build()
         }
     }
@@ -72,6 +74,7 @@ internal class DataStoreBackupPreferencesDataSource @Inject constructor(
         BackupPreferencesFrequency.BACKUP_FREQUENCY_MONTHLY -> BackupFrequencyType.Monthly
         BackupPreferencesFrequency.BACKUP_FREQUENCY_DAILY,
         BackupPreferencesFrequency.UNRECOGNIZED -> BackupFrequencyType.Daily
+
         BackupPreferencesFrequency.BACKUP_FREQUENCY_QA -> BackupFrequencyType.QA
     }
 

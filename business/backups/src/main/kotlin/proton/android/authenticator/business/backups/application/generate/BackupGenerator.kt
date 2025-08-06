@@ -39,12 +39,14 @@ import proton.android.authenticator.commonrust.AuthenticatorMobileClientInterfac
 import proton.android.authenticator.shared.common.domain.dispatchers.AppDispatchers
 import proton.android.authenticator.shared.common.domain.models.MimeType
 import proton.android.authenticator.shared.common.domain.providers.TimeProvider
+import proton.android.authenticator.shared.crypto.domain.contexts.EncryptionContextProvider
 import javax.inject.Inject
 
 internal class BackupGenerator @Inject constructor(
     @ApplicationContext private val context: Context,
     private val appDispatchers: AppDispatchers,
     private val authenticatorClient: AuthenticatorMobileClientInterface,
+    private val encryptionContextProvider: EncryptionContextProvider,
     private val directoryReader: DirectoryReader,
     private val fileDeleter: FileDeleter,
     private val fileWriter: FileWriter,
@@ -95,7 +97,16 @@ internal class BackupGenerator @Inject constructor(
         backupEntries.map(BackupEntry::toModel)
             .let { entryModels ->
                 withContext(appDispatchers.default) {
-                    authenticatorClient.exportEntries(entryModels)
+                    backup.encryptedPassword
+                        ?.let { backupEncryptedPassword ->
+                            encryptionContextProvider.withEncryptionContext {
+                                decrypt(backupEncryptedPassword)
+                            }
+                        }
+                        ?.let { backupDecryptedPassword ->
+                            authenticatorClient.exportEntriesWithPassword(entryModels, backupDecryptedPassword)
+                        }
+                        ?: authenticatorClient.exportEntries(entryModels)
                 }
             }
             .also { backupContent ->

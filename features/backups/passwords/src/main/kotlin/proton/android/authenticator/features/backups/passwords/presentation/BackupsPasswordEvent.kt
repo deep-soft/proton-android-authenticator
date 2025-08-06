@@ -22,4 +22,8 @@ internal sealed interface BackupsPasswordEvent {
 
     data object Idle : BackupsPasswordEvent
 
+    data class OnBackupEnableError(val errorReason: Int) : BackupsPasswordEvent
+
+    data object OnBackupEnableSuccess : BackupsPasswordEvent
+
 }

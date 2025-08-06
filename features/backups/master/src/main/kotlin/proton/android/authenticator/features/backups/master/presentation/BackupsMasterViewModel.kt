@@ -84,7 +84,8 @@ internal class BackupsMasterViewModel @Inject constructor(
 
         backupModel.copy(
             isEnabled = false,
-            directoryUri = Uri.EMPTY
+            directoryUri = Uri.EMPTY,
+            encryptedPassword = null
         ).also(::updateBackup)
     }
 
@@ -95,11 +96,6 @@ internal class BackupsMasterViewModel @Inject constructor(
         }
 
         eventFlow.update { BackupMasterEvent.OnBackupPassword(uri = uri.toString()) }
-
-//        backupModel.copy(
-//            isEnabled = true,
-//            directoryUri = uri
-//        ).also(::updateBackup)
     }
 
     internal fun onUpdateFrequencyType(newFrequencyType: BackupFrequencyType) {

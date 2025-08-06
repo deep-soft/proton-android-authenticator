@@ -31,13 +31,13 @@ import javax.crypto.spec.SecretKeySpec
 import kotlin.io.encoding.Base64
 import kotlin.io.encoding.ExperimentalEncodingApi
 
+@OptIn(ExperimentalEncodingApi::class)
 class EncryptionContext(encryptionKey: EncryptionKey) {
 
     private val cipherInstance = Cipher.getInstance(CIPHER_TRANSFORMATION)
 
     private val secretKeySpec = SecretKeySpec(encryptionKey.asByteArray(), ALGORITHM)
 
-    @OptIn(ExperimentalEncodingApi::class)
     fun encrypt(content: String): EncryptedString {
         val encrypted = encrypt(content.encodeToByteArray())
         return Base64.encodeToByteArray(encrypted.array).let(::String)
@@ -53,6 +53,12 @@ class EncryptionContext(encryptionKey: EncryptionKey) {
         arraycopy(cipher.iv, 0, result, 0, IV_SIZE)
         arraycopy(cipherByteArray, 0, result, IV_SIZE, cipherByteArray.size)
         return EncryptedByteArray(result)
+    }
+
+    fun decrypt(content: EncryptedString): String {
+        val encryptedByteArray = Base64.decode(content)
+        val decrypted = decrypt(EncryptedByteArray(encryptedByteArray))
+        return decrypted.toString(Charsets.UTF_8)
     }
 
     fun decrypt(content: EncryptedByteArray, encryptionTag: EncryptionTag? = null): ByteArray {
