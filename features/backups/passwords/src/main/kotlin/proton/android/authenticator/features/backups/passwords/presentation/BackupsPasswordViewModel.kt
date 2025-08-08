@@ -84,7 +84,7 @@ internal class BackupsPasswordViewModel @Inject constructor(
 
     internal fun onEnableBackupWithPassword() {
         passwordState.value?.let { password ->
-            if(password.isBlank()) {
+            if (password.isBlank()) {
                 AuthenticatorLogger.w(TAG, "Backup enable failed: Password cannot be blank")
                 return@let
             }
