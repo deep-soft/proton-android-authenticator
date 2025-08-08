@@ -31,6 +31,7 @@ import proton.android.authenticator.features.imports.menus.ui.ImportsMenuScreen
 import proton.android.authenticator.features.imports.onboarding.ui.ImportsOnboardingScreen
 import proton.android.authenticator.features.imports.options.ui.ImportsOptionsScreen
 import proton.android.authenticator.features.imports.passwords.ui.ImportsPasswordScreen
+import proton.android.authenticator.features.imports.scan.ui.ImportsScanScreen
 import proton.android.authenticator.features.logs.master.ui.LogsMasterScreen
 import proton.android.authenticator.features.qa.ui.QaMenuMasterScreen
 import proton.android.authenticator.features.settings.master.ui.SettingsMasterScreen
@@ -271,7 +272,44 @@ internal fun NavGraphBuilder.settingsNavigationGraph(
                     ).also(onNavigate)
                 },
                 onScanQrCode = { importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = SettingsImportScanNavigationDestination(
+                            importType = importType
+                        )
+                    ).also(onNavigate)
+                }
+            )
+        }
 
+        composable<SettingsImportScanNavigationDestination> {
+            ImportsScanScreen(
+                onCloseClick = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onCompleted = { importedEntriesCount ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = SettingsImportCompletionNavigationDestination(
+                            importedEntriesCount = importedEntriesCount
+                        ),
+                        popDestination = SettingsImportOptionsNavigationDestination
+                    ).also(onNavigate)
+                },
+                onFailed = { errorReason ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = SettingsImportErrorNavigationDestination(
+                            errorReason = errorReason
+                        ),
+                        popDestination = SettingsImportOptionsNavigationDestination
+                    ).also(onNavigate)
+                },
+                onPasswordRequired = { uri, importType ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = SettingsImportPasswordNavigationDestination(
+                            uri = uri,
+                            importType = importType
+                        ),
+                        popDestination = SettingsImportOptionsNavigationDestination
+                    ).also(onNavigate)
                 }
             )
         }
