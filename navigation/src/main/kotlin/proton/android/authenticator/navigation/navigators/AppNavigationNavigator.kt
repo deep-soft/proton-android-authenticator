@@ -136,7 +136,10 @@ internal class AppNavigationNavigator @Inject constructor(
                     }
                 }
 
-                ModalBottomSheetLayout(bottomSheetNavigator = bottomSheetNavigator) {
+                ModalBottomSheetLayout(
+                    bottomSheetNavigator = bottomSheetNavigator,
+                    scrimColor = Theme.colorScheme.blackAlpha20
+                ) {
                     NavHost(
                         navController = navController,
                         startDestination = startDestination
