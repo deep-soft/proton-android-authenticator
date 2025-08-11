@@ -27,7 +27,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -46,27 +46,36 @@ class ImportsScanViewModel @Inject constructor(
     private val importType = requireNotNull<Int>(savedStateHandle[ARGS_IMPORT_TYPE])
         .let(enumValues<EntryImportType>()::get)
 
+    private val hasCameraPermissionFlow = MutableStateFlow<Boolean?>(value = null)
+
     private val eventFlow = MutableStateFlow<ImportsScanEvent>(value = ImportsScanEvent.Idle)
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    internal val stateFlow: StateFlow<ImportsScanState> = eventFlow
-        .mapLatest { event ->
-            ImportsScanState(
-                importType = importType,
-                event = event
-            )
-        }
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
-            initialValue = ImportsScanState(
-                event = ImportsScanEvent.Idle,
-                importType = importType
-            )
+    internal val stateFlow: StateFlow<ImportsScanState> = combine(
+        hasCameraPermissionFlow,
+        eventFlow
+    ) { hasCameraPermission, event ->
+        ImportsScanState(
+            hasCameraPermission = hasCameraPermission,
+            importType = importType,
+            event = event
         )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
+        initialValue = ImportsScanState(
+            hasCameraPermission = null,
+            event = ImportsScanEvent.Idle,
+            importType = importType
+        )
+    )
 
     internal fun onConsumeEvent(event: ImportsScanEvent) {
         eventFlow.compareAndSet(expect = event, update = ImportsScanEvent.Idle)
+    }
+
+    internal fun onCameraPermissionRequested(isGranted: Boolean) {
+        hasCameraPermissionFlow.update { isGranted }
     }
 
     internal fun onFilesPicked(uris: List<Uri>) {

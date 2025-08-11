@@ -44,7 +44,8 @@ fun ImportsScanScreen(
     onCloseClick: () -> Unit,
     onCompleted: (Int) -> Unit,
     onFailed: (Int) -> Unit,
-    onPasswordRequired: (String, Int) -> Unit
+    onPasswordRequired: (String, Int) -> Unit,
+    onPermissionRequired: (Int) -> Unit
 ) = with(hiltViewModel<ImportsScanViewModel>()) {
     val state by stateFlow.collectAsStateWithLifecycle()
 
@@ -85,34 +86,39 @@ fun ImportsScanScreen(
 
     ScaffoldScreen(
         bottomBar = {
-            ImportsScanBottomBar(
-                modifier = Modifier
-                    .imePadding()
-                    .systemBarsPadding()
-                    .fillMaxWidth()
-                    .padding(
-                        start = ThemePadding.Medium,
-                        end = ThemePadding.Medium,
-                        bottom = ThemePadding.Large
-                    ),
-                onCloseClick = onCloseClick,
-                onOpenGalleryClick = {
-                    Intent(Intent.ACTION_GET_CONTENT)
-                        .apply {
-                            type = MimeType.All.value
-                            addCategory(Intent.CATEGORY_OPENABLE)
-                            putExtra(Intent.EXTRA_ALLOW_MULTIPLE, state.isMultiSelectionAllowed)
-                            putExtra(Intent.EXTRA_MIME_TYPES, state.mimeTypes.toTypedArray())
-                        }
-                        .also(launcher::launch)
-                }
-            )
+            if (state.showBottomBar) {
+                ImportsScanBottomBar(
+                    modifier = Modifier
+                        .imePadding()
+                        .systemBarsPadding()
+                        .fillMaxWidth()
+                        .padding(
+                            start = ThemePadding.Medium,
+                            end = ThemePadding.Medium,
+                            bottom = ThemePadding.Large
+                        ),
+                    onCloseClick = onCloseClick,
+                    onOpenGalleryClick = {
+                        Intent(Intent.ACTION_GET_CONTENT)
+                            .apply {
+                                type = MimeType.All.value
+                                addCategory(Intent.CATEGORY_OPENABLE)
+                                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, state.isMultiSelectionAllowed)
+                                putExtra(Intent.EXTRA_MIME_TYPES, state.mimeTypes.toTypedArray())
+                            }
+                            .also(launcher::launch)
+                    }
+                )
+            }
         }
     ) {
         ImportsScanContent(
             modifier = Modifier.fillMaxSize(),
-            onCameraError = {},
-            onQrCodeScanned = ::onQrCodeScanned
+            state = state,
+            onCameraError = onCloseClick,
+            onQrCodeScanned = ::onQrCodeScanned,
+            onPermissionRequested = ::onCameraPermissionRequested,
+            onPermissionRequired = onPermissionRequired
         )
     }
 }

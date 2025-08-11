@@ -16,16 +16,15 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.imports.scan.presentation
+package proton.android.authenticator.features.imports.permissions.presentation
 
 import androidx.compose.runtime.Stable
 import proton.android.authenticator.business.entries.domain.EntryImportType
 import proton.android.authenticator.shared.common.domain.models.MimeType
 
 @Stable
-internal data class ImportsScanState(
-    internal val hasCameraPermission: Boolean?,
-    internal val event: ImportsScanEvent,
+internal data class ImportsPermissionsState(
+    internal val event: ImportsPermissionsEvent,
     internal val importType: EntryImportType
 ) {
 
@@ -43,7 +42,5 @@ internal data class ImportsScanState(
     }
 
     internal val mimeTypes: List<String> = importType.mimeTypes.map(MimeType::value)
-
-    internal val showBottomBar: Boolean = hasCameraPermission == true
 
 }
