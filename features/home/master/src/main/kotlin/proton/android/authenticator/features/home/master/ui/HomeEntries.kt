@@ -71,7 +71,8 @@ internal fun HomeEntries(
                     draggableItems = items,
                     listState = listState,
                     verticalArrangement = Arrangement.spacedBy(space = ThemeSpacing.Small),
-                    onSorted = { sortingMap -> onEntriesSorted(sortingMap, entryModels) }
+                    onSorted = { sortingMap -> onEntriesSorted(sortingMap, entryModels) },
+                    needsBottomExtraSpace = state.needsBottomExtraSpace
                 )
             }
         }

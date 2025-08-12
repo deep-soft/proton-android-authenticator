@@ -142,6 +142,8 @@ internal sealed interface HomeMasterState {
 
         internal val isSyncEnabled: Boolean = settings.isSyncEnabled
 
+        internal val needsBottomExtraSpace: Boolean = settings.searchBarType == SettingsSearchBarType.Top
+
         internal fun getRemainingSeconds(totalSeconds: Int): Int = entryCodesRemainingTimes.getOrDefault(
             key = totalSeconds,
             defaultValue = 0
