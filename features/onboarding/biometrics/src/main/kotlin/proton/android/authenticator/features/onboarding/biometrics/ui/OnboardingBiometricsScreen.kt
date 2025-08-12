@@ -20,6 +20,8 @@ package proton.android.authenticator.features.onboarding.biometrics.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -36,6 +38,8 @@ import proton.android.authenticator.shared.ui.domain.screens.ScaffoldScreen
 fun OnboardingBiometricsScreen(onBiometricsEnabled: () -> Unit, onSkipped: () -> Unit) {
     with(hiltViewModel<OnboardingBiometricsViewModel>()) {
         val state by stateFlow.collectAsStateWithLifecycle()
+
+        val scrollState = rememberScrollState()
 
         LaunchedEffect(key1 = state.event) {
             when (state.event) {
@@ -61,6 +65,7 @@ fun OnboardingBiometricsScreen(onBiometricsEnabled: () -> Unit, onSkipped: () ->
                     OnboardingBiometricsContent(
                         modifier = Modifier
                             .fillMaxSize()
+                            .verticalScroll(state = scrollState)
                             .padding(paddingValues = innerPaddingValues),
                         state = currentState,
                         onBiometricsNotAvailable = ::onSkipBiometric,

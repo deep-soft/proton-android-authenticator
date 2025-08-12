@@ -20,6 +20,8 @@ package proton.android.authenticator.features.onboarding.imports.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import proton.android.authenticator.shared.ui.domain.modifiers.backgroundScreenGradient
@@ -27,6 +29,8 @@ import proton.android.authenticator.shared.ui.domain.screens.ScaffoldScreen
 
 @Composable
 fun OnboardingImportScreen(onImportClick: () -> Unit, onSkipClick: () -> Unit) {
+    val scrollState = rememberScrollState()
+
     ScaffoldScreen(
         modifier = Modifier
             .fillMaxSize()
@@ -35,6 +39,7 @@ fun OnboardingImportScreen(onImportClick: () -> Unit, onSkipClick: () -> Unit) {
         OnboardingImportContent(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(state = scrollState)
                 .padding(paddingValues = innerPaddingValues),
             onImportClick = onImportClick,
             onSkipClick = onSkipClick
