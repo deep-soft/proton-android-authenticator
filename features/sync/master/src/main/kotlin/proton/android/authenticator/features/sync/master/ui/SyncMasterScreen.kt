@@ -20,6 +20,8 @@ package proton.android.authenticator.features.sync.master.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -47,6 +49,8 @@ fun SyncMasterScreen(
     onEnableSuccess: () -> Unit
 ) = with(hiltViewModel<SyncMasterViewModel>()) {
     val state by stateFlow.collectAsStateWithLifecycle()
+
+    val scrollState = rememberScrollState()
 
     ScaffoldScreen(
         modifier = Modifier
@@ -87,6 +91,7 @@ fun SyncMasterScreen(
                 SyncMasterContent(
                     modifier = Modifier
                         .fillMaxSize()
+                        .verticalScroll(state = scrollState)
                         .padding(paddingValues = paddingValues)
                         .padding(horizontal = ThemePadding.Large),
                     state = currentState,
