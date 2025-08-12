@@ -63,6 +63,15 @@ sealed class ThemeColors {
     abstract val buttonGradientBottom: Color
 
     @Stable
+    abstract val containerBackground: Color
+
+    @Stable
+    abstract val containerBorder: Color
+
+    @Stable
+    abstract val containerInnerShadow: Color
+
+    @Stable
     abstract val gradientBannerColor1: Color
 
     @Stable
@@ -254,6 +263,12 @@ sealed class ThemeColors {
 
         override val buttonGradientBottom: Color = Color(color = 0xFF453099)
 
+        override val containerBackground: Color = black.copy(alpha = 0.2f)
+
+        override val containerBorder: Color = black.copy(alpha = 0.75f)
+
+        override val containerInnerShadow: Color = black.copy(alpha = 0.4f)
+
         override val gradientBannerColor1: Color = Color(color = 0xFFFFD580)
 
         override val gradientBannerColor2: Color = Color(color = 0xFFF6C592)
@@ -350,6 +365,12 @@ sealed class ThemeColors {
         override val buttonGradientTop: Color = Color(color = 0xFF7350FF)
 
         override val buttonGradientBottom: Color = Color(color = 0xFF453099)
+
+        override val containerBackground: Color = black.copy(alpha = 0.1f)
+
+        override val containerBorder: Color = black.copy(alpha = 0.5f)
+
+        override val containerInnerShadow: Color = black.copy(alpha = 0.15f)
 
         override val gradientBannerColor1: Color = Color(color = 0xFFFFD580)
 
