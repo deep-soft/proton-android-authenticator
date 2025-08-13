@@ -46,6 +46,7 @@ import proton.android.authenticator.shared.ui.domain.theme.ThemePadding
 @Composable
 fun HomeScreen(
     snackbarHostState: SnackbarHostState,
+    onDeleteEntryClick: (String) -> Unit,
     onEditEntryClick: (String) -> Unit,
     onSettingsClick: () -> Unit,
     onNewEntryClick: () -> Unit,
@@ -129,7 +130,7 @@ fun HomeScreen(
             onImportEntriesClick = onImportEntriesClick,
             onEditEntryClick = { entry -> onEditEntryClick(entry.id) },
             onCopyEntryCodeClick = ::onCopyEntryCode,
-            onDeleteEntryClick = ::onDeleteEntry,
+            onDeleteEntryClick = { entry -> onDeleteEntryClick(entry.id) },
             onRefreshEntries = ::onRefreshEntries,
             onEntriesSorted = ::onEntriesSorted
         )

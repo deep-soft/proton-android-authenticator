@@ -16,19 +16,18 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.home.master.usecases
+package proton.android.authenticator.features.home.delete.usecases
 
-import proton.android.authenticator.business.entries.application.restore.RestoreEntryCommand
-import proton.android.authenticator.business.entries.application.restore.RestoreEntryReason
+import proton.android.authenticator.business.entries.application.delete.DeleteEntryCommand
+import proton.android.authenticator.business.entries.application.delete.DeleteEntryReason
 import proton.android.authenticator.business.entries.domain.Entry
 import proton.android.authenticator.shared.common.domain.answers.Answer
 import proton.android.authenticator.shared.common.domain.infrastructure.commands.CommandBus
 import javax.inject.Inject
 
-internal class RestoreEntryUseCase @Inject constructor(private val commandBus: CommandBus) {
+internal class DeleteEntryUseCase @Inject constructor(private val commandBus: CommandBus) {
 
-    internal suspend operator fun invoke(entry: Entry): Answer<Unit, RestoreEntryReason> =
-        RestoreEntryCommand(entry = entry)
-            .let { command -> commandBus.dispatch(command) }
+    internal suspend operator fun invoke(id: String): Answer<Entry, DeleteEntryReason> = DeleteEntryCommand(id = id)
+        .let { command -> commandBus.dispatch(command) }
 
 }

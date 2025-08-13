@@ -39,11 +39,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import proton.android.authenticator.business.entries.application.syncall.SyncEntriesReason
-import proton.android.authenticator.business.entries.domain.Entry
 import proton.android.authenticator.features.home.master.R
-import proton.android.authenticator.features.home.master.usecases.DeleteEntryUseCase
 import proton.android.authenticator.features.home.master.usecases.ObserveEntryCodesUseCase
-import proton.android.authenticator.features.home.master.usecases.RestoreEntryUseCase
 import proton.android.authenticator.features.home.master.usecases.SortEntriesUseCase
 import proton.android.authenticator.features.shared.entries.usecases.ObserveEntryModelsUseCase
 import proton.android.authenticator.features.shared.entries.usecases.SyncEntriesModelsUseCase
@@ -64,9 +61,7 @@ internal class HomeMasterViewModel @Inject constructor(
     observeEntryCodesUseCase: ObserveEntryCodesUseCase,
     observeSettingsUseCase: ObserveSettingsUseCase,
     private val copyToClipboardUseCase: CopyToClipboardUseCase,
-    private val deleteEntryUseCase: DeleteEntryUseCase,
     private val dispatchSnackbarEventUseCase: DispatchSnackbarEventUseCase,
-    private val restoreEntryUseCase: RestoreEntryUseCase,
     private val sortEntriesUseCase: SortEntriesUseCase,
     private val syncEntriesModelsUseCase: SyncEntriesModelsUseCase,
     private val timeProvider: TimeProvider
@@ -192,46 +187,6 @@ internal class HomeMasterViewModel @Inject constructor(
                     dispatchSnackbarEventUseCase(event)
                 }
             }
-    }
-
-    internal fun onDeleteEntry(entry: HomeMasterEntryModel) {
-        viewModelScope.launch {
-            deleteEntryUseCase(id = entry.id).also { answer ->
-                when (answer) {
-                    is Answer.Failure -> {
-                        SnackbarEvent(messageResId = R.string.home_snackbar_message_entry_delete_failed)
-                    }
-
-                    is Answer.Success -> {
-                        SnackbarEvent(
-                            messageResId = R.string.home_snackbar_message_entry_deleted,
-                            action = SnackbarEvent.Action(
-                                nameResId = uiR.string.action_undo,
-                                onAction = {
-                                    answer.data.also(::restoreEntry)
-                                }
-                            )
-                        )
-                    }
-                }.also { snackbarEvent ->
-                    dispatchSnackbarEventUseCase(snackbarEvent)
-                }
-            }
-        }
-    }
-
-    private fun restoreEntry(entry: Entry) {
-        viewModelScope.launch {
-            restoreEntryUseCase(entry).also { answer ->
-                when (answer) {
-                    is Answer.Failure -> {
-                        SnackbarEvent(messageResId = R.string.home_snackbar_message_entry_restore_failed)
-                    }
-
-                    is Answer.Success -> null
-                }?.also { event -> dispatchSnackbarEventUseCase(event) }
-            }
-        }
     }
 
     internal fun onEntriesSorted(newSortingMap: Map<String, Int>, homeEntryModels: List<HomeMasterEntryModel>) {

@@ -50,7 +50,10 @@ class QrCodeAnalyzer(private val onQrCodeScanned: (String, ByteArray) -> Unit) :
     )
 
     override fun analyze(imageProxy: ImageProxy) {
-        if (imageProxy.format !in supportedQrCodeImageFormats) return
+        if (imageProxy.format !in supportedQrCodeImageFormats) {
+            imageProxy.close()
+            return
+        }
 
         val qrCodeSource = calculateQrScanSource(imageProxy)
         val qrCodeBitmap = BinaryBitmap(HybridBinarizer(qrCodeSource))

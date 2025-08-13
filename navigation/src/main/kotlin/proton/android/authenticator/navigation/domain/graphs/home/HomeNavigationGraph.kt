@@ -7,6 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.navigation
+import proton.android.authenticator.features.home.delete.ui.HomeDeleteScreen
 import proton.android.authenticator.features.home.errors.ui.HomeErrorsScreen
 import proton.android.authenticator.features.home.manual.ui.HomeManualScreen
 import proton.android.authenticator.features.home.master.ui.HomeScreen
@@ -39,6 +40,13 @@ internal fun NavGraphBuilder.homeNavigationGraph(
         composable<HomeMasterNavigationDestination> {
             HomeScreen(
                 snackbarHostState = snackbarHostState,
+                onDeleteEntryClick = { entryId ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeDeleteNavigationDestination(
+                            entryId = entryId
+                        )
+                    ).also(onNavigate)
+                },
                 onEditEntryClick = { entryId ->
                     NavigationCommand.NavigateTo(
                         destination = HomeManualNavigationDestination(
@@ -68,6 +76,20 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                     ).also(onNavigate)
                 },
                 onEntriesSorted = onEntriesRearranged
+            )
+        }
+
+        dialog<HomeDeleteNavigationDestination> {
+            HomeDeleteScreen(
+                onDismissed = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onError = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onSuccess = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                }
             )
         }
 
