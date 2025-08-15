@@ -76,7 +76,7 @@ jobs:
         continue-on-error: true
         shell: bash
         run: |
-          set -x;
+          #set -x;
           _ref_all_=$(git log -1 --format='%H');
           # _ref_=$(echo ${_ref_all_::7});
           _ref_org_=${{ env.TAG_REF }};
@@ -85,7 +85,7 @@ jobs:
           _prg_version_base_=$(grep "appVersionName" ${{ env.APP_BUILD_FILE }} | cut -d '"' -f2);
           echo "_prg_version_base_: ["$_prg_version_base_"]";
           if [[ $_prg_version_base_ != "" ]]; then
-            _prg_version_=$_prg_version_base_;
+            _prg_version_=v$_prg_version_base_;
             echo "TAG_REF=$_ref_" >> $GITHUB_ENV;
             _build_=${{ env.TAG_BUILD }}.$_ref_;
             echo "TAG_BUILD=$_build_" >> $GITHUB_ENV;
@@ -204,6 +204,7 @@ jobs:
 # zip release end
 
       - name: Upload Artifact
+        continue-on-error: true
         uses: deep-soft/upload-artifact@v4
         with:
           name: upload-artifact
