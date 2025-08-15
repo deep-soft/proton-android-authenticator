@@ -58,7 +58,7 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}
 
-      - name: Set APP ASSEBMLE RELEASE
+      - name: Set APP ASSEMBLE RELEASE
         continue-on-error: true
         shell: bash
         run: |
@@ -66,7 +66,7 @@ jobs:
             echo "APP_ASSEMBLE_RELEASE=${{ inputs.APP_ASSEMBLE_RELEASE }}" >> $GITHUB_ENV;
           fi
 
-      - name: Print APP ASSEBMLE RELEASE
+      - name: Print APP ASSEMBLE RELEASE
         continue-on-error: true
         shell: bash
         run: |
@@ -76,9 +76,9 @@ jobs:
         continue-on-error: true
         shell: bash
         run: |
-          # set -x
-          _ref_all_=$(git log -1 --format='%H')
-          # _ref_=$(echo ${_ref_all_::7})
+          set -x
+          _ref_all_=$(git log -1 --format='%H');
+          # _ref_=$(echo ${_ref_all_::7});
           _ref_org_=${{ env.TAG_REF }};
           _ref_len_="${#_ref_org_}";
           _ref_=$(echo ${_ref_all_::$_ref_len_});
@@ -154,8 +154,8 @@ jobs:
           java-version: '17'
           cache: gradle
 
-#      - name: gradle build (v3)
-#        uses: deep-soft/gradle-build-action@v3
+      - name: gradle build (v3)
+        uses: deep-soft/gradle-build-action@v3
 
       - name: gradle  Assemble Release
         run: |
