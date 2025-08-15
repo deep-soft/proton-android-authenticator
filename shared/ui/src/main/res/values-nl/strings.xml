@@ -33,8 +33,9 @@
   <string name="action_search">Zoeken</string>
   <string name="action_share">Delen</string>
   <string name="action_skip">Overslaan</string>
-  <string name="action_undo">Ongedaan maken</string>
   <string name="action_unlock">Ontgrendelen</string>
+  <string name="action_yes">Yes</string>
+  <string name="camera_scan_qr_code_hint">Point your camera at the QR code.</string>
   <string name="date_format_today">Vandaag, %1$s</string>
   <string name="date_format_yesterday">Gisteren, %1$s</string>
   <string name="date_format_full_compact_month" comment="This format outputs the date in the format: 09 Jun 10:30. Do not add any extra characters, just change the order if needed of grouped characters to match local date format order">dd LLL HH:mm</string>
