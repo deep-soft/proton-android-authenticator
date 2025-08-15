@@ -157,8 +157,11 @@ jobs:
           java-version: '17'
           cache: gradle
 
-      - name: gradle build (v3)
-        uses: deep-soft/gradle-build-action@v3
+#      - name: gradle build (v3)
+#        uses: deep-soft/gradle-build-action@v3
+
+      - name: gradle build (v4)
+        uses: gradle/actions/setup-gradle@v4
 
       - name: gradle  Assemble Release
         run: |
