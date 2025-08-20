@@ -6,6 +6,22 @@
 
 ### Other
 
+## 1.2.0 (2025-08-20)
+
+### Features :tada:
+
+- Generate password-protected backups.
+- Import password-protected backups.
+- Import from Google Authenticator via QR code.
+
+### Fix :bug:
+
+- More importer improvements.
+
+### Other
+
+- Translation updates.
+
 ## 1.1.2 (2025-08-09)
 
 ### Fix :bug:
