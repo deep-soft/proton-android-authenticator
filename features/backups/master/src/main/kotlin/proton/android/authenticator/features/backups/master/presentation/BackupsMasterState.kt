@@ -37,7 +37,8 @@ internal data class BackupsMasterState(
         maxBackupCount = backup.maxBackupCount,
         directoryUri = backup.directoryUri,
         count = backup.count,
-        lastBackupMillis = backup.lastBackupMillis
+        lastBackupMillis = backup.lastBackupMillis,
+        encryptedPassword = backup.encryptedPassword
     )
 
     internal val canCreateBackup: Boolean = entryModels.isNotEmpty()

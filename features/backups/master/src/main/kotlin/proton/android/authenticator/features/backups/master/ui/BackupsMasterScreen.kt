@@ -43,7 +43,8 @@ import proton.android.authenticator.shared.ui.R as uiR
 fun BackupsMasterScreen(
     snackbarHostState: SnackbarHostState,
     onNavigationClick: () -> Unit,
-    onBackupError: (Int) -> Unit
+    onBackupError: (Int) -> Unit,
+    onBackupPassword: (String) -> Unit
 ) = with(hiltViewModel<BackupsMasterViewModel>()) {
     val state by stateFlow.collectAsStateWithLifecycle()
 
@@ -51,6 +52,7 @@ fun BackupsMasterScreen(
         when (val event = state.event) {
             BackupMasterEvent.Idle -> Unit
             is BackupMasterEvent.OnBackupError -> onBackupError(event.reason.ordinal)
+            is BackupMasterEvent.OnBackupPassword -> onBackupPassword(event.uri)
         }
 
         onConsumeEvent(event = state.event)

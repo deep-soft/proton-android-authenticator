@@ -93,8 +93,7 @@ fun SearchTextField(
                 color = Theme.colorScheme.whiteAlpha30,
                 offsetX = 0.dp,
                 offsetY = (-1).dp,
-                blur = 1.dp,
-                blendMode = PorterDuff.Mode.OVERLAY
+                blur = 1.dp
             ),
         value = value,
         onValueChange = onValueChange,

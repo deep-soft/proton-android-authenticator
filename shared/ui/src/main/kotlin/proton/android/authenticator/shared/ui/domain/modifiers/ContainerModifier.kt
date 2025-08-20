@@ -85,12 +85,13 @@ internal fun Modifier.containerShadow() = composed {
         .clip(shape = shape)
         .border(
             width = ThemeThickness.None,
-            color = Theme.colorScheme.black.copy(alpha = 0.75f),
+            color = Theme.colorScheme.containerBorder,
             shape = shape
         )
-        .background(color = Theme.colorScheme.black.copy(alpha = 0.2f))
+        .background(color = Theme.colorScheme.containerBackground)
         .innerShadowDouble(
             shape = shape,
+            color = Theme.colorScheme.containerInnerShadow,
             offsetX = 2.dp,
             offsetY = 2.dp
         )

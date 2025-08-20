@@ -16,18 +16,14 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.home.master.usecases
+package proton.android.authenticator.features.backups.passwords.presentation
 
-import proton.android.authenticator.business.entries.application.delete.DeleteEntryCommand
-import proton.android.authenticator.business.entries.application.delete.DeleteEntryReason
-import proton.android.authenticator.business.entries.domain.Entry
-import proton.android.authenticator.shared.common.domain.answers.Answer
-import proton.android.authenticator.shared.common.domain.infrastructure.commands.CommandBus
-import javax.inject.Inject
+internal sealed interface BackupsPasswordEvent {
 
-internal class DeleteEntryUseCase @Inject constructor(private val commandBus: CommandBus) {
+    data object Idle : BackupsPasswordEvent
 
-    internal suspend operator fun invoke(id: String): Answer<Entry, DeleteEntryReason> = DeleteEntryCommand(id = id)
-        .let { command -> commandBus.dispatch(command) }
+    data class OnBackupEnableError(val errorReason: Int) : BackupsPasswordEvent
+
+    data object OnBackupEnableSuccess : BackupsPasswordEvent
 
 }

@@ -33,8 +33,9 @@
   <string name="action_search">Pesquisar</string>
   <string name="action_share">Compartilhar</string>
   <string name="action_skip">Pular</string>
-  <string name="action_undo">Desfazer</string>
   <string name="action_unlock">Desbloquear</string>
+  <string name="action_yes">Yes</string>
+  <string name="camera_scan_qr_code_hint">Point your camera at the QR code.</string>
   <string name="date_format_today">Hoje, %1$s</string>
   <string name="date_format_yesterday">Ontem, %1$s</string>
   <string name="date_format_full_compact_month" comment="This format outputs the date in the format: 09 Jun 10:30. Do not add any extra characters, just change the order if needed of grouped characters to match local date format order">dd LLL HH:mm</string>

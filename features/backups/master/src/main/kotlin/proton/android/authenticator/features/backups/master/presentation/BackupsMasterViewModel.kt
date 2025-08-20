@@ -84,17 +84,18 @@ internal class BackupsMasterViewModel @Inject constructor(
 
         backupModel.copy(
             isEnabled = false,
-            directoryUri = Uri.EMPTY
+            directoryUri = Uri.EMPTY,
+            encryptedPassword = null
         ).also(::updateBackup)
     }
 
     internal fun onFolderPicked(uri: Uri) {
-        if (backupModel.directoryUri == uri) return
+        if (backupModel.directoryUri == uri) {
+            AuthenticatorLogger.i(TAG, "Backup folder selection aborted by user")
+            return
+        }
 
-        backupModel.copy(
-            isEnabled = true,
-            directoryUri = uri
-        ).also(::updateBackup)
+        eventFlow.update { BackupMasterEvent.OnBackupPassword(uri = uri.toString()) }
     }
 
     internal fun onUpdateFrequencyType(newFrequencyType: BackupFrequencyType) {

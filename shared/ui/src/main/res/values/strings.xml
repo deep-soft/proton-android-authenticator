@@ -33,8 +33,8 @@
     <string name="action_search">Search</string>
     <string name="action_share">Share</string>
     <string name="action_skip">Skip</string>
-    <string name="action_undo">Undo</string>
     <string name="action_unlock">Unlock</string>
+    <string name="action_yes">Yes</string>
 
     <string name="authenticator_2fas" translatable="false">2FAS</string>
     <string name="authenticator_aegis" translatable="false">Aegis Authenticator</string>
@@ -46,6 +46,8 @@
     <string name="authenticator_microsoft" translatable="false">Microsoft Authenticator</string>
     <string name="authenticator_proton_authenticator" translatable="false">Proton Authenticator</string>
     <string name="authenticator_proton_pass" translatable="false">Proton Pass</string>
+
+    <string name="camera_scan_qr_code_hint">Point your camera at the QR code.</string>
 
     <string name="date_format_today">Today, %1$s</string>
     <string name="date_format_yesterday">Yesterday, %1$s</string>

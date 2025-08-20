@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import proton.android.authenticator.features.home.scan.presentation.HomeScanState
+import proton.android.authenticator.shared.ui.domain.components.camera.CameraQrScan
 
 @Composable
 internal fun HomeScanContent(
@@ -46,9 +47,9 @@ internal fun HomeScanContent(
 
     hasCameraPermission?.let { hasPermission ->
         if (hasPermission) {
-            HomeScanCamera(
+            CameraQrScan(
                 modifier = modifier,
-                onQrCodeScanned = onQrCodeScanned,
+                onQrCodeScanned = { qrCode, _ -> onQrCodeScanned(qrCode) },
                 onCameraError = onCloseClick
             )
         } else {

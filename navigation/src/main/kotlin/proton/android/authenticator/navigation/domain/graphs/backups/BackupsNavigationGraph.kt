@@ -25,6 +25,7 @@ import androidx.navigation.compose.dialog
 import androidx.navigation.compose.navigation
 import proton.android.authenticator.features.backups.errors.ui.BackupsErrorsScreen
 import proton.android.authenticator.features.backups.master.ui.BackupsMasterScreen
+import proton.android.authenticator.features.backups.passwords.ui.BackupsPasswordScreen
 import proton.android.authenticator.navigation.domain.commands.NavigationCommand
 
 internal fun NavGraphBuilder.backupsNavigationGraph(
@@ -42,6 +43,11 @@ internal fun NavGraphBuilder.backupsNavigationGraph(
                     NavigationCommand.NavigateTo(
                         destination = BackupsErrorsNavigationDestination(errorReason = errorReason)
                     ).also(onNavigate)
+                },
+                onBackupPassword = { uri ->
+                    NavigationCommand.NavigateTo(
+                        destination = BackupsPasswordsNavigationDestination(uri = uri)
+                    ).also(onNavigate)
                 }
             )
         }
@@ -50,6 +56,25 @@ internal fun NavGraphBuilder.backupsNavigationGraph(
             BackupsErrorsScreen(
                 onDismissed = {
                     onNavigate(NavigationCommand.NavigateUp)
+                }
+            )
+        }
+
+        dialog<BackupsPasswordsNavigationDestination> {
+            BackupsPasswordScreen(
+                onDismissed = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onBackupEnableError = { errorReason ->
+                    NavigationCommand.NavigateTo(
+                        destination = BackupsErrorsNavigationDestination(errorReason = errorReason)
+                    ).also(onNavigate)
+                },
+                onBackupEnableSuccess = {
+                    NavigationCommand.PopupTo(
+                        destination = BackupsMasterNavigationDestination,
+                        inclusive = false
+                    ).also(onNavigate)
                 }
             )
         }

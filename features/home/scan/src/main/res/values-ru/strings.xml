@@ -17,6 +17,5 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_scan_qr_code_hint">Наведите камеру на QR-код.</string>
   <string name="home_scan_enter_manually">Ввести вручную</string>
 </resources>

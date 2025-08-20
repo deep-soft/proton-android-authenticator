@@ -16,7 +16,7 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.features.home.scan.ui
+package proton.android.authenticator.shared.ui.domain.components.camera
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Box
@@ -45,14 +45,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import proton.android.authenticator.features.home.scan.R
+import proton.android.authenticator.shared.ui.R
 import proton.android.authenticator.shared.ui.domain.theme.Theme
 import proton.android.authenticator.shared.ui.domain.theme.ThemePadding
 import proton.android.authenticator.shared.ui.domain.theme.ThemeRadius
 import kotlin.math.roundToInt
 
 @Composable
-internal fun HomeScanCameraQrMask(cutoutRect: Rect, modifier: Modifier = Modifier) {
+internal fun CameraQrScanMask(cutoutRect: Rect, modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             Path().apply {
@@ -96,12 +96,12 @@ internal fun HomeScanCameraQrMask(cutoutRect: Rect, modifier: Modifier = Modifie
                 RoundRect(
                     rect = Rect(
                         offset = Offset(
-                            x = cutoutRect.left.toFloat(),
-                            y = cutoutRect.top.toFloat()
+                            x = cutoutRect.left,
+                            y = cutoutRect.top
                         ),
                         size = Size(
-                            width = cutoutRect.width.toFloat(),
-                            height = cutoutRect.height.toFloat()
+                            width = cutoutRect.width,
+                            height = cutoutRect.height
                         )
                     ),
                     cornerRadius = CornerRadius(
@@ -143,7 +143,7 @@ internal fun HomeScanCameraQrMask(cutoutRect: Rect, modifier: Modifier = Modifie
         ) {
             Text(
                 modifier = Modifier.width(width = 160.dp),
-                text = stringResource(id = R.string.home_scan_qr_code_hint),
+                text = stringResource(id = R.string.camera_scan_qr_code_hint),
                 color = Theme.colorScheme.white,
                 style = Theme.typography.bodyRegular,
                 textAlign = TextAlign.Center

@@ -86,7 +86,11 @@ internal class BackupWorker @AssistedInject constructor(
     private suspend fun disableAutomaticBackup() {
         observeBackupUseCase()
             .first()
-            .copy(isEnabled = false, directoryUri = Uri.EMPTY)
+            .copy(
+                isEnabled = false,
+                directoryUri = Uri.EMPTY,
+                encryptedPassword = null
+            )
             .also { disabledBackup -> updateBackupUseCase(newBackup = disabledBackup) }
     }
 

@@ -161,7 +161,11 @@ internal class EntriesSyncer @Inject constructor(
         entryOperations
             .mapNotNull { entryOperation -> entryOperation.remoteId }
             .takeIfNotEmpty()
-            ?.let { entryIds -> api.deleteAll(userId = userId, entryIds = entryIds) }
+            ?.let { entryIds ->
+                entryIds.chunked(BATCH_SIZE).forEach { batch ->
+                    api.deleteAll(userId = userId, entryIds = batch)
+                }
+            }
             .also { deleteAllLocal(entryOperations = entryOperations) }
     }
 
@@ -223,14 +227,16 @@ internal class EntriesSyncer @Inject constructor(
             ?.sortedBy(EntryLocal::position)
             ?.map(EntryLocal::model)
             ?.let { entryModels ->
-                api.createAll(
-                    userId = userId,
-                    keyId = keyId,
-                    encryptionKey = encryptionKey,
-                    entryModels = entryModels
-                )
+                entryModels.chunked(BATCH_SIZE).forEach { batch ->
+                    val entriesRemote = api.createAll(
+                        userId = userId,
+                        keyId = keyId,
+                        encryptionKey = encryptionKey,
+                        entryModels = batch
+                    )
+                    updateRemoteDataLocally(entriesRemote = entriesRemote)
+                }
             }
-            ?.also { entriesRemote -> updateRemoteDataLocally(entriesRemote = entriesRemote) }
     }
 
     private suspend fun updateAll(
@@ -244,16 +250,20 @@ internal class EntriesSyncer @Inject constructor(
             .takeIfNotEmpty()
             ?.unzip()
             ?.let { (remoteEntryIds, entryModels) ->
-                api.updateAll(
-                    userId = userId,
-                    entryIds = remoteEntryIds.filterNotNull(),
-                    keyId = keyId,
-                    encryptionKey = encryptionKey,
-                    entryModels = entryModels,
-                    remoteEntriesMap = remoteEntriesMap
-                )
+                val filteredRemoteEntryIds = remoteEntryIds.filterNotNull()
+                filteredRemoteEntryIds.zip(entryModels).chunked(BATCH_SIZE).forEach { batch ->
+                    val (batchEntryIds, batchEntryModels) = batch.unzip()
+                    val entriesRemote = api.updateAll(
+                        userId = userId,
+                        entryIds = batchEntryIds,
+                        keyId = keyId,
+                        encryptionKey = encryptionKey,
+                        entryModels = batchEntryModels,
+                        remoteEntriesMap = remoteEntriesMap
+                    )
+                    updateRemoteDataLocally(entriesRemote = entriesRemote)
+                }
             }
-            ?.also { entriesRemote -> updateRemoteDataLocally(entriesRemote = entriesRemote) }
     }
 
     private suspend fun updateRemoteDataLocally(entriesRemote: List<EntryRemote>) {
@@ -383,6 +393,10 @@ internal class EntriesSyncer @Inject constructor(
         repository.find(entryModel.id).first()
     } catch (_: NullPointerException) {
         null
+    }
+
+    private companion object {
+        private const val BATCH_SIZE = 100
     }
 
 }

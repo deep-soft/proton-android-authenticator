@@ -1,11 +1,13 @@
 package proton.android.authenticator.navigation.domain.graphs.home
 
+import androidx.compose.material.navigation.bottomSheet
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.dialog
 import androidx.navigation.compose.navigation
+import proton.android.authenticator.features.home.delete.ui.HomeDeleteScreen
 import proton.android.authenticator.features.home.errors.ui.HomeErrorsScreen
 import proton.android.authenticator.features.home.manual.ui.HomeManualScreen
 import proton.android.authenticator.features.home.master.ui.HomeScreen
@@ -13,9 +15,12 @@ import proton.android.authenticator.features.home.permissions.ui.HomePermissionS
 import proton.android.authenticator.features.home.scan.ui.HomeScanScreen
 import proton.android.authenticator.features.imports.completion.ui.ImportsCompletionScreen
 import proton.android.authenticator.features.imports.errors.ui.ImportsErrorScreen
+import proton.android.authenticator.features.imports.menus.ui.ImportsMenuScreen
 import proton.android.authenticator.features.imports.onboarding.ui.ImportsOnboardingScreen
 import proton.android.authenticator.features.imports.options.ui.ImportsOptionsScreen
 import proton.android.authenticator.features.imports.passwords.ui.ImportsPasswordScreen
+import proton.android.authenticator.features.imports.permissions.ui.ImportsPermissionsScreen
+import proton.android.authenticator.features.imports.scan.ui.ImportsScanScreen
 import proton.android.authenticator.features.sync.master.ui.SyncMasterScreen
 import proton.android.authenticator.navigation.domain.commands.NavigationCommand
 import proton.android.authenticator.navigation.domain.flows.NavigationFlow
@@ -35,6 +40,13 @@ internal fun NavGraphBuilder.homeNavigationGraph(
         composable<HomeMasterNavigationDestination> {
             HomeScreen(
                 snackbarHostState = snackbarHostState,
+                onDeleteEntryClick = { entryId ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeDeleteNavigationDestination(
+                            entryId = entryId
+                        )
+                    ).also(onNavigate)
+                },
                 onEditEntryClick = { entryId ->
                     NavigationCommand.NavigateTo(
                         destination = HomeManualNavigationDestination(
@@ -64,6 +76,20 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                     ).also(onNavigate)
                 },
                 onEntriesSorted = onEntriesRearranged
+            )
+        }
+
+        dialog<HomeDeleteNavigationDestination> {
+            HomeDeleteScreen(
+                onDismissed = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onError = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onSuccess = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                }
             )
         }
 
@@ -175,6 +201,11 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                 onNavigationClick = {
                     onNavigate(NavigationCommand.NavigateUp)
                 },
+                onMenuRequired = { importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportMenuNavigationDestination(importType = importType)
+                    ).also(onNavigate)
+                },
                 onHelpClick = { url ->
                     NavigationCommand.NavigateToUrl(
                         url = url,
@@ -272,5 +303,118 @@ internal fun NavGraphBuilder.homeNavigationGraph(
                 }
             )
         }
+
+        bottomSheet<HomeImportMenuNavigationDestination> {
+            ImportsMenuScreen(
+                onDismissed = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onCompleted = { importedEntriesCount ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = HomeImportCompletionNavigationDestination(
+                            importedEntriesCount = importedEntriesCount
+                        ),
+                        popDestination = HomeImportNavigationDestination
+                    ).also(onNavigate)
+                },
+                onFailed = { errorReason ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = HomeImportErrorNavigationDestination(
+                            errorReason = errorReason
+                        ),
+                        popDestination = HomeImportNavigationDestination
+                    ).also(onNavigate)
+                },
+                onPasswordRequired = { uri, importType ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = HomeImportPasswordNavigationDestination(
+                            uri = uri,
+                            importType = importType
+                        ),
+                        popDestination = HomeImportNavigationDestination
+                    ).also(onNavigate)
+                },
+                onScanQrCode = { importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportScanNavigationDestination(importType = importType)
+                    ).also(onNavigate)
+                }
+            )
+        }
+
+        composable<HomeImportScanNavigationDestination> {
+            ImportsScanScreen(
+                onCloseClick = {
+                    onNavigate(NavigationCommand.NavigateUp)
+                },
+                onCompleted = { importedEntriesCount ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportCompletionNavigationDestination(
+                            importedEntriesCount = importedEntriesCount
+                        )
+                    ).also(onNavigate)
+                },
+                onFailed = { errorReason ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportErrorNavigationDestination(
+                            errorReason = errorReason
+                        )
+                    ).also(onNavigate)
+                },
+                onPasswordRequired = { uri, importType ->
+                    NavigationCommand.NavigateTo(
+                        destination = HomeImportPasswordNavigationDestination(
+                            uri = uri,
+                            importType = importType
+                        )
+                    ).also(onNavigate)
+                },
+                onPermissionRequired = { importType ->
+                    NavigationCommand.NavigateToWithPopup(
+                        destination = HomeImportPermissionNavigationDestination(
+                            importType = importType
+                        ),
+                        popDestination = HomeImportNavigationDestination
+                    ).also(onNavigate)
+                }
+            )
+        }
+    }
+
+    composable<HomeImportPermissionNavigationDestination> {
+        val context = LocalContext.current
+
+        ImportsPermissionsScreen(
+            onNavigationClick = {
+                onNavigate(NavigationCommand.NavigateUp)
+            },
+            onCompleted = { importedEntriesCount ->
+                NavigationCommand.NavigateTo(
+                    destination = HomeImportCompletionNavigationDestination(
+                        importedEntriesCount = importedEntriesCount
+                    )
+                ).also(onNavigate)
+            },
+            onFailed = { errorReason ->
+                NavigationCommand.NavigateTo(
+                    destination = HomeImportErrorNavigationDestination(
+                        errorReason = errorReason
+                    )
+                ).also(onNavigate)
+            },
+            onOpenAppSettingsClick = {
+                NavigationCommand.NavigateToAppSettings(
+                    context = context
+                ).also(onNavigate)
+            },
+            onPermissionGranted = { importType ->
+                NavigationCommand.NavigateToWithPopup(
+                    destination = HomeImportScanNavigationDestination(
+                        importType = importType
+                    ),
+                    popDestination = HomeMasterNavigationDestination
+                ).also(onNavigate)
+            }
+        )
     }
 }

@@ -18,6 +18,7 @@
 
 package proton.android.authenticator.shared.ui.domain.analyzers
 
+import android.graphics.Bitmap
 import android.graphics.ImageFormat
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.ImageProxy
@@ -29,9 +30,10 @@ import com.google.zxing.MultiFormatReader
 import com.google.zxing.NotFoundException
 import com.google.zxing.PlanarYUVLuminanceSource
 import com.google.zxing.common.HybridBinarizer
+import java.io.ByteArrayOutputStream
 import java.nio.ByteBuffer
 
-class QrCodeAnalyzer(private val onQrCodeScanned: (String) -> Unit) : ImageAnalysis.Analyzer {
+class QrCodeAnalyzer(private val onQrCodeScanned: (String, ByteArray) -> Unit) : ImageAnalysis.Analyzer {
 
     private val qrCodeReader = mapOf(
         DecodeHintType.POSSIBLE_FORMATS to arrayListOf(BarcodeFormat.QR_CODE)
@@ -48,18 +50,30 @@ class QrCodeAnalyzer(private val onQrCodeScanned: (String) -> Unit) : ImageAnaly
     )
 
     override fun analyze(imageProxy: ImageProxy) {
-        if (imageProxy.format !in supportedQrCodeImageFormats) return
+        if (imageProxy.format !in supportedQrCodeImageFormats) {
+            imageProxy.close()
+            return
+        }
 
         val qrCodeSource = calculateQrScanSource(imageProxy)
         val qrCodeBitmap = BinaryBitmap(HybridBinarizer(qrCodeSource))
 
         try {
-            onQrCodeScanned(qrCodeReader.decode(qrCodeBitmap).text)
+            val qrCodeValue = qrCodeReader.decode(qrCodeBitmap).text
+            val qrCodeBytes = convertBitmapToByteArray(imageProxy.toBitmap())
+
+            onQrCodeScanned(qrCodeValue, qrCodeBytes)
         } catch (_: NotFoundException) {
             // do nothing when QR code is not found
         } finally {
             imageProxy.close()
         }
+    }
+
+    fun convertBitmapToByteArray(bitmap: Bitmap): ByteArray {
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, IMAGE_QUALITY, stream) // Adjust format and quality as needed
+        return stream.toByteArray()
     }
 
     private fun calculateQrScanSource(imageProxy: ImageProxy): LuminanceSource = PlanarYUVLuminanceSource(
@@ -77,6 +91,12 @@ class QrCodeAnalyzer(private val onQrCodeScanned: (String) -> Unit) : ImageAnaly
         rewind()
 
         return ByteArray(remaining()).also(::get)
+    }
+
+    private companion object {
+
+        private const val IMAGE_QUALITY = 100
+
     }
 
 }

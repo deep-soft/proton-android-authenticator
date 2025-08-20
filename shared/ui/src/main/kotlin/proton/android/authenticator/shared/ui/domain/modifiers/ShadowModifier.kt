@@ -38,7 +38,7 @@ import androidx.compose.ui.unit.dp
 @Stable
 internal fun Modifier.innerShadowDouble(
     shape: Shape,
-    color: Color = Color.Black.copy(alpha = 0.4f),
+    color: Color,
     blur: Dp = 4.dp,
     offsetY: Dp = 2.dp,
     offsetX: Dp = 2.dp,

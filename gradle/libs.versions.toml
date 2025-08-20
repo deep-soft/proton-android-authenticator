@@ -1,7 +1,7 @@
 [versions]
 activityComposeVersion = "1.10.1"
 agpVersion = "8.7.3"
-authenticatorCommonVersion = "0.25.6"
+authenticatorCommonVersion = "0.25.9"
 biometricVersion = "1.4.0-alpha04"
 cameraVersion = "1.4.2"
 coilVersion = "2.7.0"
@@ -27,6 +27,7 @@ kotlixDatetimeVersion = "0.6.2"
 kspVersion = "2.0.21-1.0.27"
 lifecycleRuntimeVersion = "2.9.1"
 materialVersion = "1.8.2"
+playReviewVersion = "2.0.1"
 playVersion = "3.12.1"
 protobufPluginVersion = "0.9.4"
 protobufVersion = "4.31.1"
@@ -40,7 +41,6 @@ startupVersion = "1.2.0"
 timberVersion = "5.0.1"
 workVersion = "2.10.1"
 zxingVersion = "3.5.3"
-playReviewVersion = "2.0.1"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityComposeVersion" }

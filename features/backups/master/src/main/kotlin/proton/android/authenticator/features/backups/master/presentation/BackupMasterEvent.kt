@@ -26,4 +26,6 @@ internal sealed interface BackupMasterEvent {
 
     data class OnBackupError(internal val reason: GenerateBackupReason) : BackupMasterEvent
 
+    data class OnBackupPassword(internal val uri: String) : BackupMasterEvent
+
 }

@@ -48,6 +48,7 @@ import proton.android.authenticator.shared.ui.R as uiR
 @Composable
 fun ImportsOnboardingScreen(
     onNavigationClick: () -> Unit,
+    onMenuRequired: (Int) -> Unit,
     onHelpClick: (String) -> Unit,
     onPasswordRequired: (uri: String, importType: Int) -> Unit,
     onCompleted: (Int) -> Unit,
@@ -113,14 +114,22 @@ fun ImportsOnboardingScreen(
                         .navigationBarsPadding(),
                     text = stringResource(id = uiR.string.action_import),
                     onClick = {
-                        Intent(Intent.ACTION_GET_CONTENT)
-                            .apply {
+                        if (state.showMenuOptions) {
+                            onMenuRequired(state.importType.ordinal)
+                        } else {
+                            Intent(Intent.ACTION_GET_CONTENT).apply {
                                 type = MimeType.All.value
                                 addCategory(Intent.CATEGORY_OPENABLE)
-                                putExtra(Intent.EXTRA_ALLOW_MULTIPLE, state.isMultiSelectionAllowed)
-                                putExtra(Intent.EXTRA_MIME_TYPES, state.mimeTypes.toTypedArray())
-                            }
-                            .also(launcher::launch)
+                                putExtra(
+                                    Intent.EXTRA_ALLOW_MULTIPLE,
+                                    state.isMultiSelectionAllowed
+                                )
+                                putExtra(
+                                    Intent.EXTRA_MIME_TYPES,
+                                    state.mimeTypes.toTypedArray()
+                                )
+                            }.also(launcher::launch)
+                        }
                     }
                 )
             }

@@ -24,4 +24,6 @@ interface QrScanner {
 
     suspend fun scan(uri: Uri): String?
 
+    suspend fun scan(bytes: ByteArray): String?
+
 }

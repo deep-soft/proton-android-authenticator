@@ -19,6 +19,7 @@
 package proton.android.authenticator.business.backups.domain
 
 import android.net.Uri
+import me.proton.core.crypto.common.keystore.EncryptedString
 import java.util.concurrent.TimeUnit
 
 data class BackUpRepeatInterval(
@@ -31,7 +32,8 @@ data class Backup(
     val frequencyType: BackupFrequencyType,
     val count: Int,
     val lastBackupMillis: Long?,
-    val directoryUri: Uri
+    val directoryUri: Uri,
+    val encryptedPassword: EncryptedString?
 ) {
 
     val repeatInterval: BackUpRepeatInterval = when (frequencyType) {
@@ -62,7 +64,8 @@ data class Backup(
             frequencyType = BackupFrequencyType.Daily,
             count = 0,
             lastBackupMillis = null,
-            directoryUri = Uri.EMPTY
+            directoryUri = Uri.EMPTY,
+            encryptedPassword = null
         )
 
     }

@@ -19,6 +19,7 @@
 package proton.android.authenticator.shared.crypto.domain.contexts
 
 import me.proton.core.crypto.common.keystore.EncryptedByteArray
+import me.proton.core.crypto.common.keystore.EncryptedString
 import proton.android.authenticator.shared.crypto.domain.errors.CryptoBadTagError
 import proton.android.authenticator.shared.crypto.domain.keys.EncryptionKey
 import proton.android.authenticator.shared.crypto.domain.tags.EncryptionTag
@@ -27,12 +28,20 @@ import javax.crypto.AEADBadTagException
 import javax.crypto.Cipher
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.SecretKeySpec
+import kotlin.io.encoding.Base64
+import kotlin.io.encoding.ExperimentalEncodingApi
 
+@OptIn(ExperimentalEncodingApi::class)
 class EncryptionContext(encryptionKey: EncryptionKey) {
 
     private val cipherInstance = Cipher.getInstance(CIPHER_TRANSFORMATION)
 
     private val secretKeySpec = SecretKeySpec(encryptionKey.asByteArray(), ALGORITHM)
+
+    fun encrypt(content: String): EncryptedString {
+        val encrypted = encrypt(content.encodeToByteArray())
+        return Base64.encodeToByteArray(encrypted.array).let(::String)
+    }
 
     fun encrypt(content: ByteArray, encryptionTag: EncryptionTag? = null): EncryptedByteArray {
         val cipher = cipherInstance
@@ -44,6 +53,12 @@ class EncryptionContext(encryptionKey: EncryptionKey) {
         arraycopy(cipher.iv, 0, result, 0, IV_SIZE)
         arraycopy(cipherByteArray, 0, result, IV_SIZE, cipherByteArray.size)
         return EncryptedByteArray(result)
+    }
+
+    fun decrypt(content: EncryptedString): String {
+        val encryptedByteArray = Base64.decode(content)
+        val decrypted = decrypt(EncryptedByteArray(encryptedByteArray))
+        return decrypted.toString(Charsets.UTF_8)
     }
 
     fun decrypt(content: EncryptedByteArray, encryptionTag: EncryptionTag? = null): ByteArray {

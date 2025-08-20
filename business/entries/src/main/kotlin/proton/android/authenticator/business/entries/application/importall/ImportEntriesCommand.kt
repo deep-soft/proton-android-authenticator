@@ -22,8 +22,19 @@ import android.net.Uri
 import proton.android.authenticator.business.entries.domain.EntryImportType
 import proton.android.authenticator.shared.common.domain.infrastructure.commands.Command
 
-data class ImportEntriesCommand(
-    internal val contentUris: List<Uri>,
-    internal val importType: EntryImportType,
-    internal val password: String?
-) : Command
+sealed interface ImportEntriesCommand : Command {
+
+    val importType: EntryImportType
+
+    data class FromBytes(
+        override val importType: EntryImportType,
+        internal val contentBytes: List<Byte>
+    ) : ImportEntriesCommand
+
+    data class FromUris(
+        override val importType: EntryImportType,
+        internal val contentUris: List<Uri>,
+        internal val password: String?
+    ) : ImportEntriesCommand
+
+}

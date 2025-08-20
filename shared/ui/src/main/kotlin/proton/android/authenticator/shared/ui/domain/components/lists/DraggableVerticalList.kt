@@ -54,8 +54,14 @@ fun DraggableVerticalList(
     reverseLayout: Boolean = false,
     verticalArrangement: Arrangement.Vertical = if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
     highlightColor: Color = Theme.colorScheme.inputBorderFocused,
-    onSorted: (Map<String, Int>) -> Unit
+    onSorted: (Map<String, Int>) -> Unit,
+    needsBottomExtraSpace: Boolean
 ) {
+    val bottomSpace = remember(key1 = needsBottomExtraSpace) {
+        if (needsBottomExtraSpace) ThemeSpacing.ExtraLarge.plus(ThemeSpacing.Medium)
+        else ThemeSpacing.Small
+    }
+
     var items by remember(key1 = draggableItems) { mutableStateOf(draggableItems) }
 
     var selectedItemId by remember { mutableStateOf<String?>(null) }
@@ -112,10 +118,10 @@ fun DraggableVerticalList(
                     item.content()
                 }
             }
+        }
 
-            if (index == items.lastIndex) {
-                Spacer(modifier = Modifier.height(height = ThemeSpacing.Medium))
-            }
+        item {
+            Spacer(modifier = Modifier.height(height = bottomSpace))
         }
     }
 }

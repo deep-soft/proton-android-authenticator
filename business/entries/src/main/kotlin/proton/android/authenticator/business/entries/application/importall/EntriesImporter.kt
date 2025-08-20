@@ -49,6 +49,32 @@ internal class EntriesImporter @Inject constructor(
     private val repository: EntriesRepository,
     private val timeProvider: TimeProvider
 ) {
+    internal suspend fun import(contentBytes: List<Byte>, importType: EntryImportType): Int =
+        saveEntries(getEntries(contentBytes, importType))
+
+    private suspend fun getEntries(
+        contentBytes: List<Byte>,
+        importType: EntryImportType
+    ): List<AuthenticatorEntryModel> = when (importType) {
+        EntryImportType.Google -> {
+            qrScanner.scan(bytes = contentBytes.toByteArray())
+                .orEmpty()
+                .let(authenticatorImporter::importFromGoogleQr)
+                .entries
+        }
+
+        EntryImportType.Aegis,
+        EntryImportType.Authy,
+        EntryImportType.Bitwarden,
+        EntryImportType.Ente,
+        EntryImportType.LastPass,
+        EntryImportType.Microsoft,
+        EntryImportType.ProtonAuthenticator,
+        EntryImportType.ProtonPass,
+        EntryImportType.TwoFas -> {
+            throw IllegalArgumentException("Unsupported bytes import type: $importType")
+        }
+    }
 
     internal suspend fun import(
         contentUris: List<Uri>,
@@ -175,8 +201,9 @@ internal class EntriesImporter @Inject constructor(
 
     private companion object {
 
-        private const val MAX_ZIP_SIZE = 10 * 1_024 * 1_024
         private const val TAG = "EntriesImporter"
+
+        private const val MAX_ZIP_SIZE = 10 * 1_024 * 1_024
 
     }
 
