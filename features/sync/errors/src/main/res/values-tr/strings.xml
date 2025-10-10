@@ -17,7 +17,7 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="sync_error_dialog_title">Senkronizasyon Hatası</string>
-  <string name="sync_error_text_disable">Cihaz senkronizasyonunu devre dışı bırakırken bir hata oluştu ve senkronizasyon hala etkin. Ayarlar seçeneklerinden tekrar devre dışı bırakmayı deneyin.</string>
-  <string name="sync_error_text_enable">Cihaz senkronizasyonunu etkinleştirirken bir hata oluştu ve senkronizasyon hala devre dışı. Ayarlar seçeneklerinden tekrar etkinleştirmeyi deneyin.</string>
+  <string name="sync_error_dialog_title">Eşitleme sorunu</string>
+  <string name="sync_error_text_disable">Aygıt eşitlemesi kapatılırken bir sorun çıktı ve eşitleme hala açık. Ayarlardan yeniden kapatmayı deneyin.</string>
+  <string name="sync_error_text_enable">Aygıt eşitlemesi açılırken bir sorun çıktı ve eşitleme hala kapalı. Ayarlardan yeniden açmayı deneyin.</string>
 </resources>

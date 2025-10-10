@@ -23,6 +23,7 @@ import proton.android.authenticator.business.entrycodes.domain.EntryCode
 import proton.android.authenticator.business.settings.domain.Settings
 import proton.android.authenticator.business.settings.domain.SettingsDigitType
 import proton.android.authenticator.business.settings.domain.SettingsSearchBarType
+import proton.android.authenticator.business.settings.domain.SettingsSortingType
 import proton.android.authenticator.business.settings.domain.SettingsThemeType
 import proton.android.authenticator.features.shared.entries.presentation.EntryModel
 import proton.android.authenticator.shared.ui.domain.models.UiTextMask
@@ -55,8 +56,6 @@ internal sealed interface HomeMasterState {
         override val showFabButton: Boolean = false
 
         override val showTopSearchBar: Boolean = false
-
-        internal val entryModels: List<HomeMasterEntryModel> = emptyList()
 
         internal val isSyncEnabled: Boolean = settings.isSyncEnabled
 
@@ -115,6 +114,14 @@ internal sealed interface HomeMasterState {
 
         internal val animateOnCodeChange: Boolean = settings.isCodeChangeAnimationEnabled
 
+        internal val canSortItems: Boolean = when (settings.sortingType) {
+            SettingsSortingType.Manual -> true
+            SettingsSortingType.CreatedAsc,
+            SettingsSortingType.CreatedDesc,
+            SettingsSortingType.IssuerAsc,
+            SettingsSortingType.IssuerDesc -> false
+        }
+
         internal val themeType: ThemeType = when (settings.themeType) {
             SettingsThemeType.Dark -> ThemeType.Dark
             SettingsThemeType.Light -> ThemeType.Light
@@ -126,10 +133,15 @@ internal sealed interface HomeMasterState {
             SettingsDigitType.Plain -> false
         }
 
-        internal val entryModelsMap: Map<String, HomeMasterEntryModel> = entries.zip(
-            other = entryCodes,
-            transform = ::HomeMasterEntryModel
-        ).associateBy { entryModel -> entryModel.id }
+        internal val entryModelsMap: Map<String, HomeMasterEntryModel> = run {
+            val sortedEntries = entries.sort(sortingType = settings.sortingType)
+            val uriToCodeMap = entries.zip(entryCodes).associate { (entry, code) -> entry.uri to code }
+            sortedEntries.mapNotNull { entry ->
+                uriToCodeMap[entry.uri]?.let { code ->
+                    HomeMasterEntryModel(entry, code)
+                }
+            }.associateBy { entryModel -> entryModel.id }
+        }
 
         internal val entryModels: List<HomeMasterEntryModel> = entryModelsMap.values.toList()
 
@@ -148,6 +160,28 @@ internal sealed interface HomeMasterState {
             key = totalSeconds,
             defaultValue = 0
         )
+
+        private fun List<EntryModel>.sort(sortingType: SettingsSortingType) = when (sortingType) {
+            SettingsSortingType.CreatedAsc -> {
+                sortedBy(EntryModel::createdAt)
+            }
+
+            SettingsSortingType.CreatedDesc -> {
+                sortedByDescending(EntryModel::createdAt)
+            }
+
+            SettingsSortingType.Manual -> {
+                sortedWith(compareBy(EntryModel::position).thenByDescending(EntryModel::modifiedAt))
+            }
+
+            SettingsSortingType.IssuerAsc -> {
+                sortedBy { entryModel -> entryModel.issuer.lowercase() }
+            }
+
+            SettingsSortingType.IssuerDesc -> {
+                sortedByDescending { entryModel -> entryModel.issuer.lowercase() }
+            }
+        }
 
     }
 

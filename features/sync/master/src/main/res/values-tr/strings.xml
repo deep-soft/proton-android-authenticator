@@ -18,7 +18,7 @@
   -->
 <resources>
   <string name="sync_master_title">Aygıt eşitleme</string>
-  <string name="sync_master_description">Cihazlar arasında uçtan uca şifreli senkronizasyonu etkinleştirmek için Proton hesabı gereklidir.</string>
+  <string name="sync_master_description">Aygıtlar arasında uçtan uca şifrelenmiş eşitlemeyi açmak için bir Proton hesabı gereklidir.</string>
   <string name="sync_master_sign_in_button">Oturum aç</string>
   <string name="sync_master_sign_up_button">Ücretsiz bir hesap açın</string>
 </resources>

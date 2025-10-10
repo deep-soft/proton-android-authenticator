@@ -17,10 +17,11 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="sync_disable_dialog_title">Vuoi davvero eseguire questa azione?</string>
+  <string name="sync_disable_dialog_title">Disabilita la sincronizzazione</string>
   <string-array name="sync_disable_dialog_messages">
-    <item>I dati su questo dispositivo non verranno aggiornati e le modifiche non verranno applicate ad altri dispositivi.</item>
-    <item>Ti disconnetterai dal tuo account Proton.</item>
+    <item>Gli aggiornamenti apportati con questo dispositivo non verranno applicati agli altri dispositivi e viceversa.
+Sei sicuro di voler disabilitare la sincronizzazione di questo dispositivo?</item>
+    <item>Verrà rimosso l\'accesso all\'account Proton</item>
   </string-array>
-  <string name="sync_disable_dialog_stop_button">Interrompi sincronizzazione</string>
+  <string name="sync_disable_dialog_stop_button">Disabilita la sincronizzazione</string>
 </resources>

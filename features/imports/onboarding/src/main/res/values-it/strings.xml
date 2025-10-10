@@ -17,44 +17,44 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_onboarding_title_supported">Importa codici da %1$s</string>
+  <string name="imports_onboarding_title_supported">Importa le chiavi da %1$s</string>
   <string name="imports_onboarding_title_unsupported">Nessuna esportazione disponibile</string>
   <string-array name="imports_onboarding_google_steps_v2">
-    <item>Vai a \"Impostazioni &gt; Trasferisci account &gt; Esporta account\"</item>
-    <item>In questo modo creerai uno o più codici QR che potrai usare qui.</item>
+    <item>Vai a \"Impostazioni &gt; Trasferisci account &gt; Esporta account\"</item>
+    <item>Genera i codici QR e scansionali o importali qui</item>
   </string-array>
   <string-array name="imports_onboarding_2fas_steps_v2">
-    <item>Vai a \"Impostazioni &gt; Backup 2FAS &gt; Esporta\"</item>
-    <item>In questo modo creerai un file 2fas che potrai usare qui.</item>
+    <item>Vai a \"Impostazioni &gt; Backup 2FAS &gt; Esporta\"</item>
+    <item>Genera il file di esportazione e importalo qui</item>
   </string-array>
   <string-array name="imports_onboarding_aegis_steps_v2">
-    <item>Vai a \"Impostazioni &gt; Importa ed esporta &gt; Esporta\"</item>
-    <item>In questo modo creerai un file json che potrai usare qui.</item>
+    <item>Vai a \"Impostazioni &gt; Importa / Esporta &gt; Esporta\"</item>
+    <item>Genera il file di esportazione JSON e importalo qui</item>
   </string-array>
   <string-array name="imports_onboarding_bitwarden_steps_v2">
     <item>Vai a \"Impostazioni &gt; Esporta\"</item>
-    <item>In questo modo creerai un file json che potrai usare qui.</item>
+    <item>Genera il file di esportazione JSON e importalo qui</item>
   </string-array>
   <string-array name="imports_onboarding_ente_steps_v2">
-    <item>Vai a \"Impostazioni &gt; Dati &gt; Esporta codici\"</item>
-    <item>Scegli \"Testo semplice\", in questo modo creerai un file txt che potrai usare qui.</item>
+    <item>Vai a \"Impostazioni &gt; Dati &gt; Esporta codici\"</item>
+    <item>Seleziona \"Testo semplice\". Genera il file di esportazione TXT e importalo qui.</item>
   </string-array>
   <string-array name="imports_onboarding_lastpass_steps_v2">
-    <item>Vai a \"Impostazioni &gt; Trasferisci account &gt; Esporta account su file\"</item>
-    <item>In questo modo creerai un file json che potrai usare qui.</item>
+    <item>Vai a \"Impostazioni &gt; Trasferisci account &gt; Esporta account su file\"</item>
+    <item>Genera il file di esportazione JSON e importalo qui</item>
   </string-array>
   <string-array name="imports_onboarding_proton_authenticator_steps_v2">
     <item>Vai a \"Impostazioni &gt; Esporta\"</item>
-    <item>In questo modo creerai un file json che potrai usare qui.</item>
+    <item>Genera il file di esportazione JSON e importalo qui</item>
   </string-array>
   <string-array name="imports_onboarding_proton_pass_steps">
-    <item>Nell\'estensione Proton Pass, nell\'app web o desktop, vai a \"Impostazioni &gt; Esporta\"</item>
-    <item>Assicurati di scegliere il \"formato zip senza allegati\".</item>
-    <item>In questo modo creerai un file zip che potrai usare qui.</item>
+    <item>Nell\'app web o desktop o nell\'estensione, vai a \"Impostazioni &gt; Esporta\"</item>
+    <item>Seleziona \"Formato zip senza allegati\"</item>
+    <item>Genera il file di esportazione ZIP e importalo qui</item>
   </string-array>
   <string-array name="imports_onboarding_unsupported_steps">
-    <item>%1$s al momento non supporta l\'esportazione dei dati dalla sua app. Contatta %1$s per richiedere questa funzionalità.</item>
-    <item>Per ora, importa i tuoi dati manualmente.</item>
+    <item>%1$s attualmente non supporta l\'esportazione dei dati dall\'app. Contatta %1$s per richiedere questa funzionalità.</item>
+    <item>Per ora, importa i dati manualmente.</item>
   </string-array>
-  <string name="imports_onboarding_help_link">Hai bisogno di altro aiuto?</string>
+  <string name="imports_onboarding_help_link">Hai ancora bisogno di aiuto?</string>
 </resources>

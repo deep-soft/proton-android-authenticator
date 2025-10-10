@@ -17,6 +17,6 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_options_title">Importa codici</string>
-  <string name="imports_options_subtitle">Seleziona il tuo attuale provider 2FA.</string>
+  <string name="imports_options_title">Importa degli elementi</string>
+  <string name="imports_options_subtitle">Seleziona il fornitore del secondo fattore da cui importare le chiavi</string>
 </resources>

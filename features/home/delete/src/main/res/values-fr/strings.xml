@@ -17,6 +17,6 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_delete_error_dialog_title">Delete code?</string>
-  <string name="home_delete_error_dialog_message">The code will be permanently deleted. Please be sure that your data is backed up before you proceed.</string>
+  <string name="home_delete_error_dialog_title">Supprimer le code ?</string>
+  <string name="home_delete_error_dialog_message">Le code va être supprimé définitivement. Assurez-vous que vos données sont sauvegardées avant de continuer.</string>
 </resources>

@@ -42,11 +42,13 @@ internal class EntryCreator @Inject constructor(
                     encrypt(decryptedModelContent, EncryptionTag.EntryContent)
                 }
             }
-            .let { encryptedContent ->
+            .let { encryptedContent -> encryptedContent to timeProvider.currentSeconds() }
+            .let { (encryptedContent, currentSeconds) ->
                 Entry(
                     id = model.id,
                     content = encryptedContent,
-                    modifiedAt = timeProvider.currentSeconds(),
+                    createdAt = currentSeconds,
+                    modifiedAt = currentSeconds,
                     isDeleted = false,
                     isSynced = false,
                     position = repository.searchMaxPosition()

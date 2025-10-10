@@ -42,6 +42,12 @@
   <string name="settings_appearance_title_digit_style">Styl cyfr</string>
   <string name="settings_appearance_title_digit_style_option_plain">Prosty</string>
   <string name="settings_appearance_title_digit_style_option_boxes">Pola</string>
+  <string name="settings_appearance_title_sorting">Sortowanie</string>
+  <string name="settings_appearance_title_sorting_option_created_asc">Najstarsze</string>
+  <string name="settings_appearance_title_sorting_option_created_desc">Najnowsze</string>
+  <string name="settings_appearance_title_sorting_option_issuer_asc">Tytuł (A-Z)</string>
+  <string name="settings_appearance_title_sorting_option_issuer_desc">Tytuł (Z-A)</string>
+  <string name="settings_appearance_title_sorting_option_manual">Ręcznie</string>
   <string name="settings_appearance_title_animate_code_change">Animuj zmianę kodu</string>
   <string name="settings_data_management_section">Zarządzaj swoimi danymi</string>
   <string name="settings_data_management_title_import">Importuj</string>
@@ -51,6 +57,8 @@
   <string name="settings_support_title_feedback">Opinia</string>
   <string name="settings_application_section">Aplikacja</string>
   <string name="settings_application_title_view_logs">Wyświetl logi</string>
+  <string name="settings_application_title_anonymous_telemetry">Udostępnij anonimowe statystyki użytkowania</string>
+  <string name="settings_application_title_anonymous_crashes">Udostępnij anonimowe raporty o awariach</string>
   <string name="settings_discover_section">Odkryj Proton</string>
   <string name="settings_discover_pass_description">Przechowuj silne, unikatowe hasła, aby uniknąć kradzieży tożsamości i naruszeń.</string>
   <string name="settings_discover_vpn_description">Przeglądaj bez śledzenia i uzyskaj dostęp do zablokowanych treści.</string>
@@ -58,6 +66,7 @@
   <string name="settings_discover_calendar_description">Zorganizuj swój harmonogram i zachowaj swoje plany dla siebie.</string>
   <string name="settings_discover_drive_description">Daj swoim cennym zdjęciom i plikom bezpieczne miejsce, na jakie zasługują.</string>
   <string name="settings_app_version" comment="The placeholder will be replaced with the app version number. (e.g. Version 1.0.0)">Wersja %1$s</string>
+  <string name="settings_snackbar_message_anonymous_data_sharing_error">Wystąpił błąd podczas aktualizowania anonimowych danych użytkowania</string>
   <string name="settings_snackbar_message_biometric_error">Wystąpił błąd podczas uwierzytelniania biometrycznego</string>
   <string name="settings_snackbar_message_update_error">Wystąpił błąd podczas aktualizacji ustawień</string>
 </resources>

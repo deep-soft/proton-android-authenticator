@@ -37,6 +37,8 @@ data class EntryEntity(
     val isSynced: Boolean,
     @ColumnInfo(name = Columns.POSITION)
     val position: Int,
+    @ColumnInfo(name = Columns.CREATED_AT)
+    val createdAt: Long?,
     @ColumnInfo(name = Columns.MODIFIED_AT)
     val modifiedAt: Long
 ) {
@@ -52,6 +54,8 @@ data class EntryEntity(
         internal const val IS_SYNCED = "is_synced"
 
         internal const val POSITION = "position"
+
+        internal const val CREATED_AT = "created_at"
 
         internal const val MODIFIED_AT = "modified_at"
 

@@ -17,6 +17,6 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_completion_dialog_title">Codici importati</string>
-  <string name="imports_completion_dialog_message" comment="Placeholder will be replaced with the number of imported items. (e.g. Successfully imported 2 items.)">Importati correttamente: %1$s.</string>
+  <string name="imports_completion_dialog_title">Chiavi importate</string>
+  <string name="imports_completion_dialog_message" comment="Placeholder will be replaced with the number of imported items. (e.g. Successfully imported 2 items.)">%1$s importati</string>
 </resources>

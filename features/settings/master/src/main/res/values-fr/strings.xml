@@ -42,6 +42,12 @@
   <string name="settings_appearance_title_digit_style">Style des chiffres</string>
   <string name="settings_appearance_title_digit_style_option_plain">Simple</string>
   <string name="settings_appearance_title_digit_style_option_boxes">Boîtes</string>
+  <string name="settings_appearance_title_sorting">Trier</string>
+  <string name="settings_appearance_title_sorting_option_created_asc">Le plus ancien</string>
+  <string name="settings_appearance_title_sorting_option_created_desc">Le plus récent</string>
+  <string name="settings_appearance_title_sorting_option_issuer_asc">Émetteur (A - Z)</string>
+  <string name="settings_appearance_title_sorting_option_issuer_desc">Émetteur (Z - A)</string>
+  <string name="settings_appearance_title_sorting_option_manual">Manuel</string>
   <string name="settings_appearance_title_animate_code_change">Animer le changement de code</string>
   <string name="settings_data_management_section">Gérez vos données</string>
   <string name="settings_data_management_title_import">Importer</string>
@@ -51,6 +57,8 @@
   <string name="settings_support_title_feedback">Votre avis</string>
   <string name="settings_application_section">Application</string>
   <string name="settings_application_title_view_logs">Afficher les journaux</string>
+  <string name="settings_application_title_anonymous_telemetry">Partager l\'utilisation de manière anonyme</string>
+  <string name="settings_application_title_anonymous_crashes">Partager les rapports de plantage de manière anonyme</string>
   <string name="settings_discover_section">Découvrez Proton</string>
   <string name="settings_discover_pass_description">Stockez des mots de passe forts et uniques pour éviter le vol d\'identité et les violations de données.</string>
   <string name="settings_discover_vpn_description">Naviguez sans suivi et accédez aux contenus bloqués.</string>
@@ -58,6 +66,7 @@
   <string name="settings_discover_calendar_description">Planifiez votre journée en toute discrétion.</string>
   <string name="settings_discover_drive_description">Offrez à vos précieuses photos et fichiers le foyer sécurisé qu\'ils méritent.</string>
   <string name="settings_app_version" comment="The placeholder will be replaced with the app version number. (e.g. Version 1.0.0)">Version %1$s</string>
+  <string name="settings_snackbar_message_anonymous_data_sharing_error">Une erreur s\'est produite lors de la mise à jour du partage de données anonymes.</string>
   <string name="settings_snackbar_message_biometric_error">Une erreur s\'est produite lors de l\'authentification biométrique.</string>
   <string name="settings_snackbar_message_update_error">Une erreur s\'est produite lors de la mise à jour des paramètres.</string>
 </resources>

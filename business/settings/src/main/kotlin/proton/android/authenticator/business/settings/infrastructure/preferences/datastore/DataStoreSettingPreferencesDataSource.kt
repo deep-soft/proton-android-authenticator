@@ -26,12 +26,14 @@ import proton.android.authenticator.business.settings.domain.Settings
 import proton.android.authenticator.business.settings.domain.SettingsAppLockType
 import proton.android.authenticator.business.settings.domain.SettingsDigitType
 import proton.android.authenticator.business.settings.domain.SettingsSearchBarType
+import proton.android.authenticator.business.settings.domain.SettingsSortingType
 import proton.android.authenticator.business.settings.domain.SettingsThemeType
 import proton.android.authenticator.business.shared.domain.infrastructure.preferences.PreferencesDataSource
 import proton.android.authenticator.proto.preferences.settings.SettingsPreferences
 import proton.android.authenticator.proto.preferences.settings.SettingsPreferencesAppLockType
 import proton.android.authenticator.proto.preferences.settings.SettingsPreferencesDigitType
 import proton.android.authenticator.proto.preferences.settings.SettingsPreferencesSearchBarType
+import proton.android.authenticator.proto.preferences.settings.SettingsPreferencesSortingType
 import proton.android.authenticator.proto.preferences.settings.SettingsPreferencesThemeType
 import java.time.Instant
 import javax.inject.Inject
@@ -49,6 +51,7 @@ internal class DataStoreSettingPreferencesDataSource @Inject constructor(
                 themeType = settingsPreferences.themeType.toDomain(),
                 searchBarType = settingsPreferences.searchBarType.toDomain(),
                 digitType = settingsPreferences.digitType.toDomain(),
+                sortingType = settingsPreferences.sortingType.toDomain(),
                 isCodeChangeAnimationEnabled = settingsPreferences.isCodeChangeAnimationEnabled,
                 isPassBannerDismissed = settingsPreferences.isPassBannerDismissed,
                 isFirstRun = settingsPreferences.isFirstRun,
@@ -65,6 +68,7 @@ internal class DataStoreSettingPreferencesDataSource @Inject constructor(
                 .setThemeType(settings.themeType.toPreferences())
                 .setSearchBarType(settings.searchBarType.toPreferences())
                 .setDigitType(settings.digitType.toPreferences())
+                .setSortingType(settings.sortingType.toPreferences())
                 .setIsCodeChangeAnimationEnabled(settings.isCodeChangeAnimationEnabled)
                 .setIsPassBannerDismissed(settings.isPassBannerDismissed)
                 .setIsFirstRun(settings.isFirstRun)
@@ -117,6 +121,23 @@ internal class DataStoreSettingPreferencesDataSource @Inject constructor(
     private fun SettingsDigitType.toPreferences() = when (this) {
         SettingsDigitType.Boxes -> SettingsPreferencesDigitType.SETTINGS_DIGIT_TYPE_BOXES
         SettingsDigitType.Plain -> SettingsPreferencesDigitType.SETTINGS_DIGIT_TYPE_PLAIN
+    }
+
+    private fun SettingsPreferencesSortingType.toDomain() = when (this) {
+        SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_CREATED_ASC -> SettingsSortingType.CreatedAsc
+        SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_CREATED_DESC -> SettingsSortingType.CreatedDesc
+        SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_ISSUER_ASC -> SettingsSortingType.IssuerAsc
+        SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_ISSUER_DESC -> SettingsSortingType.IssuerDesc
+        SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_MANUAL,
+        SettingsPreferencesSortingType.UNRECOGNIZED -> SettingsSortingType.Manual
+    }
+
+    private fun SettingsSortingType.toPreferences() = when (this) {
+        SettingsSortingType.CreatedAsc -> SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_CREATED_ASC
+        SettingsSortingType.CreatedDesc -> SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_CREATED_DESC
+        SettingsSortingType.IssuerAsc -> SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_ISSUER_ASC
+        SettingsSortingType.IssuerDesc -> SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_ISSUER_DESC
+        SettingsSortingType.Manual -> SettingsPreferencesSortingType.SETTINGS_SORTING_TYPE_MANUAL
     }
 
 }

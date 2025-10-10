@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option java_package = "proton.android.authenticator.proto.preferences.settings";
+option java_multiple_files = true;
+
+enum SettingsPreferencesSortingType {
+  SETTINGS_SORTING_TYPE_MANUAL = 0;
+  SETTINGS_SORTING_TYPE_CREATED_ASC = 1;
+  SETTINGS_SORTING_TYPE_CREATED_DESC = 2;
+  SETTINGS_SORTING_TYPE_ISSUER_ASC = 3;
+  SETTINGS_SORTING_TYPE_ISSUER_DESC = 4;
+}

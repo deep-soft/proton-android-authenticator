@@ -34,7 +34,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import proton.android.authenticator.features.home.master.R
-import proton.android.authenticator.features.home.master.presentation.HomeMasterEntryModel
 import proton.android.authenticator.features.home.master.presentation.HomeMasterState
 import proton.android.authenticator.shared.ui.domain.components.buttons.VerticalActionsButtons
 import proton.android.authenticator.shared.ui.domain.components.refresh.PullToRefresh
@@ -48,7 +47,7 @@ internal fun HomeEmpty(
     state: HomeMasterState.Empty,
     onNewEntryClick: () -> Unit,
     onImportEntriesClick: () -> Unit,
-    onEntriesRefreshPull: (Boolean, List<HomeMasterEntryModel>) -> Unit,
+    onEntriesRefreshPull: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) = with(state) {
     val scrollState = rememberScrollState()
@@ -56,7 +55,7 @@ internal fun HomeEmpty(
     PullToRefresh(
         modifier = modifier,
         isRefreshing = isRefreshing,
-        onRefresh = { onEntriesRefreshPull(isSyncEnabled, entryModels) }
+        onRefresh = { onEntriesRefreshPull(isSyncEnabled) }
     ) {
         Column(
             modifier = Modifier

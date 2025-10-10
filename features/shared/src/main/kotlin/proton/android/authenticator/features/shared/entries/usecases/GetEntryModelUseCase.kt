@@ -53,6 +53,7 @@ class GetEntryModelUseCase @Inject constructor(
                     EntryModel(
                         id = entry.id,
                         position = entry.position,
+                        createdAt = entry.createdAt,
                         modifiedAt = entry.modifiedAt,
                         isDeleted = entry.isDeleted,
                         isSynced = entry.isSynced,

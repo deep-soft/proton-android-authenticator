@@ -29,12 +29,19 @@ internal class EntryDeleter @Inject constructor(
     private val timeProvider: TimeProvider
 ) {
 
-    internal suspend fun delete(id: String): Entry = repository.find(id)
-        .first()
-        .copy(
-            isDeleted = true,
-            modifiedAt = timeProvider.currentSeconds()
-        )
-        .also { entry -> repository.save(entry) }
+    internal suspend fun delete(id: String): Entry {
+        val entry = repository.find(id).first()
+        return if (entry.isSynced) {
+            val updatedEntry = entry.copy(
+                isDeleted = true,
+                modifiedAt = timeProvider.currentSeconds()
+            )
+            repository.save(updatedEntry)
+            updatedEntry
+        } else {
+            repository.remove(entry)
+            entry
+        }
+    }
 
 }

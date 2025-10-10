@@ -17,6 +17,6 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_options_title">Kodları İçe Aktar</string>
-  <string name="imports_options_subtitle">Mevcut 2FA sağlayıcınızı seçiniz.</string>
+  <string name="imports_options_title">Kodları içe aktar</string>
+  <string name="imports_options_subtitle">Kullandığınız iki adımlı doğrulama hizmeti sağlayıcısını seçin.</string>
 </resources>

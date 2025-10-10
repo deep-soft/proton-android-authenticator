@@ -23,7 +23,6 @@ import proton.android.authenticator.business.entries.application.syncall.SyncEnt
 import proton.android.authenticator.business.entries.application.syncall.SyncEntriesReason
 import proton.android.authenticator.business.entries.application.syncall.SyncEntry
 import proton.android.authenticator.business.entries.application.syncall.SyncKey
-import proton.android.authenticator.features.shared.entries.presentation.EntryModel
 import proton.android.authenticator.features.shared.keys.usecases.GetKeyUseCase
 import proton.android.authenticator.features.shared.users.usecases.ObserveUserUseCase
 import proton.android.authenticator.shared.common.domain.answers.Answer
@@ -33,10 +32,11 @@ import javax.inject.Inject
 class SyncEntriesModelsUseCase @Inject constructor(
     private val commandBus: CommandBus,
     private val getKeyUseCase: GetKeyUseCase,
-    private val observeUserUseCase: ObserveUserUseCase
+    private val observeUserUseCase: ObserveUserUseCase,
+    private val observeEntryModelsUseCase: ObserveEntryModelsUseCase
 ) {
 
-    suspend operator fun invoke(entryModels: List<EntryModel>): Answer<Unit, SyncEntriesReason> {
+    suspend operator fun invoke(): Answer<Unit, SyncEntriesReason> {
         val user = observeUserUseCase().first() ?: run {
             return Answer.Failure(reason = SyncEntriesReason.UserNotFound)
         }
@@ -45,13 +45,9 @@ class SyncEntriesModelsUseCase @Inject constructor(
             return Answer.Failure(reason = SyncEntriesReason.KeyNotFound)
         }
 
-        return SyncEntriesCommand(
-            userId = user.id,
-            key = SyncKey(
-                id = key.id,
-                encryptedKey = key.encryptedKey
-            ),
-            entries = entryModels.map { entryModel ->
+        return observeEntryModelsUseCase(includeDeletedEntries = true)
+            .first()
+            .map { entryModel ->
                 SyncEntry(
                     id = entryModel.id,
                     name = entryModel.name,
@@ -67,7 +63,17 @@ class SyncEntriesModelsUseCase @Inject constructor(
                     isSynced = entryModel.isSynced
                 )
             }
-        ).let { command -> commandBus.dispatch(command = command) }
+            .let { syncEntries ->
+                SyncEntriesCommand(
+                    userId = user.id,
+                    key = SyncKey(
+                        id = key.id,
+                        encryptedKey = key.encryptedKey
+                    ),
+                    entries = syncEntries
+                )
+            }
+            .let { command -> commandBus.dispatch(command = command) }
     }
 
 }

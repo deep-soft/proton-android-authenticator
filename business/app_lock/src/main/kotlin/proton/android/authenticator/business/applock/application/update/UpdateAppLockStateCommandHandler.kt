@@ -31,19 +31,23 @@ internal class UpdateAppLockStateCommandHandler @Inject constructor(
 
     override suspend fun handle(command: UpdateAppLockStateCommand): Answer<Unit, UpdateAppLockStateReason> = try {
         updater.update(appLockState = command.appLockState)
-        AuthenticatorLogger.i(TAG, "Successfully updated app lock state to: ${command.appLockState}")
-        Answer.Success(Unit)
-    } catch (e: IOException) {
+            .also {
+                AuthenticatorLogger.i(TAG, "Successfully updated app lock state to: ${command.appLockState}")
+            }
+            .let(Answer<Unit, UpdateAppLockStateReason>::Success)
+    } catch (exception: IOException) {
         ErrorLoggingUtils.logAndReturnFailure(
-            exception = e,
+            tag = TAG,
+            exception = exception,
             message = "Could not update app lock state due to IO exception",
-            reason = UpdateAppLockStateReason.CannotUpdateAppLockState,
-            tag = TAG
+            reason = UpdateAppLockStateReason.CannotUpdateAppLockState
         )
     }
 
     private companion object {
+
         private const val TAG = "UpdateAppLockStateCommandHandler"
+
     }
 
 }

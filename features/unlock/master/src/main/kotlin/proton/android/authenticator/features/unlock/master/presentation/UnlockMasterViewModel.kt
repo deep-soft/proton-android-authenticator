@@ -60,6 +60,7 @@ internal class UnlockMasterViewModel @Inject constructor(
             authenticateBiometricUseCase(
                 title = context.getString(R.string.unlock_screen_promtp_title),
                 subtitle = context.getString(R.string.unlock_screen_promtp_subtitle),
+                cancelButton = context.getString(proton.android.authenticator.shared.ui.R.string.action_cancel),
                 context = context
             ).fold(
                 onFailure = { reason ->

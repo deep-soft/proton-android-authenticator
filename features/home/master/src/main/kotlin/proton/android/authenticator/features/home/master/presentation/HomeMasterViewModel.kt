@@ -47,9 +47,9 @@ import proton.android.authenticator.features.shared.entries.usecases.SyncEntries
 import proton.android.authenticator.features.shared.usecases.clipboards.CopyToClipboardUseCase
 import proton.android.authenticator.features.shared.usecases.settings.ObserveSettingsUseCase
 import proton.android.authenticator.features.shared.usecases.snackbars.DispatchSnackbarEventUseCase
-import proton.android.authenticator.shared.common.domain.answers.Answer
 import proton.android.authenticator.shared.common.domain.models.SnackbarEvent
 import proton.android.authenticator.shared.common.domain.providers.TimeProvider
+import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration.Companion.seconds
@@ -206,7 +206,7 @@ internal class HomeMasterViewModel @Inject constructor(
         }
     }
 
-    internal fun onRefreshEntries(isSyncEnabled: Boolean, homeEntryModels: List<HomeMasterEntryModel>) {
+    internal fun onRefreshEntries(isSyncEnabled: Boolean) {
         viewModelScope.launch {
             isRefreshingFlow.update { true }
 
@@ -230,39 +230,38 @@ internal class HomeMasterViewModel @Inject constructor(
                     .also { return@launch }
             }
 
-            syncEntriesModelsUseCase(entryModels = homeEntryModels.map(HomeMasterEntryModel::entryModel))
-                .also { answer ->
-                    when (answer) {
-                        is Answer.Failure -> {
-                            when (answer.reason) {
-                                SyncEntriesReason.Unauthorized -> {
-                                    SnackbarEvent(
-                                        messageResId = R.string.home_snackbar_message_entry_sync_unauthorized,
-                                        action = SnackbarEvent.Action(
-                                            nameResId = uiR.string.action_login,
-                                            onAction = {
-                                                eventFlow.update { HomeMasterEvent.OnEnableSync }
-                                            }
-                                        )
-                                    )
-                                }
+            syncEntriesModelsUseCase().fold(
+                onFailure = { reason ->
+                    AuthenticatorLogger.w(tag = TAG, message = "Entries sync failed: $reason")
 
-                                SyncEntriesReason.KeyNotFound,
-                                SyncEntriesReason.Unknown,
-                                SyncEntriesReason.UserNotFound -> {
-                                    SnackbarEvent(
-                                        messageResId = R.string.home_snackbar_message_entry_sync_failed
-                                    )
-                                }
-                            }.also { event -> dispatchSnackbarEventUseCase(event) }
+                    when (reason) {
+                        SyncEntriesReason.Unauthorized -> {
+                            SnackbarEvent(
+                                messageResId = R.string.home_snackbar_message_entry_sync_unauthorized,
+                                action = SnackbarEvent.Action(
+                                    nameResId = uiR.string.action_login,
+                                    onAction = {
+                                        eventFlow.update { HomeMasterEvent.OnEnableSync }
+                                    }
+                                )
+                            )
                         }
 
-                        is Answer.Success -> Unit
-                    }
+                        SyncEntriesReason.KeyNotFound,
+                        SyncEntriesReason.Unknown,
+                        SyncEntriesReason.UserNotFound -> {
+                            SnackbarEvent(
+                                messageResId = R.string.home_snackbar_message_entry_sync_failed
+                            )
+                        }
+                    }.also { event -> dispatchSnackbarEventUseCase(event) }
+                },
+                onSuccess = {
+                    AuthenticatorLogger.i(tag = TAG, message = "Entries sync succeeded")
                 }
-                .also {
-                    isRefreshingFlow.update { false }
-                }
+            ).also {
+                isRefreshingFlow.update { false }
+            }
         }
     }
 
@@ -271,6 +270,8 @@ internal class HomeMasterViewModel @Inject constructor(
     }
 
     private companion object {
+
+        private const val TAG = "HomeMasterViewModel"
 
         private const val SEARCH_QUERY_DEFAULT_VALUE = ""
 

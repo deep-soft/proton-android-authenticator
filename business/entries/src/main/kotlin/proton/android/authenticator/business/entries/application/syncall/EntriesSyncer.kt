@@ -300,6 +300,7 @@ internal class EntriesSyncer @Inject constructor(
                             Entry(
                                 id = entry.id,
                                 content = encryptedModelContent,
+                                createdAt = remoteEntriesMap.getValue(remoteId!!).createdAt,
                                 modifiedAt = remoteEntriesMap.getValue(remoteId!!).modifiedAt,
                                 isDeleted = false,
                                 isSynced = true,
@@ -396,7 +397,9 @@ internal class EntriesSyncer @Inject constructor(
     }
 
     private companion object {
+
         private const val BATCH_SIZE = 100
+
     }
 
 }

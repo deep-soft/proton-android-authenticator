@@ -17,17 +17,17 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_manual_screen_title_create">Yeni giriş</string>
-  <string name="home_manual_screen_title_edit">Girişi düzenle</string>
+  <string name="home_manual_screen_title_create">Yeni kayıt</string>
+  <string name="home_manual_screen_title_edit">Kaydı düzenle</string>
   <string name="home_manual_form_title_label">Başlık</string>
   <string name="home_manual_form_title_placeholder">Başlık, hesap veya etiket</string>
-  <string name="home_manual_form_secret_label">Gizli Anahtar</string>
-  <string name="home_manual_form_issuer_label">Sağlayıcı</string>
-  <string name="home_manual_form_advanced_options_title">Gelişmiş Seçenekler</string>
-  <string name="home_manual_form_digits_title">Basamak</string>
+  <string name="home_manual_form_secret_label">Gizli anahtar</string>
+  <string name="home_manual_form_issuer_label">Veren kuruluş</string>
+  <string name="home_manual_form_advanced_options_title">Gelişmiş ayarlar</string>
+  <string name="home_manual_form_digits_title">Rakamlar</string>
   <string name="home_manual_form_time_interval_title">Zaman aralığı</string>
   <string name="home_manual_form_time_algorithm_title">Algoritma</string>
-  <string name="home_manual_form_time_type_title">Tür</string>
-  <string name="home_manual_snackbar_message_create_error">Giriş oluşturulurken bir hata oluştu</string>
-  <string name="home_manual_snackbar_message_update_error">Giriş güncellenirken bir hata oluştu</string>
+  <string name="home_manual_form_time_type_title">Yazın</string>
+  <string name="home_manual_snackbar_message_create_error">Kayıt oluşturulurken bir sorun çıktı</string>
+  <string name="home_manual_snackbar_message_update_error">Kayıt güncellenirken bir sorun çıktı</string>
 </resources>

@@ -61,6 +61,7 @@ internal class RoomEntriesPersistenceDataSource @Inject constructor(
 private fun Entry.toEntity() = EntryEntity(
     id = id,
     content = content,
+    createdAt = createdAt,
     modifiedAt = modifiedAt,
     isDeleted = isDeleted,
     isSynced = isSynced,
@@ -70,6 +71,7 @@ private fun Entry.toEntity() = EntryEntity(
 private fun EntryEntity.toDomain() = Entry(
     id = id,
     content = content,
+    createdAt = createdAt ?: modifiedAt,
     modifiedAt = modifiedAt,
     isDeleted = isDeleted,
     isSynced = isSynced,

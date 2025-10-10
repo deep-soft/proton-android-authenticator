@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="backup_error_dialog_title">Backup non riuscito</string>
-  <string name="backup_error_dialog_message_error_folder">La cartella di backup specificata non è stata trovata.</string>
-  <string name="backup_error_dialog_message_error_unknown">Impossibile salvare il backup nella cartella specificata.</string>
-  <string name="backup_error_dialog_message_error_suggestion">Per favore, abilita il backup, seleziona la cartella desiderata e riprova.</string>
+  <string name="backup_error_dialog_title">Backup non riuscito</string>
+  <string name="backup_error_dialog_message_error_folder">Cartella del backup non trovata</string>
+  <string name="backup_error_dialog_message_error_unknown">Salvataggio del backup non riuscito</string>
+  <string name="backup_error_dialog_message_error_suggestion">Abilita nuovamente il backup automatico e seleziona una cartella</string>
 </resources>

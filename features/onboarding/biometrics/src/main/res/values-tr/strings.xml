@@ -19,5 +19,5 @@
 <resources>
   <string name="onboarding_biometrics_title">Verilerinizi koruyun</string>
   <string name="onboarding_biometrics_subtitle">Biyometrik kilit açma ile ek bir güvenlik katmanı ekleyin.</string>
-  <string name="onboarding_biometrics_action_enable_biometrics">Biyometrik kilit açmayı etkinleştirin</string>
+  <string name="onboarding_biometrics_action_enable_biometrics">Biyometrik kilit açma kullanılsın</string>
 </resources>

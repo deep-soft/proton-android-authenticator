@@ -31,9 +31,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import proton.android.authenticator.business.anonymous.data.domain.AnonymousData
 import proton.android.authenticator.business.settings.domain.SettingsAppLockType
 import proton.android.authenticator.business.settings.domain.SettingsDigitType
 import proton.android.authenticator.business.settings.domain.SettingsSearchBarType
+import proton.android.authenticator.business.settings.domain.SettingsSortingType
 import proton.android.authenticator.business.settings.domain.SettingsThemeType
 import proton.android.authenticator.features.settings.master.R
 import proton.android.authenticator.features.settings.master.presentation.SettingsMasterSettingsModel
@@ -46,7 +48,6 @@ import proton.android.authenticator.shared.ui.domain.modifiers.applyIf
 import proton.android.authenticator.shared.ui.domain.theme.ThemePadding
 import proton.android.authenticator.shared.ui.domain.theme.ThemeSpacing
 
-
 @[Composable OptIn(ExperimentalFoundationApi::class)]
 internal fun SettingsContent(
     state: SettingsMasterState.Ready,
@@ -58,12 +59,15 @@ internal fun SettingsContent(
     onThemeTypeChange: (SettingsMasterSettingsModel, SettingsThemeType) -> Unit,
     onSearchBarTypeChange: (SettingsMasterSettingsModel, SettingsSearchBarType) -> Unit,
     onDigitTypeChange: (SettingsMasterSettingsModel, SettingsDigitType) -> Unit,
+    onSortingTypeChange: (SettingsMasterSettingsModel, SettingsSortingType) -> Unit,
     onCodeChangeAnimationChange: (SettingsMasterSettingsModel, Boolean) -> Unit,
     onImportClick: () -> Unit,
     onExportClick: () -> Unit,
     onHowToClick: (String) -> Unit,
     onFeedbackClick: (String) -> Unit,
     onViewLogsClick: () -> Unit,
+    onShareTelemetryChange: (AnonymousData, Boolean) -> Unit,
+    onShareCrashReportChange: (AnonymousData, Boolean) -> Unit,
     onDiscoverAppClick: (String, String) -> Unit,
     onVersionNameClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -162,6 +166,15 @@ internal fun SettingsContent(
                     )
                 },
                 {
+                    SelectorRow(
+                        titleText = UiText.Resource(id = R.string.settings_appearance_title_sorting),
+                        options = settingsModel.sortingOptions,
+                        onSelectedOptionChange = { sortingType ->
+                            onSortingTypeChange(settingsModel, sortingType)
+                        }
+                    )
+                },
+                {
                     ToggleRow(
                         titleText = UiText.Resource(id = R.string.settings_appearance_title_animate_code_change),
                         isChecked = settingsModel.isCodeChangeAnimationEnabled,
@@ -216,15 +229,51 @@ internal fun SettingsContent(
 
         SettingsSection(
             title = stringResource(id = R.string.settings_application_section),
-            contents = listOf(
-                {
-                    NavigationRow(
-                        titleText = UiText.Resource(id = R.string.settings_application_title_view_logs),
-                        showNavigationIcon = true,
-                        onClick = onViewLogsClick
-                    )
+            contents = buildList {
+                add(
+                    {
+                        NavigationRow(
+                            titleText = UiText.Resource(id = R.string.settings_application_title_view_logs),
+                            showNavigationIcon = true,
+                            onClick = onViewLogsClick
+                        )
+                    }
+                )
+
+                anonymousData?.let { shareAnonymousData ->
+                    shareAnonymousData.isTelemetryEnabled?.let { isTelemetryEnabled ->
+                        add(
+                            {
+                                ToggleRow(
+                                    titleText = UiText.Resource(
+                                        id = R.string.settings_application_title_anonymous_telemetry
+                                    ),
+                                    isChecked = isTelemetryEnabled,
+                                    onCheckedChange = { newIsTelemetryEnabled ->
+                                        onShareTelemetryChange(shareAnonymousData, newIsTelemetryEnabled)
+                                    }
+                                )
+                            }
+                        )
+                    }
+
+                    shareAnonymousData.isCrashReportEnabled?.let { isCrashReportEnabled ->
+                        add(
+                            {
+                                ToggleRow(
+                                    titleText = UiText.Resource(
+                                        id = R.string.settings_application_title_anonymous_crashes
+                                    ),
+                                    isChecked = isCrashReportEnabled,
+                                    onCheckedChange = { newIsCrashReportEnabled ->
+                                        onShareCrashReportChange(shareAnonymousData, newIsCrashReportEnabled)
+                                    }
+                                )
+                            }
+                        )
+                    }
                 }
-            )
+            }
         )
 
         if (discoverModel.shouldShowDiscoverSection) {

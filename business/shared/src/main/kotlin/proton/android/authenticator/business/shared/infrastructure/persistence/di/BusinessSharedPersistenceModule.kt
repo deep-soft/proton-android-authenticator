@@ -134,6 +134,7 @@ internal abstract class BusinessSharedPersistenceModule {
                 klass = AuthenticatorDatabase::class.java,
                 name = AuthenticatorDatabase.NAME
             )
+                .addMigrations(*AuthenticatorDatabase.ManualMigrations)
                 .fallbackToDestructiveMigration()
                 .build()
 

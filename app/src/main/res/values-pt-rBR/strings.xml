@@ -19,6 +19,6 @@
 <resources>
   <string name="notification_automatic_backups_title">Backups automáticos interrompidos</string>
   <string name="notification_automatic_backups_message">A pasta de backup especificada não pôde ser encontrada. Verifique suas configurações para reiniciar os backups automáticos.</string>
-  <string name="notification_automatic_backups_success_title">Backup completed successfully</string>
-  <string name="notification_automatic_backups_success_message">Backup saved successfully to %s</string>
+  <string name="notification_automatic_backups_success_title">Backup completado com sucesso</string>
+  <string name="notification_automatic_backups_success_message">Backup salvo com sucesso em %s</string>
 </resources>

@@ -17,5 +17,5 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="logs_screen_title">Логи приложения</string>
+  <string name="logs_screen_title">Журналы приложения</string>
 </resources>

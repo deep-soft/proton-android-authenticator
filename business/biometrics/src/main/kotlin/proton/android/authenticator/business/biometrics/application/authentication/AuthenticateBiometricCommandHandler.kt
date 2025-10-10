@@ -36,6 +36,7 @@ internal class AuthenticateBiometricCommandHandler @Inject constructor(
             authenticator.authenticate(
                 title = command.title,
                 subtitle = command.subtitle,
+                cancelButton = command.cancelButton,
                 context = command.context
             )
                 .first()

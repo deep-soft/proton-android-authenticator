@@ -18,10 +18,12 @@
 
 package proton.android.authenticator.features.settings.master.presentation
 
+import proton.android.authenticator.business.anonymous.data.domain.AnonymousData
 import proton.android.authenticator.shared.common.domain.builds.BuildFlavor
 
 internal data class SettingsMasterConfigModel(
     internal val appVersionName: String,
     internal val buildFlavor: BuildFlavor,
-    internal val canExportEntries: Boolean
+    internal val canExportEntries: Boolean,
+    internal val anonymousData: AnonymousData?
 )

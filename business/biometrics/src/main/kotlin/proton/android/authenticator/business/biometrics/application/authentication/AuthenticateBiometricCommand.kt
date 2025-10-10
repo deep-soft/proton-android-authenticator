@@ -24,5 +24,6 @@ import proton.android.authenticator.shared.common.domain.infrastructure.commands
 data class AuthenticateBiometricCommand(
     internal val context: Context,
     internal val title: String,
-    internal val subtitle: String
+    internal val subtitle: String,
+    internal val cancelButton: String
 ) : Command

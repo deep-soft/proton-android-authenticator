@@ -19,6 +19,7 @@
 package proton.android.authenticator.business.biometrics.application.authentication
 
 import android.content.Context
+import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -39,14 +40,17 @@ internal class BiometricAuthenticator @Inject constructor(
     internal suspend fun authenticate(
         title: String,
         subtitle: String,
+        cancelButton: String,
         context: Context
-    ): Flow<Answer<Unit, AuthenticateBiometricReason>> = getAllowedAuthenticators()
-        .let { allowedAuthenticators ->
-            createBiometricPromptInfo(title, subtitle, allowedAuthenticators)
-        }
-        .let { biometricPromptInfo ->
-            startAuthentication(context, biometricPromptInfo)
-        }
+    ): Flow<Answer<Unit, AuthenticateBiometricReason>> = startAuthentication(
+        context = context,
+        info = createBiometricPromptInfo(
+            title = title,
+            subtitle = subtitle,
+            cancelButton = cancelButton,
+            allowedAuthenticators = getAllowedAuthenticators()
+        )
+    )
 
     private suspend fun getAllowedAuthenticators(): Int = repository.find()
         .first()
@@ -62,12 +66,20 @@ internal class BiometricAuthenticator @Inject constructor(
     private fun createBiometricPromptInfo(
         title: String,
         subtitle: String,
+        cancelButton: String,
         allowedAuthenticators: Int
-    ) = BiometricPrompt.PromptInfo.Builder()
-        .setTitle(title)
-        .setSubtitle(subtitle)
-        .setAllowedAuthenticators(allowedAuthenticators)
-        .build()
+    ): BiometricPrompt.PromptInfo {
+        val prompt = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(title)
+            .setSubtitle(subtitle)
+            .setAllowedAuthenticators(allowedAuthenticators)
+
+        val isDeviceCredentialAllowed = allowedAuthenticators and DEVICE_CREDENTIAL != 0
+        if (!isDeviceCredentialAllowed) {
+            prompt.setNegativeButtonText(cancelButton)
+        }
+        return prompt.build()
+    }
 
     private fun startAuthentication(context: Context, info: BiometricPrompt.PromptInfo) =
         callbackFlow<Answer<Unit, AuthenticateBiometricReason>> {

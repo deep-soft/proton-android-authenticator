@@ -17,6 +17,6 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="exports_error_dialog_title">Dışa aktarma başarısız oldu</string>
-  <string name="exports_error_dialog_message_error">Dışa aktarma sırasında bir hata oluştu.</string>
+  <string name="exports_error_dialog_title">Dışa aktarılamadı</string>
+  <string name="exports_error_dialog_message_error">Dışa aktarma sırasında bir sorun çıktı.</string>
 </resources>

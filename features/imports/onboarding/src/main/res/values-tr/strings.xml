@@ -17,44 +17,44 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_onboarding_title_supported">%1$s konumundan kodları içe aktarın</string>
-  <string name="imports_onboarding_title_unsupported">Dışa aktarma yok</string>
+  <string name="imports_onboarding_title_supported">%1$s üzerinden kodları içe aktar</string>
+  <string name="imports_onboarding_title_unsupported">Herhangi bir dışa aktarma yok</string>
   <string-array name="imports_onboarding_google_steps_v2">
     <item>Lütfen \"Ayarlar &gt; Hesapları aktar &gt; Hesapları dışa aktar\" bölümüne gidin</item>
-    <item>Bu işlem, burada kullanabileceğiniz bir veya daha fazla QR kodu oluşturacaktır.</item>
+    <item>Böyleceburada kullanabileceğiniz bir veya birkaç kare kod oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_2fas_steps_v2">
-    <item>Lütfen \"Ayarlar &gt; 2FAS Yedekleme &gt; Dışa aktar\" bölümüne gidin</item>
-    <item>Bu işlem, burada kullanabileceğiniz bir 2fas dosyası oluşturacaktır.</item>
+    <item>Lütfen \"Ayarlar &gt; 2FAS yedekleme &gt; Dışa aktar\" bölümüne gidin</item>
+    <item>Böylece burada kullanabileceğiniz bir 2fas dosyası oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_aegis_steps_v2">
-    <item>Lütfen \"Ayarlar &gt; İçe ve Dışa Aktar &gt; Dışa aktar\" bölümüne gidin</item>
-    <item>Bu işlem, burada kullanabileceğiniz bir Json dosyası oluşturacaktır.</item>
+    <item>Lütfen \"Ayarlar &gt; İçe ve dışa aktar &gt; Dışa aktar\" bölümüne gidin</item>
+    <item>Böylece burada kullanabileceğiniz bir JSON dosyası oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_bitwarden_steps_v2">
     <item>Lütfen \"Ayarlar &gt; Dışa aktar\" bölümüne gidin</item>
-    <item>Bu işlem, burada kullanabileceğiniz bir Json dosyası oluşturacaktır.</item>
+    <item>Böylece burada kullanabileceğiniz bir JSON dosyası oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_ente_steps_v2">
     <item>Lütfen \"Ayarlar &gt; Veri &gt; Kodları dışa aktar\" bölümüne gidin</item>
-    <item>\"Düz metin\" seçeneğini belirleyin, bu işlem burada kullanabileceğiniz bir txt dosyası oluşturacaktır.</item>
+    <item>\"Düz metin\" seçeneğini seçin. Böylece burada kullanabileceğiniz bir txt dosyası oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_lastpass_steps_v2">
     <item>Lütfen \"Ayarlar &gt; Hesapları aktar &gt; Hesapları dosyaya aktar\" bölümüne gidin</item>
-    <item>Bu işlem, burada kullanabileceğiniz bir Json dosyası oluşturacaktır.</item>
+    <item>Böylece burada kullanabileceğiniz bir JSON dosyası oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_proton_authenticator_steps_v2">
     <item>Lütfen \"Ayarlar &gt; Dışa aktar\" bölümüne gidin</item>
-    <item>Bu işlem, burada kullanabileceğiniz bir Json dosyası oluşturacaktır.</item>
+    <item>Böylece burada kullanabileceğiniz bir JSON dosyası oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_proton_pass_steps">
-    <item>Proton Pass uzantısında, web veya masaüstü uygulamasında \"Ayarlar &gt; Dışa aktar\" bölümüne gidin</item>
-    <item>\"Dosya ekleri olmayan zip biçimi\" seçeneğini belirlediğinizden emin olun.</item>
-    <item>Bu işlem, burada kullanabileceğiniz bir zip dosyası oluşturacaktır.</item>
+    <item>Proton Pass eklentisinde, internet veya bilgisayar uygulamasında \"Ayarlar &gt; Dışa aktar\" bölümüne gidin</item>
+    <item>\"Dosya ekleri olmayan zip biçimi\" seçeneğini seçtiğinizden emin olun.</item>
+    <item>Böylece burada kullanabileceğiniz bir zip dosyası oluşturabilirsiniz.</item>
   </string-array>
   <string-array name="imports_onboarding_unsupported_steps">
-    <item>Maalesef, %1$s şu anda uygulamasından veri dışa aktarmayı desteklememektedir. Bu özelliği talep etmek için lütfen %1$s ile iletişime geçmeyi düşünebilirsiniz.</item>
-    <item>Lütfen şimdilik verilerinizi manuel olarak içe aktarın.</item>
+    <item>Ne yazık ki, %1$s şu anda uygulamalarından verileri dışa aktarmayı desteklemiyor. Bu özelliği istemek için lütfen %1$s ile görüşmeyi düşünebilirsiniz.</item>
+    <item>Lütfen şimdilik verilerinizi el ile içe aktarın.</item>
   </string-array>
-  <string name="imports_onboarding_help_link">Daha fazla yardıma mı ihtiyacınız var?</string>
+  <string name="imports_onboarding_help_link">Daha fazla yardım mı gerekli?</string>
 </resources>

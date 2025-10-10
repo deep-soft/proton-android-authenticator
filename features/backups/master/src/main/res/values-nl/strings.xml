@@ -19,10 +19,10 @@
 <resources>
   <string name="backups_screen_title">Back-ups</string>
   <string name="backups_automatic_backups_title">Automatische back-ups</string>
-  <string name="backups_notifications_permission_dialog_title">Backup notifications</string>
-  <string name="backups_notifications_permission_dialog_explanation">The app needs notification permission to let you know when your data is backed up.</string>
-  <string name="backups_notifications_permission_dialog_allow">Allow</string>
-  <string name="backups_notifications_permission_dialog_deny">Skip (not recommended)</string>
+  <string name="backups_notifications_permission_dialog_title">Back-up notificaties</string>
+  <string name="backups_notifications_permission_dialog_explanation">De app heeft notificatie toelating nodig om u te informeren wanneer er een back-up van uw gegevens wordt gemaakt</string>
+  <string name="backups_notifications_permission_dialog_allow">Toestaan</string>
+  <string name="backups_notifications_permission_dialog_deny">Sla over (niet aanbevolen)</string>
   <string name="backups_automatic_backups_location_title">Maplocatie</string>
   <string name="backups_frequency_title">Frequentie</string>
   <string name="backups_frequency_option_daily">Dagelijks</string>

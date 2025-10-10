@@ -77,6 +77,7 @@ internal class OnboardingBiometricsViewModel @Inject constructor(
             authenticateBiometricUseCase(
                 title = context.getString(R.string.onboarding_biometrics_title),
                 subtitle = context.getString(R.string.onboarding_biometrics_subtitle),
+                cancelButton = context.getString(proton.android.authenticator.shared.ui.R.string.action_cancel),
                 context = context
             ).also { answer ->
                 when (answer) {

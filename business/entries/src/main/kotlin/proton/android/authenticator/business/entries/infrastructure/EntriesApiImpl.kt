@@ -189,6 +189,7 @@ internal class EntriesApiImpl @Inject constructor(
                         EntryRemote(
                             id = indexedEntryDto.value.entryId,
                             revision = indexedEntryDto.value.revision,
+                            createdAt = indexedEntryDto.value.createTime,
                             modifiedAt = indexedEntryDto.value.modifyTime,
                             position = indexedEntryDto.index,
                             model = entryModel

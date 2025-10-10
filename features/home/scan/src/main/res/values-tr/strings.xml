@@ -17,5 +17,5 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_scan_enter_manually">Elle girin</string>
+  <string name="home_scan_enter_manually">El ile yazın</string>
 </resources>

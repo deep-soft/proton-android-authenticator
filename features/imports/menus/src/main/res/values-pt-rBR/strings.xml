@@ -17,7 +17,7 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_menu_title">Import</string>
-  <string name="imports_menu_option_scan_code">Scan a QR code</string>
-  <string name="imports_menu_option_select_from_gallery">Choose one or more Photos</string>
+  <string name="imports_menu_title">Importar</string>
+  <string name="imports_menu_option_scan_code">Ler um código QR</string>
+  <string name="imports_menu_option_select_from_gallery">Escolha uma ou mais fotos</string>
 </resources>

@@ -17,7 +17,7 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="backups_password_dialog_title">Protect with password?</string>
-  <string name="backups_password_dialog_message">Set a password to protect your backup files.</string>
-  <string name="backups_password_dialog_action_cancel">No (not recommended)</string>
+  <string name="backups_password_dialog_title">Protéger avec un mot de passe ?</string>
+  <string name="backups_password_dialog_message">Définir un mot de passe pour protéger les fichiers de sauvegarde.</string>
+  <string name="backups_password_dialog_action_cancel">Non (non recommandé)</string>
 </resources>

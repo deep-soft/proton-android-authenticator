@@ -34,7 +34,6 @@ import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.launchIn
@@ -75,7 +74,6 @@ internal class SyncWorkInitializer : Initializer<Unit> {
     @OptIn(FlowPreview::class)
     private fun observeEntryModels(observer: ObserveEntryModelsUseCase) = observer()
         .distinctUntilChanged()
-        .debounce(timeoutMillis = SYNC_WORK_DEBOUNCE_MILLIS)
 
     private fun List<EntryModel>.needsSync() = isEmpty() || any { !it.isSynced || it.isDeleted }
 
@@ -122,8 +120,6 @@ internal class SyncWorkInitializer : Initializer<Unit> {
         private const val SYNC_WORK_NAME = "sync_work"
 
         private const val SYNC_WORK_BACKOFF_DELAY_SECONDS = 1L
-
-        private const val SYNC_WORK_DEBOUNCE_MILLIS = 5_000L
 
     }
 

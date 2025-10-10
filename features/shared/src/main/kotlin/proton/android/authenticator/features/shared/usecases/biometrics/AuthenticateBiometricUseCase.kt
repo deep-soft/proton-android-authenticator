@@ -30,10 +30,12 @@ class AuthenticateBiometricUseCase @Inject constructor(private val commandBus: C
     suspend operator fun invoke(
         title: String,
         subtitle: String,
+        cancelButton: String,
         context: Context
     ): Answer<Unit, AuthenticateBiometricReason> = AuthenticateBiometricCommand(
         title = title,
         subtitle = subtitle,
+        cancelButton = cancelButton,
         context = context
     ).let { command -> commandBus.dispatch(command) }
 

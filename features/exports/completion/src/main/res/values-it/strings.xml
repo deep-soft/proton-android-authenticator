@@ -17,6 +17,6 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="exports_completion_dialog_title">Codici esportati</string>
-  <string name="exports_completion_dialog_message" comment="Placeholder will be replaced with the number of exported items. (e.g. Successfully exported 2 items.)">Esportati correttamente: %1$s.</string>
+  <string name="exports_completion_dialog_title">Chiavi esportate</string>
+  <string name="exports_completion_dialog_message" comment="Placeholder will be replaced with the number of exported items. (e.g. Successfully exported 2 items.)">%1$s esportati</string>
 </resources>

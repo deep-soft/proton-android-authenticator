@@ -49,13 +49,14 @@ import sh.calvin.reorderable.rememberReorderableLazyListState
 fun DraggableVerticalList(
     draggableItems: List<UiDraggableItem>,
     listState: LazyListState,
+    onSorted: (Map<String, Int>) -> Unit,
+    needsBottomExtraSpace: Boolean,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(all = ThemePadding.None),
     reverseLayout: Boolean = false,
     verticalArrangement: Arrangement.Vertical = if (!reverseLayout) Arrangement.Top else Arrangement.Bottom,
-    highlightColor: Color = Theme.colorScheme.inputBorderFocused,
-    onSorted: (Map<String, Int>) -> Unit,
-    needsBottomExtraSpace: Boolean
+    isDragEnabled: Boolean = true,
+    highlightColor: Color = Theme.colorScheme.inputBorderFocused
 ) {
     val bottomSpace = remember(key1 = needsBottomExtraSpace) {
         if (needsBottomExtraSpace) ThemeSpacing.ExtraLarge.plus(ThemeSpacing.Medium)
@@ -101,6 +102,7 @@ fun DraggableVerticalList(
                             }
                         )
                         .longPressDraggableHandle(
+                            enabled = isDragEnabled,
                             onDragStarted = {
                                 selectedItemId = item.id
                             },

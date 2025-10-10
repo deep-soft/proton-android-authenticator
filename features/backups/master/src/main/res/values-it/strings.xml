@@ -18,22 +18,22 @@
   -->
 <resources>
   <string name="backups_screen_title">Backup</string>
-  <string name="backups_automatic_backups_title">Backup automatici</string>
-  <string name="backups_notifications_permission_dialog_title">Backup notifications</string>
-  <string name="backups_notifications_permission_dialog_explanation">The app needs notification permission to let you know when your data is backed up.</string>
-  <string name="backups_notifications_permission_dialog_allow">Allow</string>
-  <string name="backups_notifications_permission_dialog_deny">Skip (not recommended)</string>
-  <string name="backups_automatic_backups_location_title">Posizione della cartella</string>
+  <string name="backups_automatic_backups_title">Backup automatico</string>
+  <string name="backups_notifications_permission_dialog_title">Notifica di backup</string>
+  <string name="backups_notifications_permission_dialog_explanation">Consenti a Proton Authenticator l\'accesso alle notifiche per ricevere un avviso quando viene effettuato il backup</string>
+  <string name="backups_notifications_permission_dialog_allow">Consenti</string>
+  <string name="backups_notifications_permission_dialog_deny">Ignora (non consigliato)</string>
+  <string name="backups_automatic_backups_location_title">Cartella del backup</string>
   <string name="backups_frequency_title">Frequenza</string>
-  <string name="backups_frequency_option_daily">Giornaliera</string>
+  <string name="backups_frequency_option_daily">Giornaliero</string>
   <string name="backups_frequency_option_weekly">Settimanale</string>
   <string name="backups_frequency_option_monthly">Mensile</string>
-  <string name="backups_backup_now_button">Esegui backup ora</string>
+  <string name="backups_backup_now_button">Effettua il backup</string>
   <string name="backups_last_backup_description" comment="Placeholder will be replaced with the date of the last backup (e.g. Last backup: Today, 11:42)">Ultimo backup: %1$s</string>
   <plurals name="backups_backup_count_description">
-    <item quantity="one">Viene conservato solo l\'ultimo backup.</item>
-    <item quantity="other">Vengono conservati solo gli ultimi %1$d backup.</item>
+    <item quantity="one">Viene conservato solamente l\'ultimo backup</item>
+    <item quantity="other">Vengono conservati solamente gli ultimi %1$d backup</item>
   </plurals>
-  <string name="backups_snackbar_message_backup_success">Backup creato correttamente</string>
-  <string name="backups_snackbar_message_update_error">Si è verificato un errore durante l\'aggiornamento della configurazione del backup</string>
+  <string name="backups_snackbar_message_backup_success">Backup effettuato</string>
+  <string name="backups_snackbar_message_update_error">Modifica delle impostazioni non riuscita</string>
 </resources>

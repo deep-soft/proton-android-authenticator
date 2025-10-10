@@ -28,6 +28,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.text.style.TextOverflow
 import proton.android.authenticator.features.home.master.R
 import proton.android.authenticator.features.home.master.presentation.HomeMasterEntryModel
@@ -122,15 +123,15 @@ internal fun HomeEntryCard(
         )
 
         Row(
-            modifier = Modifier.padding(
+            modifier = Modifier.fillMaxWidth().padding(
                 start = ThemePadding.Medium,
                 end = ThemePadding.Medium,
                 bottom = ThemePadding.Medium
             ),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             TotpCode(
-                modifier = Modifier.weight(weight = 1f, fill = true),
                 codeText = UiText.Dynamic(
                     value = entryModel.currentCode,
                     masks = entryCodeMasks
@@ -163,9 +164,14 @@ internal fun HomeEntryCard(
                     ).asString(),
                     color = Theme.colorScheme.textNorm,
                     style = if (showTextShadows) {
-                        Theme.typography.monoMedium2.copy(shadow = ThemeShadow.TextDefault)
+                        Theme.typography.monoMedium2.copy(
+                            shadow = ThemeShadow.TextDefault,
+                            textDirection = TextDirection.ContentOrLtr
+                        )
                     } else {
-                        Theme.typography.monoMedium2
+                        Theme.typography.monoMedium2.copy(
+                            textDirection = TextDirection.ContentOrLtr
+                        )
                     }
                 )
             }

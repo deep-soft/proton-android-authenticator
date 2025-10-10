@@ -22,6 +22,7 @@ import proton.android.authenticator.business.settings.domain.Settings
 import proton.android.authenticator.business.settings.domain.SettingsAppLockType
 import proton.android.authenticator.business.settings.domain.SettingsDigitType
 import proton.android.authenticator.business.settings.domain.SettingsSearchBarType
+import proton.android.authenticator.business.settings.domain.SettingsSortingType
 import proton.android.authenticator.business.settings.domain.SettingsThemeType
 
 internal data class SettingsMasterSettingsModel(
@@ -31,6 +32,7 @@ internal data class SettingsMasterSettingsModel(
     internal val themeType: SettingsThemeType,
     internal val searchBarType: SettingsSearchBarType,
     internal val digitType: SettingsDigitType,
+    internal val sortingType: SettingsSortingType,
     internal val isCodeChangeAnimationEnabled: Boolean,
     internal val isPassBannerDismissed: Boolean,
     internal val isFirstRun: Boolean,
@@ -58,6 +60,14 @@ internal data class SettingsMasterSettingsModel(
         SettingsMasterDigitOption.Boxes(selectedType = digitType)
     )
 
+    internal val sortingOptions: List<SettingsMasterSortingOption> = listOf(
+        SettingsMasterSortingOption.Manual(selectedType = sortingType),
+        SettingsMasterSortingOption.IssuerAsc(selectedType = sortingType),
+        SettingsMasterSortingOption.IssuerDesc(selectedType = sortingType),
+        SettingsMasterSortingOption.CreatedDesc(selectedType = sortingType),
+        SettingsMasterSortingOption.CreatedAsc(selectedType = sortingType)
+    )
+
     internal fun asSettings(): Settings = Settings(
         isSyncEnabled = isSyncEnabled,
         appLockType = appLockType,
@@ -65,6 +75,7 @@ internal data class SettingsMasterSettingsModel(
         themeType = themeType,
         searchBarType = searchBarType,
         digitType = digitType,
+        sortingType = sortingType,
         isCodeChangeAnimationEnabled = isCodeChangeAnimationEnabled,
         isPassBannerDismissed = isPassBannerDismissed,
         isFirstRun = isFirstRun,

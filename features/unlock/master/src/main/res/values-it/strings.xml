@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="unlock_screen_title" comment="The placeholder will be replaced by app name. (e.g. Unlock Proton Authenticator)">Unlock %1$s</string>
-  <string name="unlock_screen_description">Verify your identity with your registered biometrics to continue.</string>
-  <string name="unlock_screen_promtp_title">App locked</string>
-  <string name="unlock_screen_promtp_subtitle">Unlock using your device lock</string>
+  <string name="unlock_screen_title" comment="The placeholder will be replaced by app name. (e.g. Unlock Proton Authenticator)">Sblocca %1$s</string>
+  <string name="unlock_screen_description">Sblocca l\'app con la biometria</string>
+  <string name="unlock_screen_promtp_title">App bloccata</string>
+  <string name="unlock_screen_promtp_subtitle">Sblocca con il blocco del dispositivo</string>
 </resources>

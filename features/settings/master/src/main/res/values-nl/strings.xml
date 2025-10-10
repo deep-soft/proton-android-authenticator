@@ -42,6 +42,12 @@
   <string name="settings_appearance_title_digit_style">Cijferstijl</string>
   <string name="settings_appearance_title_digit_style_option_plain">Eenvoudig</string>
   <string name="settings_appearance_title_digit_style_option_boxes">Vakken</string>
+  <string name="settings_appearance_title_sorting">Sorteren</string>
+  <string name="settings_appearance_title_sorting_option_created_asc">Oudste</string>
+  <string name="settings_appearance_title_sorting_option_created_desc">Nieuwste</string>
+  <string name="settings_appearance_title_sorting_option_issuer_asc">Uitgever (A - Z)</string>
+  <string name="settings_appearance_title_sorting_option_issuer_desc">Uitgever (Z - A)</string>
+  <string name="settings_appearance_title_sorting_option_manual">Handmatig</string>
   <string name="settings_appearance_title_animate_code_change">Codewijziging animeren</string>
   <string name="settings_data_management_section">Uw gegevens beheren</string>
   <string name="settings_data_management_title_import">Importeren</string>
@@ -51,6 +57,8 @@
   <string name="settings_support_title_feedback">Feedback</string>
   <string name="settings_application_section">Applicatie</string>
   <string name="settings_application_title_view_logs">Logboeken weergeven</string>
+  <string name="settings_application_title_anonymous_telemetry">Deel anoniem gebruik</string>
+  <string name="settings_application_title_anonymous_crashes">Deel uw crashrapporten op anonieme wijze</string>
   <string name="settings_discover_section">Ontdek Proton</string>
   <string name="settings_discover_pass_description">Bewaar sterke, unieke wachtwoorden om identiteitsdiefstal en datalekken te voorkomen.</string>
   <string name="settings_discover_vpn_description">Browse zonder gevolgd te worden en krijg toegang tot geblokkeerde inhoud.</string>
@@ -58,6 +66,7 @@
   <string name="settings_discover_calendar_description">Organiseer uw planning en houd uw plannen voor uzelf.</string>
   <string name="settings_discover_drive_description">Geef uw kostbare foto\'s en bestanden de veilige plek die ze verdienen.</string>
   <string name="settings_app_version" comment="The placeholder will be replaced with the app version number. (e.g. Version 1.0.0)">Versie %1$s</string>
+  <string name="settings_snackbar_message_anonymous_data_sharing_error">Fout bij het bijwerken van anonieme data deling</string>
   <string name="settings_snackbar_message_biometric_error">Er is een fout opgetreden bij het authenticeren van biometrie</string>
   <string name="settings_snackbar_message_update_error">Er is een fout opgetreden bij het bijwerken van de instellingen</string>
 </resources>

@@ -57,6 +57,7 @@ includeCoreBuild {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
+include(":business:anonymous_data")
 include(":business:app_lock")
 include(":business:backups")
 include(":business:biometrics")

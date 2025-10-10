@@ -17,7 +17,7 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="onboarding_master_title">Sicurezza in ogni codice</string>
-  <string name="onboarding_master_subtitle">Usa l\'autenticazione a due fattori per proteggere i tuoi account.</string>
+  <string name="onboarding_master_title">Sicurezza in ogni codice</string>
+  <string name="onboarding_master_subtitle">Abilita l\'autenticazione a due fattori per proteggere gli account</string>
   <string name="onboarding_master_action">Inizia</string>
 </resources>

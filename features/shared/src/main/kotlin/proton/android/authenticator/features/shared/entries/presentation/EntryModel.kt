@@ -34,6 +34,7 @@ data class EntryModel(
     val digits: Int,
     val iconUrl: String?,
     val position: Int,
+    val createdAt: Long,
     val modifiedAt: Long,
     val isDeleted: Boolean,
     val isSynced: Boolean

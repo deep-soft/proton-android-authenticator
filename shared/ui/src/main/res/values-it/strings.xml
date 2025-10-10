@@ -22,23 +22,23 @@
   <string name="action_delete">Elimina</string>
   <string name="action_edit">Modifica</string>
   <string name="action_enable">Abilita</string>
-  <string name="action_free">Gratis</string>
+  <string name="action_free">Gratuito</string>
   <string name="action_get">Ottieni</string>
   <string name="action_import">Importa</string>
   <string name="action_login">Accedi</string>
   <string name="action_next">Successivo</string>
   <string name="action_ok">Ok</string>
-  <string name="action_required">Richiesto</string>
+  <string name="action_required">Necessario</string>
   <string name="action_save">Salva</string>
   <string name="action_search">Cerca</string>
   <string name="action_share">Condividi</string>
   <string name="action_skip">Ignora</string>
   <string name="action_unlock">Sblocca</string>
-  <string name="action_yes">Yes</string>
-  <string name="camera_scan_qr_code_hint">Point your camera at the QR code.</string>
+  <string name="action_yes">Conferma</string>
+  <string name="camera_scan_qr_code_hint">Posiziona il codice QR all\'interno del quadrato</string>
   <string name="date_format_today">Oggi, %1$s</string>
   <string name="date_format_yesterday">Ieri, %1$s</string>
-  <string name="date_format_full_compact_month" comment="This format outputs the date in the format: 09 Jun 10:30. Do not add any extra characters, just change the order if needed of grouped characters to match local date format order">gg LLL HH:mm</string>
+  <string name="date_format_full_compact_month" comment="This format outputs the date in the format: 09 Jun 10:30. Do not add any extra characters, just change the order if needed of grouped characters to match local date format order">dd LLL HH:mm</string>
   <plurals name="unit_items">
     <item quantity="one">%1$d elemento</item>
     <item quantity="other">%1$d elementi</item>

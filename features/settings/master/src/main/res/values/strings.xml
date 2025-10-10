@@ -45,6 +45,12 @@
     <string name="settings_appearance_title_digit_style">Digit style</string>
     <string name="settings_appearance_title_digit_style_option_plain">Plain</string>
     <string name="settings_appearance_title_digit_style_option_boxes">Boxes</string>
+    <string name="settings_appearance_title_sorting">Sorting</string>
+    <string name="settings_appearance_title_sorting_option_created_asc">Oldest</string>
+    <string name="settings_appearance_title_sorting_option_created_desc">Newest</string>
+    <string name="settings_appearance_title_sorting_option_issuer_asc">Issuer (A - Z)</string>
+    <string name="settings_appearance_title_sorting_option_issuer_desc">Issuer (Z - A)</string>
+    <string name="settings_appearance_title_sorting_option_manual">Manual</string>
     <string name="settings_appearance_title_animate_code_change">Animate code change</string>
 
     <string name="settings_data_management_section">Manage your data</string>
@@ -57,6 +63,8 @@
 
     <string name="settings_application_section">Application</string>
     <string name="settings_application_title_view_logs">View logs</string>
+    <string name="settings_application_title_anonymous_telemetry">Share anonymous usage</string>
+    <string name="settings_application_title_anonymous_crashes">Share anonymous crash reports</string>
 
     <string name="settings_discover_section">Discover Proton</string>
     <string name="settings_discover_pass_title" translatable="false">Proton Pass</string>
@@ -72,6 +80,7 @@
 
     <string name="settings_app_version" comment="The placeholder will be replaced with the app version number. (e.g. Version 1.0.0)">Version %1$s</string>
 
+    <string name="settings_snackbar_message_anonymous_data_sharing_error">There was an error updating anonymous data sharing</string>
     <string name="settings_snackbar_message_biometric_error">There was an error authenticating biometric</string>
     <string name="settings_snackbar_message_update_error">There was an error updating settings</string>
 </resources>

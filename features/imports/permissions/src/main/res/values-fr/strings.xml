@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_permissions_title">Permission required</string>
-  <string name="imports_permissions_description">Enable camera permission to use the QR code scanner. This allows the app to read QR codes and generate your unique code for you.</string>
-  <string name="imports_permissions_action_primary">Open settings</string>
-  <string name="imports_permissions_action_secondary">Import from gallery</string>
+  <string name="imports_permissions_title">Autorisation requise</string>
+  <string name="imports_permissions_description">Activez l\'autorisation d\'accès à l\'appareil photo pour utiliser le scanner de QR codes. Cela permet à l\'application de lire les codes QR et de générer votre code unique.</string>
+  <string name="imports_permissions_action_primary">Ouvrir les paramètres</string>
+  <string name="imports_permissions_action_secondary">Importer depuis la galerie</string>
 </resources>

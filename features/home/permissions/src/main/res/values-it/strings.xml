@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_permissions_title">Autorizzazione richiesta</string>
-  <string name="home_permissions_description">Abilita l\'autorizzazione per la fotocamera per utilizzare lo scanner di codici QR. Questo permette all\'app di leggere i codici QR e generare il tuo codice univoco.</string>
-  <string name="home_permissions_action_primary">Apri impostazioni</string>
-  <string name="home_permissions_action_secondary">Crea manualmente</string>
+  <string name="home_permissions_title">Autorizzazione necessaria</string>
+  <string name="home_permissions_description">Consenti a Proton Authenticator l\'accesso alla fotocamera per scansionare il codice QR</string>
+  <string name="home_permissions_action_primary">Consenti</string>
+  <string name="home_permissions_action_secondary">Inserisci manualmente la chiave</string>
 </resources>

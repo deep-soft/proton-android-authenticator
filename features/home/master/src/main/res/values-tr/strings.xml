@@ -17,16 +17,16 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_empty_title">Henüz kod yok</string>
-  <string name="home_empty_description">Hesaplarınızı ekstra bir güvenlik katmanıyla koruyun.</string>
-  <string name="home_empty_action_primary">Yeni kod oluşturun</string>
-  <string name="home_empty_action_import_codes">Kodları İçe Aktar</string>
-  <string name="home_empty_search_title">Sonuç bulunamadı</string>
+  <string name="home_empty_title">Henüz bir kod yok</string>
+  <string name="home_empty_description">Hesaplarınızı ek bir güvenlik katmanıyla koruyun.</string>
+  <string name="home_empty_action_primary">Yeni kod oluştur</string>
+  <string name="home_empty_action_import_codes">Kodları içe aktar</string>
+  <string name="home_empty_search_title">Herhangi bir sonuç bulunamadı</string>
   <string name="home_empty_search_subtitle">Farklı ifade veya anahtar sözcüklerle aramayı deneyin.</string>
-  <string name="home_entries_no_issuer">Sağlayıcı yok</string>
-  <string name="home_snackbar_message_entry_copied">Giriş kopyalandı</string>
-  <string name="home_snackbar_message_entry_rearrange_failed">Giriş yeniden düzenlenirken bir hata oluştu</string>
-  <string name="home_snackbar_message_entry_sync_disabled">Cihaz eşitlemesi devre dışı</string>
-  <string name="home_snackbar_message_entry_sync_unauthorized">Eşitleme devre dışı bırakıldı. Lütfen Proton hesabınıza yeniden giriş yapın.</string>
-  <string name="home_snackbar_message_entry_sync_failed">Girişler eşitlenirken bir hata oluştu</string>
+  <string name="home_entries_no_issuer">Herhangi bir veren kuruluş yok</string>
+  <string name="home_snackbar_message_entry_copied">Kayıt kopyalandı</string>
+  <string name="home_snackbar_message_entry_rearrange_failed">Kayıt yeniden düzenlenirken bir sorun çıktı</string>
+  <string name="home_snackbar_message_entry_sync_disabled">Aygıt eşitlemesi kapalı</string>
+  <string name="home_snackbar_message_entry_sync_unauthorized">Eşitleme kapalı. Lütfen Proton hesabınızda yeniden oturum açın.</string>
+  <string name="home_snackbar_message_entry_sync_failed">Kayıtlar eşitlenirken bir sorun çıktı</string>
 </resources>

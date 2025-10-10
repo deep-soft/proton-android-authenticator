@@ -19,6 +19,6 @@
 <resources>
   <string name="notification_automatic_backups_title">Copias de seguridad automáticas detenidas</string>
   <string name="notification_automatic_backups_message">No se encontró la carpeta de copia de seguridad especificada. Revise su configuración para reiniciar las copias de seguridad automáticas.</string>
-  <string name="notification_automatic_backups_success_title">Backup completed successfully</string>
-  <string name="notification_automatic_backups_success_message">Backup saved successfully to %s</string>
+  <string name="notification_automatic_backups_success_title">Copia de seguridad completada con éxito</string>
+  <string name="notification_automatic_backups_success_message">Copia de seguridad guardada con éxito en %s</string>
 </resources>

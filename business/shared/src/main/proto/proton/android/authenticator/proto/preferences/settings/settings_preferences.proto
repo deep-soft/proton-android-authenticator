@@ -4,6 +4,7 @@ import "google/protobuf/timestamp.proto";
 import "proton/android/authenticator/proto/preferences/settings/settings_preferences_app_lock_type.proto";
 import "proton/android/authenticator/proto/preferences/settings/settings_preferences_digit_type.proto";
 import "proton/android/authenticator/proto/preferences/settings/settings_preferences_search_bar_type.proto";
+import "proton/android/authenticator/proto/preferences/settings/settings_preferences_sorting_type.proto";
 import "proton/android/authenticator/proto/preferences/settings/settings_preferences_theme_type.proto";
 
 option java_package = "proton.android.authenticator.proto.preferences.settings";
@@ -20,4 +21,5 @@ message SettingsPreferences {
   bool is_pass_banner_dismissed = 8;
   bool is_first_run = 9;
   google.protobuf.Timestamp installation_time = 10;
+  SettingsPreferencesSortingType sorting_type = 11;
 }

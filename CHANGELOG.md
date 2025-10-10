@@ -6,6 +6,30 @@
 
 ### Other
 
+## 1.3.1 (2025-09-22)
+
+### Fixes :bug:
+
+- Fix incorrect codes on sorting.
+
+## 1.3.0 (2025-09-19)
+
+### Features :tada:
+
+- Support FIDO2.
+- New sorting options
+- Support enabling/disabling anonymous data sharing in settings screen
+
+### Fixes :bug:
+
+- Fix RTL support.
+- More bug fixes.
+
+### Other
+
+- Importer and Uri parsing improvements.
+- Translation updates.
+
 ## 1.2.0 (2025-08-20)
 
 ### Features :tada:

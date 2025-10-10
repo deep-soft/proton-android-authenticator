@@ -7,6 +7,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.business.anonymousData)
     implementation(projects.business.appLock)
     implementation(projects.business.biometrics)
     implementation(projects.business.entries)

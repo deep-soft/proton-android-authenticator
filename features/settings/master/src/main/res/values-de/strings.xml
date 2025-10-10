@@ -42,6 +42,12 @@
   <string name="settings_appearance_title_digit_style">Ziffernstil</string>
   <string name="settings_appearance_title_digit_style_option_plain">Einfach</string>
   <string name="settings_appearance_title_digit_style_option_boxes">Kästchen</string>
+  <string name="settings_appearance_title_sorting">Sortieren</string>
+  <string name="settings_appearance_title_sorting_option_created_asc">Älteste</string>
+  <string name="settings_appearance_title_sorting_option_created_desc">Neueste</string>
+  <string name="settings_appearance_title_sorting_option_issuer_asc">Herausgeber (A - Z)</string>
+  <string name="settings_appearance_title_sorting_option_issuer_desc">Herausgeber (Z - A)</string>
+  <string name="settings_appearance_title_sorting_option_manual">Manuell</string>
   <string name="settings_appearance_title_animate_code_change">Codeänderung animieren</string>
   <string name="settings_data_management_section">Deine Daten verwalten</string>
   <string name="settings_data_management_title_import">Importieren</string>
@@ -51,6 +57,8 @@
   <string name="settings_support_title_feedback">Feedback</string>
   <string name="settings_application_section">Anwendung</string>
   <string name="settings_application_title_view_logs">Protokolle anzeigen</string>
+  <string name="settings_application_title_anonymous_telemetry">Nutzungsverhalten anonym teilen</string>
+  <string name="settings_application_title_anonymous_crashes">Absturzberichte anonym teilen</string>
   <string name="settings_discover_section">Proton entdecken</string>
   <string name="settings_discover_pass_description">Speichere sichere, eindeutige Passwörter, um Identitätsdiebstahl und Datenlecks zu vermeiden.</string>
   <string name="settings_discover_vpn_description">Surfe, ohne dass dein digitales Verhalten verfolgt wird, und greife auf blockierte Inhalte zu.</string>
@@ -58,6 +66,7 @@
   <string name="settings_discover_calendar_description">Organisiere deinen Zeitplan und behalte deine Pläne für dich.</string>
   <string name="settings_discover_drive_description">Gib deinen wertvollen Fotos und Dateien das sichere Zuhause, das sie verdienen.</string>
   <string name="settings_app_version" comment="The placeholder will be replaced with the app version number. (e.g. Version 1.0.0)">Version %1$s</string>
+  <string name="settings_snackbar_message_anonymous_data_sharing_error">Bei der Aktualisierung der anonymen Datenfreigabe ist ein Fehler aufgetreten</string>
   <string name="settings_snackbar_message_biometric_error">Bei der biometrischen Authentifizierung ist ein Fehler aufgetreten.</string>
   <string name="settings_snackbar_message_update_error">Beim Aktualisieren der Einstellungen ist ein Fehler aufgetreten.</string>
 </resources>

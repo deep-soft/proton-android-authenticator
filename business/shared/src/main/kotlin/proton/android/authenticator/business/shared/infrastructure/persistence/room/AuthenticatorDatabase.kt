@@ -21,6 +21,7 @@ package proton.android.authenticator.business.shared.infrastructure.persistence.
 import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
 import me.proton.core.account.data.db.AccountConverters
 import me.proton.core.account.data.db.AccountDatabase
 import me.proton.core.account.data.entity.AccountEntity
@@ -88,10 +89,12 @@ import proton.android.authenticator.business.shared.infrastructure.persistence.r
 import proton.android.authenticator.business.shared.infrastructure.persistence.room.entities.entries.EntryEntity
 import proton.android.authenticator.business.shared.infrastructure.persistence.room.entities.keys.KeyEntity
 import proton.android.authenticator.business.shared.infrastructure.persistence.room.entities.keys.KeysDao
+import proton.android.authenticator.business.shared.infrastructure.persistence.room.migrations.AuthenticatorDatabaseMigrations
 
 @Database(
     autoMigrations = [
-        AutoMigration(from = 1, to = 2)
+        AutoMigration(from = 1, to = 2),
+        AutoMigration(from = 2, to = 3)
     ],
     entities = [
         AccountEntity::class,
@@ -175,9 +178,13 @@ internal abstract class AuthenticatorDatabase :
 
     internal companion object {
 
-        internal const val NAME = "authenticator.db"
+        internal const val NAME: String = "authenticator.db"
 
-        internal const val VERSION = 2
+        internal const val VERSION: Int = 4
+
+        internal val ManualMigrations: Array<out Migration> = arrayOf(
+            AuthenticatorDatabaseMigrations.Migration_3_4
+        )
 
     }
 

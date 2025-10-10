@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="imports_error_dialog_title">İçe Aktarma Başarısız</string>
-  <string name="imports_error_dialog_message_bad_content">Seçilen dosya içe aktarılamadı.</string>
-  <string name="imports_error_dialog_message_bad_encryption">Seçilen dosyanın şifresi çözülemedi.</string>
+  <string name="imports_error_dialog_title">İçe aktarılamadı</string>
+  <string name="imports_error_dialog_message_bad_content">Seçilmiş dosya içe aktarılamadı.</string>
+  <string name="imports_error_dialog_message_bad_encryption">Seçilmiş dosyanın şifresi çözülemedi.</string>
   <string name="imports_error_dialog_message_file_too_large">Dosya boyutu sınırı aşıldı</string>
 </resources>

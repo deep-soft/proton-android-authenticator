@@ -17,17 +17,17 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_manual_screen_title_create">Nuova voce</string>
-  <string name="home_manual_screen_title_edit">Modifica voce</string>
-  <string name="home_manual_form_title_label">Titolo</string>
-  <string name="home_manual_form_title_placeholder">Titolo, account o etichetta</string>
-  <string name="home_manual_form_secret_label">Segreto</string>
-  <string name="home_manual_form_issuer_label">Emittente</string>
+  <string name="home_manual_screen_title_create">Crea un elemento</string>
+  <string name="home_manual_screen_title_edit">Modifica l\'elemento</string>
+  <string name="home_manual_form_title_label">Nome dell\'elemento</string>
+  <string name="home_manual_form_title_placeholder">Nome, account o etichetta</string>
+  <string name="home_manual_form_secret_label">Chiave</string>
+  <string name="home_manual_form_issuer_label">Servizio</string>
   <string name="home_manual_form_advanced_options_title">Opzioni avanzate</string>
-  <string name="home_manual_form_digits_title">Numeri</string>
-  <string name="home_manual_form_time_interval_title">Intervallo di tempo</string>
+  <string name="home_manual_form_digits_title">Numero di cifre</string>
+  <string name="home_manual_form_time_interval_title">Intervallo di tempo</string>
   <string name="home_manual_form_time_algorithm_title">Algoritmo</string>
   <string name="home_manual_form_time_type_title">Tipo</string>
-  <string name="home_manual_snackbar_message_create_error">Si è verificato un errore durante la creazione della voce</string>
-  <string name="home_manual_snackbar_message_update_error">Si è verificato un errore durante l\'aggiornamento della voce</string>
+  <string name="home_manual_snackbar_message_create_error">Creazione dell\'elemento non riuscito</string>
+  <string name="home_manual_snackbar_message_update_error">Modifica dell\'elemento non riuscita</string>
 </resources>

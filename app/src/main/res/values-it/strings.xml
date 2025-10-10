@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="notification_automatic_backups_title">Backup automatici interrotti</string>
-  <string name="notification_automatic_backups_message">La cartella di backup specificata non è stata trovata. Controlla le tue impostazioni per riavviare i backup automatici.</string>
-  <string name="notification_automatic_backups_success_title">Backup completed successfully</string>
-  <string name="notification_automatic_backups_success_message">Backup saved successfully to %s</string>
+  <string name="notification_automatic_backups_title">Backup automatico interrotto</string>
+  <string name="notification_automatic_backups_message">Cartella del backup non trovata. Controlla le impostazioni per riavviare il backup automatico.</string>
+  <string name="notification_automatic_backups_success_title">Backup completato</string>
+  <string name="notification_automatic_backups_success_message">Backup salvato in %s</string>
 </resources>

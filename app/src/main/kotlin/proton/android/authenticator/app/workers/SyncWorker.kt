@@ -24,8 +24,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.first
-import proton.android.authenticator.features.shared.entries.usecases.ObserveEntryModelsUseCase
 import proton.android.authenticator.features.shared.entries.usecases.SyncEntriesModelsUseCase
 import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 
@@ -33,25 +31,21 @@ import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 internal class SyncWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParameters: WorkerParameters,
-    private val observeEntryModelsUseCase: ObserveEntryModelsUseCase,
     private val syncEntriesUseCase: SyncEntriesModelsUseCase
 ) : CoroutineWorker(context, workerParameters) {
 
-    override suspend fun doWork(): Result = observeEntryModelsUseCase(includeDeletedEntries = true)
-        .first()
-        .let { entryModels -> syncEntriesUseCase(entryModels) }
-        .fold(
-            onFailure = { reason ->
-                AuthenticatorLogger.w(tag = TAG, message = "Entries sync failed: $reason")
+    override suspend fun doWork(): Result = syncEntriesUseCase().fold(
+        onFailure = { reason ->
+            AuthenticatorLogger.w(tag = TAG, message = "Entries sync failed: $reason")
 
-                Result.failure()
-            },
-            onSuccess = {
-                AuthenticatorLogger.i(tag = TAG, message = "Entries sync succeeded")
+            Result.failure()
+        },
+        onSuccess = {
+            AuthenticatorLogger.i(tag = TAG, message = "Entries sync succeeded")
 
-                Result.success()
-            }
-        )
+            Result.success()
+        }
+    )
 
     private companion object {
 

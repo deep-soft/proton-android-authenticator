@@ -18,6 +18,7 @@
 
 package proton.android.authenticator.business.entries.application.update
 
+import kotlinx.coroutines.flow.first
 import proton.android.authenticator.business.entries.domain.EntriesRepository
 import proton.android.authenticator.business.entries.domain.Entry
 import proton.android.authenticator.commonrust.AuthenticatorEntryModel
@@ -49,6 +50,7 @@ internal class EntryUpdater @Inject constructor(
                 Entry(
                     id = id,
                     content = encryptedContent,
+                    createdAt = repository.find(id = id).first().createdAt,
                     modifiedAt = timeProvider.currentSeconds(),
                     isDeleted = false,
                     isSynced = false,

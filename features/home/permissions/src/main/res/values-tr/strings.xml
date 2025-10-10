@@ -18,7 +18,7 @@
   -->
 <resources>
   <string name="home_permissions_title">İzin gerekli</string>
-  <string name="home_permissions_description">QR kod tarayıcısını kullanmak için kamera iznini etkinleştirin. Bu, uygulamanın QR kodlarını okumasını ve sizin için benzersiz kodunuzu oluşturmasını sağlar.</string>
+  <string name="home_permissions_description">Kare kod tarayıcısını kullanmak için kameraya erişme izni verin. Böylece uygulama kare kodları okuyarak sizin için benzersiz bir kod oluşturabilir.</string>
   <string name="home_permissions_action_primary">Ayarları aç</string>
-  <string name="home_permissions_action_secondary">Elle oluştur</string>
+  <string name="home_permissions_action_secondary">El ile oluştur</string>
 </resources>

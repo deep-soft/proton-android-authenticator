@@ -17,6 +17,6 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="home_error_dialog_title">Codice QR non valido</string>
-  <string name="home_error_dialog_message">Prova a scansionarne un altro o a selezionarne uno dalla galleria.</string>
+  <string name="home_error_dialog_title">Codice QR non valido</string>
+  <string name="home_error_dialog_message">Prova a scansionare nuovamente il codice QR o selezionalo dalla galleria</string>
 </resources>

@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="sync_master_title">Sincronizzazione del dispositivo</string>
-  <string name="sync_master_description">È necessario un account Proton per abilitare la sincronizzazione crittografata end-to-end tra dispositivi.</string>
+  <string name="sync_master_title">Sincronizzazione del dispositivo</string>
+  <string name="sync_master_description">È necessario un account Proton per abilitare la sincronizzazione crittografata end-to-end tra dispositivi</string>
   <string name="sync_master_sign_in_button">Accedi</string>
-  <string name="sync_master_sign_up_button">Crea un account gratuito</string>
+  <string name="sync_master_sign_up_button">Crea un account gratuito</string>
 </resources>

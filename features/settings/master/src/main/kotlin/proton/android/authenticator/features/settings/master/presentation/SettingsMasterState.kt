@@ -18,6 +18,7 @@
 
 package proton.android.authenticator.features.settings.master.presentation
 
+import proton.android.authenticator.business.anonymous.data.domain.AnonymousData
 import proton.android.authenticator.business.settings.domain.Settings
 import proton.android.authenticator.business.users.domain.User
 import proton.android.authenticator.protonapps.domain.ProtonApp
@@ -60,7 +61,7 @@ internal sealed interface SettingsMasterState {
 
         internal val howToUrl: String = UrlConstants.HOW_TO
 
-        internal val settingsModel = SettingsMasterSettingsModel(
+        internal val settingsModel: SettingsMasterSettingsModel = SettingsMasterSettingsModel(
             isSyncEnabled = settings.isSyncEnabled,
             isHideCodesEnabled = settings.isHideCodesEnabled,
             appLockType = settings.appLockType,
@@ -68,19 +69,23 @@ internal sealed interface SettingsMasterState {
             themeType = settings.themeType,
             searchBarType = settings.searchBarType,
             digitType = settings.digitType,
+            sortingType = settings.sortingType,
             isPassBannerDismissed = settings.isPassBannerDismissed,
             isFirstRun = settings.isFirstRun,
             installationTime = settings.installationTime
         )
 
-        internal val discoverModel = SettingsMasterDiscoverModel(
+        internal val discoverModel: SettingsMasterDiscoverModel = SettingsMasterDiscoverModel(
             uninstalledProtonApps = uninstalledProtonApps
         )
 
-        internal val bannerModel = SettingsMasterBannerModel(
+        internal val bannerModel: SettingsMasterBannerModel = SettingsMasterBannerModel(
             isPassBannerDismissed = settings.isPassBannerDismissed,
             uninstalledProtonApps = uninstalledProtonApps
         )
+
+        internal val anonymousData: AnonymousData? = configModel.anonymousData
+
     }
 
 }

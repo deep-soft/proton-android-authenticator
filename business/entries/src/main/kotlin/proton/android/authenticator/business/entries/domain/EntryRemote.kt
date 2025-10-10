@@ -25,6 +25,7 @@ internal data class EntryRemote(
     internal val id: String,
     internal val revision: Int,
     internal val position: Int,
+    internal val createdAt: Long,
     internal val modifiedAt: Long,
     internal val model: AuthenticatorEntryModel
 ) {

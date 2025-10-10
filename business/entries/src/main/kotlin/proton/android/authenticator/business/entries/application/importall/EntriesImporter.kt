@@ -182,13 +182,16 @@ internal class EntriesImporter @Inject constructor(
             entryModels.map { entryModel ->
                 position += EntryConstants.POSITION_INCREMENT
 
+                val currentSeconds = timeProvider.currentSeconds()
+
                 Entry(
                     id = entryModel.id,
                     content = encrypt(
                         authenticatorClient.serializeEntry(entryModel),
                         EncryptionTag.EntryContent
                     ),
-                    modifiedAt = timeProvider.currentSeconds(),
+                    createdAt = currentSeconds,
+                    modifiedAt = currentSeconds,
                     isDeleted = false,
                     isSynced = false,
                     position = position

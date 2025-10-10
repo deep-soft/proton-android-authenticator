@@ -16,6 +16,7 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import com.android.build.api.dsl.VariantDimension
 import configuration.extensions.protonEnvironment
 import configuration.util.toBuildConfigValue
 
@@ -26,7 +27,7 @@ plugins {
 val sentryDSN: String? = System.getenv("SENTRY_DSN")
 
 val jobId: Int = System.getenv("CI_JOB_ID")?.take(3)?.toInt() ?: 0
-val appVersionName: String = "1.2.0"
+val appVersionName: String = "1.3.1"
 val appVersionCode: Int = versionCode(appVersionName)
 
 fun versionCode(versionName: String): Int {
@@ -34,9 +35,22 @@ fun versionCode(versionName: String): Int {
     return (segment[0] * 10000000) + (segment[1] * 100000) + (segment[2] * 1000) + jobId
 }
 
+fun VariantDimension.setAssetLinksResValue(host: String) {
+    resValue(
+        type = "string", name = "asset_statements",
+        value = """
+            [{
+              "relation": ["delegate_permission/common.handle_all_urls", "delegate_permission/common.get_login_creds"],
+              "target": { "namespace": "web", "site": "https://$host" }
+            }]
+        """.trimIndent()
+    )
+}
+
 android {
     defaultConfig {
         buildConfigField("String", "SENTRY_DSN", sentryDSN.toBuildConfigValue())
+        setAssetLinksResValue("proton.me")
     }
 
     buildTypes {
@@ -110,6 +124,8 @@ dependencies {
 
     implementation(libs.core.accountManager)
     implementation(libs.core.auth)
+    implementation(libs.core.authFidoDagger)
+    implementation(libs.core.authFidoDomain)
     implementation(libs.core.crypto)
     implementation(libs.core.cryptoValidator)
     implementation(libs.core.data)
@@ -140,6 +156,11 @@ dependencies {
     addDevBlackImplementation(
         default = libs.core.config.dagger.staticDefaults,
         devBlack = libs.core.config.dagger.contentProvider
+    )
+
+    addFdroidSpecialLib(
+        default = libs.core.authFidoPlay,
+        fdroid = null
     )
 
     addFdroidSpecialLib(

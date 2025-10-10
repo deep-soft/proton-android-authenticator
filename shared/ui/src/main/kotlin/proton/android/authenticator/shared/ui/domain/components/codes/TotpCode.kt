@@ -31,6 +31,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,8 +39,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.LayoutDirection
 import proton.android.authenticator.shared.ui.domain.models.UiText
 import proton.android.authenticator.shared.ui.domain.modifiers.applyIf
 import proton.android.authenticator.shared.ui.domain.modifiers.containerShadow
@@ -61,77 +64,79 @@ fun TotpCode(
     modifier: Modifier = Modifier,
     separationWidth: Dp = ThemeSpacing.ExtraSmall
 ) {
-    val codeChangeAnimationDuration = remember(key1 = animateCodeOnChange) {
-        if (animateCodeOnChange) CODE_ANIMATION_ON_MILLIS else CODE_ANIMATION_OFF_MILLIS
-    }
+    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr) {
+        val codeChangeAnimationDuration = remember(key1 = animateCodeOnChange) {
+            if (animateCodeOnChange) CODE_ANIMATION_ON_MILLIS else CODE_ANIMATION_OFF_MILLIS
+        }
 
-    var previousOtpCodeText by remember {
-        mutableStateOf(codeText)
-    }
+        var previousOtpCodeText by remember {
+            mutableStateOf(codeText)
+        }
 
-    SideEffect {
-        previousOtpCodeText = codeText
-    }
+        SideEffect {
+            previousOtpCodeText = codeText
+        }
 
-    Row(
-        modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(space = separationWidth)
-    ) {
-        val codeString = codeText.asString()
-        val previousCodeString = previousOtpCodeText.asString()
-        val codeStringLength = minOf(codeString.length, previousCodeString.length)
+        Row(
+            modifier = modifier,
+            horizontalArrangement = Arrangement.spacedBy(space = separationWidth)
+        ) {
+            val codeString = codeText.asString()
+            val previousCodeString = previousOtpCodeText.asString()
+            val codeStringLength = minOf(codeString.length, previousCodeString.length)
 
-        for (i in 0 until codeStringLength) {
-            val codeDigit = codeString[i]
-            val previousCodeDigit = previousCodeString[i]
-            val newCodeDigit = if (codeDigit == previousCodeDigit) {
-                previousCodeDigit
-            } else {
-                codeDigit
-            }
+            for (i in 0 until codeStringLength) {
+                val codeDigit = codeString[i]
+                val previousCodeDigit = previousCodeString[i]
+                val newCodeDigit = if (codeDigit == previousCodeDigit) {
+                    previousCodeDigit
+                } else {
+                    codeDigit
+                }
 
-            Box(
-                modifier = Modifier.applyIf(
-                    condition = showBoxes,
-                    ifTrue = { containerShadow() }
-                )
-            ) {
-                AnimatedContent(
-                    targetState = newCodeDigit,
-                    transitionSpec = {
-                        slideInVertically(
-                            animationSpec = tween(durationMillis = codeChangeAnimationDuration)
-                        ) { height ->
-                            if (newCodeDigit > previousCodeDigit) height else -height
-                        } togetherWith slideOutVertically(
-                            animationSpec = tween(durationMillis = codeChangeAnimationDuration)
-                        ) { height ->
-                            if (newCodeDigit > previousCodeDigit) -height else height
-                        }
-                    }
-                ) { codeDigit ->
-                    if (!codeDigit.isWhitespace()) {
-                        Text(
-                            modifier = Modifier
-                                .applyIf(
-                                    condition = showBoxes,
-                                    ifTrue = {
-                                        padding(
-                                            horizontal = ThemePadding.MediumSmall.div(2),
-                                            vertical = ThemePadding.ExtraSmall
-                                        )
-                                    }
-                                ),
-                            text = codeDigit.toString(),
-                            color = color,
-                            style = if (showShadows) {
-                                style.copy(shadow = ThemeShadow.TextDefault)
-                            } else {
-                                style
+                Box(
+                    modifier = Modifier.applyIf(
+                        condition = showBoxes,
+                        ifTrue = { containerShadow() }
+                    )
+                ) {
+                    AnimatedContent(
+                        targetState = newCodeDigit,
+                        transitionSpec = {
+                            slideInVertically(
+                                animationSpec = tween(durationMillis = codeChangeAnimationDuration)
+                            ) { height ->
+                                if (newCodeDigit > previousCodeDigit) height else -height
+                            } togetherWith slideOutVertically(
+                                animationSpec = tween(durationMillis = codeChangeAnimationDuration)
+                            ) { height ->
+                                if (newCodeDigit > previousCodeDigit) -height else height
                             }
-                        )
-                    } else {
-                        Spacer(modifier = Modifier.width(width = separationWidth))
+                        }
+                    ) { codeDigit ->
+                        if (!codeDigit.isWhitespace()) {
+                            Text(
+                                modifier = Modifier
+                                    .applyIf(
+                                        condition = showBoxes,
+                                        ifTrue = {
+                                            padding(
+                                                horizontal = ThemePadding.MediumSmall.div(2),
+                                                vertical = ThemePadding.ExtraSmall
+                                            )
+                                        }
+                                    ),
+                                text = codeDigit.toString(),
+                                color = color,
+                                style = if (showShadows) {
+                                    style.copy(shadow = ThemeShadow.TextDefault)
+                                } else {
+                                    style
+                                }
+                            )
+                        } else {
+                            Spacer(modifier = Modifier.width(width = separationWidth))
+                        }
                     }
                 }
             }

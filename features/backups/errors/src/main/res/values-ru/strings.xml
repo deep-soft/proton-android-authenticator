@@ -20,5 +20,5 @@
   <string name="backup_error_dialog_title">Ошибка резервного копирования</string>
   <string name="backup_error_dialog_message_error_folder">Указанная папка для резервного копирования не найдена.</string>
   <string name="backup_error_dialog_message_error_unknown">Не удалось сохранить резервную копию в указанной папке.</string>
-  <string name="backup_error_dialog_message_error_suggestion">Пожалуйста, включите резервное копирование, выберите нужную папку и попробуйте снова.</string>
+  <string name="backup_error_dialog_message_error_suggestion">Включите резервное копирование, выберите нужную папку и повторите попытку.</string>
 </resources>

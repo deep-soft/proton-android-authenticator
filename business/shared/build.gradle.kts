@@ -58,8 +58,6 @@ dependencies {
     implementation(libs.core.accountManager.presentation.compose)
     implementation(libs.core.accountRecovery)
     implementation(libs.core.auth)
-    implementation(libs.core.authFidoDagger)
-    implementation(libs.core.authFidoDomain)
     implementation(libs.core.biometric)
     implementation(libs.core.challenge)
     implementation(libs.core.config.data)

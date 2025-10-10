@@ -40,8 +40,10 @@ internal class UpdateEntryCommandHandler @Inject constructor(
                     model = model
                 )
             }
-        AuthenticatorLogger.i(TAG, "Successfully updated entry with id: ${command.id}")
-        Answer.Success(Unit)
+            .also {
+                AuthenticatorLogger.i(TAG, "Successfully updated entry with id: ${command.id}")
+            }
+            .let(Answer<Unit, UpdateEntryReason>::Success)
     } catch (e: AuthenticatorException.InvalidName) {
         ErrorLoggingUtils.logAndReturnFailure(
             exception = e,
@@ -73,7 +75,9 @@ internal class UpdateEntryCommandHandler @Inject constructor(
     }
 
     private companion object {
+
         private const val TAG = "UpdateEntryCommandHandler"
+
     }
 
 }

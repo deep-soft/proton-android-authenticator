@@ -19,6 +19,6 @@
 <resources>
   <string name="notification_automatic_backups_title">Automatyczne kopie zapasowe zatrzymane</string>
   <string name="notification_automatic_backups_message">Nie można odnaleźć określonego folderu kopii zapasowej. Sprawdź ustawienia, aby ponownie uruchomić automatyczne tworzenie kopii zapasowych.</string>
-  <string name="notification_automatic_backups_success_title">Backup completed successfully</string>
-  <string name="notification_automatic_backups_success_message">Backup saved successfully to %s</string>
+  <string name="notification_automatic_backups_success_title">Tworzenie kopii zapasowej zakończone sukcesem</string>
+  <string name="notification_automatic_backups_success_message">Kopia zapasowa zapisana w %s</string>
 </resources>

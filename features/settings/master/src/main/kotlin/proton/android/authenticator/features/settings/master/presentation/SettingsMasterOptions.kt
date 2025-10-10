@@ -21,6 +21,7 @@ package proton.android.authenticator.features.settings.master.presentation
 import proton.android.authenticator.business.settings.domain.SettingsAppLockType
 import proton.android.authenticator.business.settings.domain.SettingsDigitType
 import proton.android.authenticator.business.settings.domain.SettingsSearchBarType
+import proton.android.authenticator.business.settings.domain.SettingsSortingType
 import proton.android.authenticator.business.settings.domain.SettingsThemeType
 import proton.android.authenticator.features.settings.master.R
 import proton.android.authenticator.shared.ui.domain.models.UiSelectorOption
@@ -145,6 +146,70 @@ internal sealed interface SettingsMasterDigitOption : UiSelectorOption<SettingsD
         )
 
         override val value: SettingsDigitType = SettingsDigitType.Plain
+
+    }
+
+}
+
+internal sealed interface SettingsMasterSortingOption : UiSelectorOption<SettingsSortingType> {
+
+    data class CreatedAsc(override val selectedType: SettingsSortingType) : SettingsMasterSortingOption {
+
+        override val isSelected: Boolean = selectedType == SettingsSortingType.CreatedAsc
+
+        override val text: UiText = UiText.Resource(
+            id = R.string.settings_appearance_title_sorting_option_created_asc
+        )
+
+        override val value: SettingsSortingType = SettingsSortingType.CreatedAsc
+
+    }
+
+    data class CreatedDesc(override val selectedType: SettingsSortingType) : SettingsMasterSortingOption {
+
+        override val isSelected: Boolean = selectedType == SettingsSortingType.CreatedDesc
+
+        override val text: UiText = UiText.Resource(
+            id = R.string.settings_appearance_title_sorting_option_created_desc
+        )
+
+        override val value: SettingsSortingType = SettingsSortingType.CreatedDesc
+
+    }
+
+    data class IssuerAsc(override val selectedType: SettingsSortingType) : SettingsMasterSortingOption {
+
+        override val isSelected: Boolean = selectedType == SettingsSortingType.IssuerAsc
+
+        override val text: UiText = UiText.Resource(
+            id = R.string.settings_appearance_title_sorting_option_issuer_asc
+        )
+
+        override val value: SettingsSortingType = SettingsSortingType.IssuerAsc
+
+    }
+
+    data class IssuerDesc(override val selectedType: SettingsSortingType) : SettingsMasterSortingOption {
+
+        override val isSelected: Boolean = selectedType == SettingsSortingType.IssuerDesc
+
+        override val text: UiText = UiText.Resource(
+            id = R.string.settings_appearance_title_sorting_option_issuer_desc
+        )
+
+        override val value: SettingsSortingType = SettingsSortingType.IssuerDesc
+
+    }
+
+    data class Manual(override val selectedType: SettingsSortingType) : SettingsMasterSortingOption {
+
+        override val isSelected: Boolean = selectedType == SettingsSortingType.Manual
+
+        override val text: UiText = UiText.Resource(
+            id = R.string.settings_appearance_title_sorting_option_manual
+        )
+
+        override val value: SettingsSortingType = SettingsSortingType.Manual
 
     }
 

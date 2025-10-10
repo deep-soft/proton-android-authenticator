@@ -19,6 +19,6 @@
 <resources>
   <string name="notification_automatic_backups_title">Automatische back-ups gestopt</string>
   <string name="notification_automatic_backups_message">De opgegeven back-upmap kon niet worden gevonden. Controleer uw instellingen om automatische back-ups opnieuw te starten.</string>
-  <string name="notification_automatic_backups_success_title">Backup completed successfully</string>
-  <string name="notification_automatic_backups_success_message">Backup saved successfully to %s</string>
+  <string name="notification_automatic_backups_success_title">Back-up succesvol afgerond</string>
+  <string name="notification_automatic_backups_success_message">Back-up succesvol opgeslagen naar %s</string>
 </resources>

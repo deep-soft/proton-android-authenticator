@@ -19,6 +19,6 @@
 <resources>
   <string name="notification_automatic_backups_title">Автоматическое резервное копирование остановлено</string>
   <string name="notification_automatic_backups_message">Не удалось найти указанную папку для резервного копирования. Проверьте настройки, чтобы возобновить автоматическое резервное копирование.</string>
-  <string name="notification_automatic_backups_success_title">Backup completed successfully</string>
-  <string name="notification_automatic_backups_success_message">Backup saved successfully to %s</string>
+  <string name="notification_automatic_backups_success_title">Резервное копирование успешно завершено</string>
+  <string name="notification_automatic_backups_success_message">Резервная копия успешно сохранена в %s</string>
 </resources>

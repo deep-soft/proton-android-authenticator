@@ -19,6 +19,6 @@
 <resources>
   <string name="notification_automatic_backups_title">Automatische Sicherungen gestoppt</string>
   <string name="notification_automatic_backups_message">Der angegebene Sicherungsordner konnte nicht gefunden werden. Bitte überprüfe deine Einstellungen, um automatische Sicherungen neu zu starten.</string>
-  <string name="notification_automatic_backups_success_title">Backup completed successfully</string>
-  <string name="notification_automatic_backups_success_message">Backup saved successfully to %s</string>
+  <string name="notification_automatic_backups_success_title">Sicherung erfolgreich abgeschlossen</string>
+  <string name="notification_automatic_backups_success_message">Sicherung erfolgreich in %s gespeichert</string>
 </resources>

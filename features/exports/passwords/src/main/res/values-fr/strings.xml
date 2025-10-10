@@ -17,8 +17,8 @@
   ~ along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
   -->
 <resources>
-  <string name="exports_password_title">Protect export file</string>
-  <string name="exports_password_subtitle">Set a password to protect the export file</string>
-  <string name="exports_password_action_primary">Use the password</string>
-  <string name="exports_password_action_secondary">Export data without password</string>
+  <string name="exports_password_title">Protéger le fichier d\'export</string>
+  <string name="exports_password_subtitle">Définir un mot de passe pour protéger le fichier d\'export</string>
+  <string name="exports_password_action_primary">Utiliser le mot de passe</string>
+  <string name="exports_password_action_secondary">Exporter les données sans saisir de mot de passe</string>
 </resources>

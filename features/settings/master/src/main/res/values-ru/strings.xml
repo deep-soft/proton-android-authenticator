@@ -42,6 +42,12 @@
   <string name="settings_appearance_title_digit_style">Стиль цифр</string>
   <string name="settings_appearance_title_digit_style_option_plain">Простой</string>
   <string name="settings_appearance_title_digit_style_option_boxes">Квадраты</string>
+  <string name="settings_appearance_title_sorting">Сортировка</string>
+  <string name="settings_appearance_title_sorting_option_created_asc">Сначала старые</string>
+  <string name="settings_appearance_title_sorting_option_created_desc">Сначала новые</string>
+  <string name="settings_appearance_title_sorting_option_issuer_asc">Издатель (А-Я)</string>
+  <string name="settings_appearance_title_sorting_option_issuer_desc">Издатель (Я-А)</string>
+  <string name="settings_appearance_title_sorting_option_manual">Ручная</string>
   <string name="settings_appearance_title_animate_code_change">Анимировать смену кода</string>
   <string name="settings_data_management_section">Управление вашими данными</string>
   <string name="settings_data_management_title_import">Импортировать</string>
@@ -50,7 +56,9 @@
   <string name="settings_support_title_how_to">Как пользоваться Proton Authenticator</string>
   <string name="settings_support_title_feedback">Обратная связь</string>
   <string name="settings_application_section">Приложение</string>
-  <string name="settings_application_title_view_logs">Просмотр журналов</string>
+  <string name="settings_application_title_view_logs">Посмотреть журналы</string>
+  <string name="settings_application_title_anonymous_telemetry">Делиться анонимной статистикой использования</string>
+  <string name="settings_application_title_anonymous_crashes">Делиться анонимными отчётами о сбоях</string>
   <string name="settings_discover_section">Узнайте о Proton</string>
   <string name="settings_discover_pass_description">Храните надёжные уникальные пароли, чтобы избежать кражи личности и утечек данных.</string>
   <string name="settings_discover_vpn_description">Просматривайте без отслеживания и получайте доступ к заблокированному содержимому.</string>
@@ -58,6 +66,7 @@
   <string name="settings_discover_calendar_description">Организуйте своё расписание и храните свои планы при себе.</string>
   <string name="settings_discover_drive_description">Обеспечьте надёжное хранилище для ценных фотографий и файлов, которого они заслуживают.</string>
   <string name="settings_app_version" comment="The placeholder will be replaced with the app version number. (e.g. Version 1.0.0)">Версия %1$s</string>
+  <string name="settings_snackbar_message_anonymous_data_sharing_error">При обновлении анонимного обмена данными произошла ошибка</string>
   <string name="settings_snackbar_message_biometric_error">Произошла ошибка при биометрической аутентификации</string>
   <string name="settings_snackbar_message_update_error">Произошла ошибка при обновлении настроек</string>
 </resources>
