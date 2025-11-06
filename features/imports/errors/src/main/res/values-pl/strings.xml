@@ -21,4 +21,6 @@
   <string name="imports_error_dialog_message_bad_content">Wybrany plik nie mógł zostać zaimportowany.</string>
   <string name="imports_error_dialog_message_bad_encryption">Wybrany plik nie mógł zostać odszyfrowany.</string>
   <string name="imports_error_dialog_message_file_too_large">Przekroczono limit rozmiaru pliku</string>
+  <string name="imports_error_dialog_message_bad_password">Incorrect password provided.</string>
+  <string name="imports_error_dialog_message_missing_password">Password is required to import this file.</string>
 </resources>

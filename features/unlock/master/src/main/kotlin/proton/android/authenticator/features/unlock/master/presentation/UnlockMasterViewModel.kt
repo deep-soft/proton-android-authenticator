@@ -30,6 +30,8 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import proton.android.authenticator.business.applock.domain.AppLockState
+import proton.android.authenticator.features.shared.usecases.applock.UpdateAppLockStateUseCase
 import proton.android.authenticator.features.shared.usecases.biometrics.AuthenticateBiometricUseCase
 import proton.android.authenticator.features.unlock.master.R
 import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
@@ -37,7 +39,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class UnlockMasterViewModel @Inject constructor(
-    private val authenticateBiometricUseCase: AuthenticateBiometricUseCase
+    private val authenticateBiometricUseCase: AuthenticateBiometricUseCase,
+    private val updateAppLockStateUseCase: UpdateAppLockStateUseCase
 ) : ViewModel() {
 
     private val eventFlow = MutableStateFlow<UnlockMasterEvent>(value = UnlockMasterEvent.Idle)
@@ -68,7 +71,7 @@ internal class UnlockMasterViewModel @Inject constructor(
                 },
                 onSuccess = {
                     AuthenticatorLogger.i(TAG, "App unlock succeeded")
-
+                    updateAppLockStateUseCase(state = AppLockState.AuthNotRequired)
                     eventFlow.update { UnlockMasterEvent.OnUnlocked }
                 }
             )

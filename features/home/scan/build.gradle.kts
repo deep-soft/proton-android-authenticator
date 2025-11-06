@@ -6,6 +6,12 @@ android {
     namespace = "proton.android.authenticator.features.home.scan"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(libs.androidx.camera.camera2)
     implementation(libs.androidx.camera.lifecycle)

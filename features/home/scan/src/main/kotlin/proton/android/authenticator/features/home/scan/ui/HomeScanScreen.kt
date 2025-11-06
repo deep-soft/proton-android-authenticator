@@ -18,6 +18,7 @@
 
 package proton.android.authenticator.features.home.scan.ui
 
+import android.content.ActivityNotFoundException
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
@@ -34,6 +35,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import proton.android.authenticator.features.home.scan.presentation.HomeScanEvent
 import proton.android.authenticator.features.home.scan.presentation.HomeScanViewModel
+import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 import proton.android.authenticator.shared.ui.domain.screens.ScaffoldScreen
 import proton.android.authenticator.shared.ui.domain.theme.ThemePadding
 
@@ -78,7 +80,12 @@ fun HomeScanScreen(
                     onCloseClick = onCloseClick,
                     onEnterManuallyClick = onManualEntryClick,
                     onOpenGalleryClick = {
-                        launcher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+                        try {
+                            launcher.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+                        } catch (error: ActivityNotFoundException) {
+                            AuthenticatorLogger.w(TAG, "Cannot open gallery picker")
+                            AuthenticatorLogger.w(TAG, error)
+                        }
                     }
                 )
             }
@@ -94,3 +101,5 @@ fun HomeScanScreen(
         )
     }
 }
+
+private const val TAG = "HomeScanScreen"

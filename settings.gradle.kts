@@ -54,6 +54,19 @@ includeCoreBuild {
     includeBuild("gopenpgp")
 }
 
+val isCI = System.getenv("GITLAB_CI").toBoolean()
+
+buildCache {
+    local {
+        val cacheDir = if (isCI) {
+            File(rootDir, ".gradle/build-cache")
+        } else {
+            File(rootDir.parentFile, "protonauthenticator-build-cache")
+        }
+        directory = cacheDir
+    }
+}
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":app")
@@ -106,4 +119,5 @@ include(":features:unlock:master")
 include(":navigation")
 include(":shared:common")
 include(":shared:crypto")
+include(":shared:testing")
 include(":shared:ui")

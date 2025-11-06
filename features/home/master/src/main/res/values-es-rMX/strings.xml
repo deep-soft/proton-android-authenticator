@@ -29,4 +29,8 @@
   <string name="home_snackbar_message_entry_sync_disabled">La sincronización del dispositivo está desactivada.</string>
   <string name="home_snackbar_message_entry_sync_unauthorized">La sincronización se ha desactivado. Vuelva a iniciar sesión en su cuenta de Proton.</string>
   <string name="home_snackbar_message_entry_sync_failed">Hubo un error al sincronizar las entradas.</string>
+  <string name="backups_password_alert_dialog_title">La copia de seguridad cifrada ya está disponible.</string>
+  <string name="backups_password_alert_dialog_message">Para mayor seguridad, se desactivó la copia de seguridad automática sin cifrar. Puede volver a activarla en los ajustes.</string>
+  <string name="backups_password_alert_dialog_warning">Tiene copias de seguridad en su dispositivo. Asegúrese de eliminarlas.</string>
+  <string name="backups_password_alert_dialog_got_it">Entendido</string>
 </resources>

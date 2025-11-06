@@ -6,6 +6,12 @@ android {
     namespace = "proton.android.authenticator.business.users"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(libs.core.accountManager)
 }

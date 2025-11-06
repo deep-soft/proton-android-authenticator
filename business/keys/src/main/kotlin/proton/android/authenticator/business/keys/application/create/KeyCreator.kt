@@ -60,7 +60,7 @@ internal class KeyCreator @Inject constructor(
             .let { encodedEncryptedKey ->
                 api.create(userId = userId, encryptedKey = encodedEncryptedKey)
             }
-            .also { key ->
+            ?.also { key ->
                 repository.save(key = key)
             }
     }

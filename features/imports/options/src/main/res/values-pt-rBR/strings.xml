@@ -18,5 +18,5 @@
   -->
 <resources>
   <string name="imports_options_title">Importar códigos</string>
-  <string name="imports_options_subtitle">Selecione seu provedor de 2FA atual.</string>
+  <string name="imports_options_subtitle">Selecione seu provedor de A2F atual.</string>
 </resources>

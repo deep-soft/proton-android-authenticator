@@ -16,27 +16,19 @@
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package proton.android.authenticator.initializers
+package proton.android.authenticator.app
 
-import android.content.Context
-import androidx.startup.Initializer
-import proton.android.authenticator.BuildConfig
-import proton.android.authenticator.common.RustLoggerImpl
-import proton.android.authenticator.common.deviceInfo
-import proton.android.authenticator.commonrust.registerAuthenticatorLogger
-import timber.log.Timber
+import android.app.Activity
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import proton.android.authenticator.app.handler.RequestReviewHandler
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class LoggerInitializer : Initializer<Unit> {
+class RequestReviewHandlerImpl @Inject constructor() : RequestReviewHandler {
+    override fun request(activity: Activity) {
 
-    override fun create(context: Context) {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
-        }
-
-        registerAuthenticatorLogger(RustLoggerImpl)
-
-        deviceInfo(context)
     }
-
-    override fun dependencies(): List<Class<out Initializer<*>>> = listOf()
 }

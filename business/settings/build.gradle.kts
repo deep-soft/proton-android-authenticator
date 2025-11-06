@@ -5,3 +5,9 @@ plugins {
 android {
     namespace = "proton.android.authenticator.business.settings"
 }
+
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}

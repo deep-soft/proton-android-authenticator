@@ -29,4 +29,8 @@
   <string name="home_snackbar_message_entry_sync_disabled">La synchronisation de l\'appareil est désactivée</string>
   <string name="home_snackbar_message_entry_sync_unauthorized">La synchronisation a été désactivée. Veuillez vous reconnecter à votre compte Proton.</string>
   <string name="home_snackbar_message_entry_sync_failed">Une erreur s\'est produite lors de la synchronisation des entrées</string>
+  <string name="backups_password_alert_dialog_title">La sauvegarde chiffrée est maintenant disponible</string>
+  <string name="backups_password_alert_dialog_message">Pour plus de sécurité, la sauvegarde automatique non chiffrée a été désactivée. Vous pouvez la réactiver dans les Paramètres.</string>
+  <string name="backups_password_alert_dialog_warning">Vous avez des sauvegardes sur votre appareil. Veillez à les supprimer.</string>
+  <string name="backups_password_alert_dialog_got_it">Compris</string>
 </resources>

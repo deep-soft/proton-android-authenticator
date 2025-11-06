@@ -5,3 +5,9 @@ plugins {
 android {
     namespace = "proton.android.authenticator.features.onboarding.master"
 }
+
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}

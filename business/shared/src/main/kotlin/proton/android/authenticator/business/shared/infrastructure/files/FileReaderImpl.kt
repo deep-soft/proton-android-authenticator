@@ -19,7 +19,10 @@
 package proton.android.authenticator.business.shared.infrastructure.files
 
 import android.content.ContentResolver
+import android.content.Context
 import androidx.core.net.toUri
+import androidx.documentfile.provider.DocumentFile
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.withContext
 import proton.android.authenticator.business.shared.domain.errors.FileTooLargeException
 import proton.android.authenticator.business.shared.domain.infrastructure.files.FileReader
@@ -30,34 +33,45 @@ import javax.inject.Inject
 
 internal class FileReaderImpl @Inject constructor(
     private val appDispatchers: AppDispatchers,
-    private val contentResolver: ContentResolver
+    private val contentResolver: ContentResolver,
+    @param:ApplicationContext private val context: Context
 ) : FileReader {
 
     override suspend fun readText(path: String): String = withContext(appDispatchers.io) {
         path.toUri().let { pathUri ->
-            contentResolver.openInputStream(pathUri)
-                ?.bufferedReader()
-                ?.use(BufferedReader::readText)
-                .orEmpty()
+            val document = DocumentFile.fromSingleUri(context, pathUri)
+            if (document?.exists() == true && document.isFile) {
+                contentResolver.openInputStream(pathUri)
+                    ?.bufferedReader()
+                    ?.use(BufferedReader::readText)
+                    .orEmpty()
+            } else {
+                ""
+            }
         }
     }
 
     override suspend fun readBinary(path: String, maxSize: Int): ByteArray = withContext(appDispatchers.io) {
         path.toUri().let { pathUri ->
-            contentResolver.openInputStream(pathUri)?.use { inputStream ->
-                if (inputStream.available() > maxSize) throw FileTooLargeException(maxSize)
-                val outputStream = ByteArrayOutputStream()
-                val buffer = ByteArray(1_024)
-                var bytesRead: Int
-                while (true) {
-                    bytesRead = inputStream.read(buffer)
-                    if (bytesRead == -1) {
-                        break
+            val document = DocumentFile.fromSingleUri(context, pathUri)
+            if (document?.exists() == true && document.isFile) {
+                contentResolver.openInputStream(pathUri)?.use { inputStream ->
+                    if (inputStream.available() > maxSize) throw FileTooLargeException(maxSize)
+                    val outputStream = ByteArrayOutputStream()
+                    val buffer = ByteArray(1_024)
+                    var bytesRead: Int
+                    while (true) {
+                        bytesRead = inputStream.read(buffer)
+                        if (bytesRead == -1) {
+                            break
+                        }
+                        outputStream.write(buffer, 0, bytesRead)
                     }
-                    outputStream.write(buffer, 0, bytesRead)
-                }
-                outputStream.toByteArray()
-            } ?: byteArrayOf()
+                    outputStream.toByteArray()
+                } ?: byteArrayOf()
+            } else {
+                byteArrayOf()
+            }
         }
     }
 

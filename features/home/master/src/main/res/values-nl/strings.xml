@@ -29,4 +29,8 @@
   <string name="home_snackbar_message_entry_sync_disabled">Apparaatsynchronisatie is uitgeschakeld</string>
   <string name="home_snackbar_message_entry_sync_unauthorized">De synchronisatie is uitgeschakeld. Meld u opnieuw aan bij uw Proton-account.</string>
   <string name="home_snackbar_message_entry_sync_failed">Er is een fout opgetreden bij het synchroniseren van de vermeldingen</string>
+  <string name="backups_password_alert_dialog_title">Versleutelde backup is nu beschikbaar</string>
+  <string name="backups_password_alert_dialog_message">For enhanced security, automatic non-encrypted backup has been disabled. You can re-enable it in the Settings.</string>
+  <string name="backups_password_alert_dialog_warning">You have some backup(s) on your device. Make sure to remove them.</string>
+  <string name="backups_password_alert_dialog_got_it">Got it</string>
 </resources>

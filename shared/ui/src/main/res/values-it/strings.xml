@@ -34,7 +34,6 @@
   <string name="action_share">Condividi</string>
   <string name="action_skip">Ignora</string>
   <string name="action_unlock">Sblocca</string>
-  <string name="action_yes">Conferma</string>
   <string name="camera_scan_qr_code_hint">Posiziona il codice QR all\'interno del quadrato</string>
   <string name="date_format_today">Oggi, %1$s</string>
   <string name="date_format_yesterday">Ieri, %1$s</string>

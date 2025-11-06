@@ -24,6 +24,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -38,10 +39,14 @@ import proton.android.authenticator.shared.ui.R
 import proton.android.authenticator.shared.ui.domain.components.fabs.IconFloatingActionButton
 import proton.android.authenticator.shared.ui.domain.components.textfields.SearchTextField
 import proton.android.authenticator.shared.ui.domain.models.UiIcon
+import proton.android.authenticator.shared.ui.domain.models.UiText
 import proton.android.authenticator.shared.ui.domain.modifiers.backgroundAppBar
 import proton.android.authenticator.shared.ui.domain.modifiers.backgroundScreenGradient
+import proton.android.authenticator.shared.ui.domain.screens.CustomDialogScreen
 import proton.android.authenticator.shared.ui.domain.screens.ScaffoldScreen
+import proton.android.authenticator.shared.ui.domain.theme.Theme
 import proton.android.authenticator.shared.ui.domain.theme.ThemePadding
+import proton.android.authenticator.features.home.master.R as homeMasterR
 
 @Composable
 fun HomeScreen(
@@ -55,6 +60,7 @@ fun HomeScreen(
     onEntriesSorted: () -> Unit
 ) = with(hiltViewModel<HomeMasterViewModel>()) {
     val state by stateFlow.collectAsStateWithLifecycle()
+    val syncDialogState by syncDialogState.collectAsStateWithLifecycle()
 
     val lazyListState = rememberLazyListState()
 
@@ -134,5 +140,32 @@ fun HomeScreen(
             onRefreshEntries = ::onRefreshEntries,
             onEntriesSorted = ::onEntriesSorted
         )
+    }
+
+    if (syncDialogState.showWarningPasswordDialog) {
+        CustomDialogScreen(
+            title = UiText.Resource(
+                id = homeMasterR.string.backups_password_alert_dialog_title
+            ),
+            message = UiText.Resource(
+                id = homeMasterR.string.backups_password_alert_dialog_message
+            ),
+            confirmText = UiText.Resource(
+                id = homeMasterR.string.backups_password_alert_dialog_got_it
+            ),
+            isConfirmEnabled = true,
+            onConfirmClick = ::onConfirmAlertBackupDialog,
+            onDismissed = ::onDismissAlertBackupDialog
+        ) {
+            if (syncDialogState.enableWarningMessage) {
+                Text(
+                    text = UiText.Resource(
+                        id = homeMasterR.string.backups_password_alert_dialog_warning
+                    ).asString(),
+                    color = Theme.colorScheme.surfaceVariant,
+                    style = Theme.typography.body2Regular
+                )
+            }
+        }
     }
 }

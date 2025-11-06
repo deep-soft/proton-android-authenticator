@@ -30,10 +30,8 @@ internal data class ImportsErrorState(private val errorReason: ImportEntriesReas
         ImportEntriesReason.BadContent -> R.string.imports_error_dialog_message_bad_content
         ImportEntriesReason.DecryptionFailed -> R.string.imports_error_dialog_message_bad_encryption
         ImportEntriesReason.FileTooLarge -> R.string.imports_error_dialog_message_file_too_large
-        ImportEntriesReason.BadPassword,
-        ImportEntriesReason.MissingPassword -> {
-            throw IllegalStateException("Invalid error reason: $errorReason")
-        }
+        ImportEntriesReason.BadPassword -> R.string.imports_error_dialog_message_bad_password
+        ImportEntriesReason.MissingPassword -> R.string.imports_error_dialog_message_missing_password
     }.let(UiText::Resource)
 
 }

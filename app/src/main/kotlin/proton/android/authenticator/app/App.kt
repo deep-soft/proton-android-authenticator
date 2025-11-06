@@ -37,6 +37,7 @@ import proton.android.authenticator.app.initializers.KeyWorkInitializer
 import proton.android.authenticator.app.initializers.SessionExpiredWorkInitializer
 import proton.android.authenticator.app.initializers.SyncPeriodicWorkInitializer
 import proton.android.authenticator.app.initializers.SyncWorkInitializer
+import proton.android.authenticator.app.logging.AuthenticatorExceptionHandler
 import proton.android.authenticator.business.applock.domain.AppLockState
 import proton.android.authenticator.features.shared.usecases.applock.UpdateAppLockStateUseCase
 import proton.android.authenticator.initializers.LoggerInitializer
@@ -66,9 +67,17 @@ internal class App : Application(), Configuration.Provider, ImageLoaderFactory {
     override fun onCreate() {
         super.onCreate()
 
+        initUncaughtExceptionHandler()
         initAppLockObserver()
 
         initInitializerComponents()
+    }
+
+    private fun initUncaughtExceptionHandler() {
+        val currentHandler = Thread.getDefaultUncaughtExceptionHandler()
+        Thread.setDefaultUncaughtExceptionHandler(
+            AuthenticatorExceptionHandler(currentHandler)
+        )
     }
 
     private fun initAppLockObserver() {

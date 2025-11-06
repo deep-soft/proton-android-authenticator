@@ -34,7 +34,6 @@
   <string name="action_share">Udostępnij</string>
   <string name="action_skip">Pomiń</string>
   <string name="action_unlock">Odblokuj</string>
-  <string name="action_yes">Tak</string>
   <string name="camera_scan_qr_code_hint">Skieruj aparat na kod QR.</string>
   <string name="date_format_today">Dzisiaj, %1$s</string>
   <string name="date_format_yesterday">Wczoraj, %1$s</string>

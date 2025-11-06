@@ -6,6 +6,12 @@ android {
     namespace = "proton.android.authenticator.business.entrycodes"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(libs.kotlinx.datetime)
 }

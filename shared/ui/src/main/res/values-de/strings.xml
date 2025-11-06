@@ -34,7 +34,6 @@
   <string name="action_share">Teilen</string>
   <string name="action_skip">Überspringen</string>
   <string name="action_unlock">Entsperren</string>
-  <string name="action_yes">Ja</string>
   <string name="camera_scan_qr_code_hint">Richte deine Kamera auf den QR-Code.</string>
   <string name="date_format_today">Heute, %1$s</string>
   <string name="date_format_yesterday">Gestern, %1$s</string>

@@ -6,6 +6,12 @@ android {
     namespace = "proton.android.authenticator.features.onboarding.biometrics"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(projects.business.appLock)
     implementation(projects.business.biometrics)

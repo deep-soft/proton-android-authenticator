@@ -1,0 +1,1 @@
+A private and secure cross-device two-factor authentication (2FA) that works offline. Created by Proton, the creators of Proton Mail, Proton VPN, Proton Drive, and Proton Pass.

@@ -9,6 +9,12 @@ android {
     namespace = "proton.android.authenticator.shared.common"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     api(libs.core.utilKotlin)
 

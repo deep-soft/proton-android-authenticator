@@ -19,6 +19,7 @@
 package proton.android.authenticator.features.settings.master.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -102,6 +103,7 @@ fun SettingsMasterScreen(
                 SettingsContent(
                     modifier = Modifier
                         .fillMaxSize()
+                        .navigationBarsPadding()
                         .verticalScroll(state = scrollState)
                         .padding(paddingValues = paddingValues)
                         .padding(horizontal = ThemePadding.Medium),

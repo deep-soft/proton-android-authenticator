@@ -58,7 +58,6 @@ internal class BackupsMasterViewModel @Inject constructor(
         get() = stateFlow.value.backupModel
 
     private val backupFlow = observeBackupUseCase()
-
     private val entryModelsFlow = observeEntryModelsUseCase()
         .map(List<EntryModel>::toPersistentList)
 
@@ -74,7 +73,6 @@ internal class BackupsMasterViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
         initialValue = BackupsMasterState.Initial
     )
-
     internal fun onConsumeEvent(event: BackupMasterEvent) {
         eventFlow.compareAndSet(expect = event, update = BackupMasterEvent.Idle)
     }
@@ -123,7 +121,6 @@ internal class BackupsMasterViewModel @Inject constructor(
             )
         }
     }
-
     private fun updateBackup(newBackupMasterBackup: BackupMasterModel) {
         viewModelScope.launch {
             updateBackupUseCase(newBackupMasterBackup.asBackup()).let { answer ->

@@ -15,11 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with Proton Authenticator.  If not, see <https://www.gnu.org/licenses/>.
  */
-
-package proton.android.authenticator.app.handler
+package proton.android.authenticator.app
 
 import android.app.Activity
 import com.google.android.play.core.review.ReviewManagerFactory
+import proton.android.authenticator.app.handler.RequestReviewHandler
 import javax.inject.Inject
 
 class RequestReviewHandlerImpl @Inject constructor() : RequestReviewHandler {

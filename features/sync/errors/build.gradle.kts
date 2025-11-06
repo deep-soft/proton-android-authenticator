@@ -8,6 +8,12 @@ android {
     namespace = "proton.android.authenticator.features.sync.errors"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(projects.features.sync.shared)
 }

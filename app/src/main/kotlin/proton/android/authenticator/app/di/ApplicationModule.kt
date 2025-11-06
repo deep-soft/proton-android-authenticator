@@ -49,7 +49,7 @@ import me.proton.core.user.domain.UserManager
 import me.proton.core.usersettings.data.UserSettingsEventListener
 import proton.android.authenticator.app.configs.AuthenticatorAppConfig
 import proton.android.authenticator.app.handler.RequestReviewHandler
-import proton.android.authenticator.app.handler.RequestReviewHandlerImpl
+import proton.android.authenticator.app.RequestReviewHandlerImpl
 import proton.android.authenticator.shared.common.domain.configs.AppConfig
 import javax.inject.Singleton
 

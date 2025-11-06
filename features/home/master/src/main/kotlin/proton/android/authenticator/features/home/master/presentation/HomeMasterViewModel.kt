@@ -18,6 +18,7 @@
 
 package proton.android.authenticator.features.home.master.presentation
 
+import android.net.Uri
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
@@ -31,19 +32,30 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import proton.android.authenticator.business.applock.domain.AppLockState
+import proton.android.authenticator.business.backups.domain.Backup
+import proton.android.authenticator.business.backups.domain.BackupFrequencyType
 import proton.android.authenticator.business.entries.application.syncall.SyncEntriesReason
+import proton.android.authenticator.business.settings.domain.SettingsAppLockType
 import proton.android.authenticator.features.home.master.R
 import proton.android.authenticator.features.home.master.usecases.ObserveEntryCodesUseCase
 import proton.android.authenticator.features.home.master.usecases.SortEntriesUseCase
 import proton.android.authenticator.features.shared.entries.usecases.ObserveEntryModelsUseCase
 import proton.android.authenticator.features.shared.entries.usecases.SyncEntriesModelsUseCase
+import proton.android.authenticator.features.shared.usecases.applock.ObserveAppLockStateUseCase
+import proton.android.authenticator.features.shared.usecases.backups.ObserveBackupUseCase
+import proton.android.authenticator.features.shared.usecases.backups.UpdateBackupUseCase
 import proton.android.authenticator.features.shared.usecases.clipboards.CopyToClipboardUseCase
 import proton.android.authenticator.features.shared.usecases.settings.ObserveSettingsUseCase
 import proton.android.authenticator.features.shared.usecases.snackbars.DispatchSnackbarEventUseCase
@@ -64,7 +76,10 @@ internal class HomeMasterViewModel @Inject constructor(
     private val dispatchSnackbarEventUseCase: DispatchSnackbarEventUseCase,
     private val sortEntriesUseCase: SortEntriesUseCase,
     private val syncEntriesModelsUseCase: SyncEntriesModelsUseCase,
-    private val timeProvider: TimeProvider
+    private val timeProvider: TimeProvider,
+    private val observeBackupUseCase: ObserveBackupUseCase,
+    private val updateBackupUseCase: UpdateBackupUseCase,
+    private val observeAppLockStateUseCase: ObserveAppLockStateUseCase
 ) : ViewModel() {
 
     private val entrySearchQueryState = mutableStateOf(value = SEARCH_QUERY_DEFAULT_VALUE)
@@ -74,6 +89,21 @@ internal class HomeMasterViewModel @Inject constructor(
     private val eventFlow = MutableStateFlow<HomeMasterEvent>(value = HomeMasterEvent.Idle)
 
     private val isRefreshingFlow = MutableStateFlow(value = false)
+
+    private val backupFlow = observeBackupUseCase()
+
+    private val showWarningPasswordDialog = MutableStateFlow(false)
+    private val enableWarningMessage = MutableStateFlow(false)
+
+    val syncDialogState = combine(
+        showWarningPasswordDialog,
+        enableWarningMessage,
+        ::SyncDialogState
+    ).stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
+        initialValue = SyncDialogState()
+    )
 
     private val screenModelFlow = combine(
         eventFlow,
@@ -171,6 +201,63 @@ internal class HomeMasterViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5_000),
         initialValue = HomeMasterState.Loading
     )
+
+    init {
+        viewModelScope.launch {
+            observeSettingsUseCase()
+                .flatMapLatest {
+                    if (it.appLockType == SettingsAppLockType.Biometric) {
+                        observeAppLockStateUseCase()
+                    } else {
+                        flowOf(AppLockState.AuthNotRequired)
+                    }
+                }
+                .filter { appLockState -> appLockState == AppLockState.AuthNotRequired }
+                .take(1)
+                .collect { appLockState ->
+                    checkDisplayWarning()
+                }
+        }
+    }
+
+    private suspend fun checkDisplayWarning() {
+        backupFlow.firstOrNull()?.also { backupModel ->
+            val shouldDisplayWarningDialog = backupModel.isEnabled &&
+                backupModel.encryptedPassword.isNullOrEmpty() &&
+                backupModel.directoryUri.toString().isNotEmpty()
+
+            if (shouldDisplayWarningDialog) {
+                showWarningPasswordDialog.update { true }
+                enableWarningMessage.update { backupModel.count > 0 }
+                disableBackup()
+            }
+        }
+    }
+
+    private fun disableBackup() {
+        viewModelScope.launch {
+            updateBackupUseCase(
+                newBackup = Backup(
+                    isEnabled = false,
+                    directoryUri = Uri.EMPTY,
+                    encryptedPassword = null,
+                    frequencyType = BackupFrequencyType.Daily,
+                    count = 0,
+                    lastBackupMillis = 0
+                )
+            )
+        }
+    }
+
+    internal fun onConfirmAlertBackupDialog() {
+        showWarningPasswordDialog.update { false }
+        enableWarningMessage.update { false }
+    }
+
+    internal fun onDismissAlertBackupDialog() {
+        showWarningPasswordDialog.update { false }
+        enableWarningMessage.update { false }
+    }
 
     internal fun onConsumeEvent(event: HomeMasterEvent) {
         eventFlow.compareAndSet(expect = event, update = HomeMasterEvent.Idle)

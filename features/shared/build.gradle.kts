@@ -9,6 +9,12 @@ android {
     namespace = "proton.android.authenticator.features.shared"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.authenticator.common)

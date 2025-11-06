@@ -34,7 +34,6 @@
   <string name="action_share">Paylaş</string>
   <string name="action_skip">Atla</string>
   <string name="action_unlock">Kilidi aç</string>
-  <string name="action_yes">Evet</string>
   <string name="camera_scan_qr_code_hint">Kameranıza kare kodu gösterin.</string>
   <string name="date_format_today">Bugün, %1$s</string>
   <string name="date_format_yesterday">Dün, %1$s</string>

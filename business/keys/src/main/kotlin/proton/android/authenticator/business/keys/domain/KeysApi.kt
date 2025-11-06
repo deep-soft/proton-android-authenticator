@@ -20,7 +20,7 @@ package proton.android.authenticator.business.keys.domain
 
 internal interface KeysApi {
 
-    suspend fun create(userId: String, encryptedKey: String): Key
+    suspend fun create(userId: String, encryptedKey: String): Key?
 
     suspend fun fetchAll(userId: String): List<Key>
 

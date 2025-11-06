@@ -23,17 +23,22 @@ import androidx.compose.runtime.Stable
 @Stable
 internal data class BackupsPasswordState(
     internal val password: String,
+    internal val checkPassword: String,
     internal val isPasswordVisible: Boolean,
+    internal val isCheckPasswordVisible: Boolean,
     internal val event: BackupsPasswordEvent
 ) {
 
-    internal val isConfirmEnabled: Boolean = password.isNotBlank()
+    internal val isConfirmEnabled: Boolean =
+        password.isNotBlank() && checkPassword.isNotBlank() && password == checkPassword
 
     internal companion object {
 
         internal val Initial: BackupsPasswordState = BackupsPasswordState(
             password = "",
+            checkPassword = "",
             isPasswordVisible = false,
+            isCheckPasswordVisible = false,
             event = BackupsPasswordEvent.Idle
         )
 

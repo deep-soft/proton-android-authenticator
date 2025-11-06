@@ -52,16 +52,20 @@ internal class BackupsPasswordViewModel @Inject constructor(
         .let(Uri::parse)
 
     private val passwordState = mutableStateOf<String?>(value = null)
+    private val checkPasswordState = mutableStateOf<String?>(value = null)
+
 
     private val isPasswordVisibleFlow = MutableStateFlow(value = false)
-
+    private val isCheckPasswordVisibleFlow = MutableStateFlow(value = false)
     private val eventFlow = MutableStateFlow<BackupsPasswordEvent>(
         value = BackupsPasswordEvent.Idle
     )
 
     internal val stateFlow: StateFlow<BackupsPasswordState> = combine(
         snapshotFlow { passwordState.value.orEmpty() },
+        snapshotFlow { checkPasswordState.value.orEmpty() },
         isPasswordVisibleFlow,
+        isCheckPasswordVisibleFlow,
         eventFlow,
         ::BackupsPasswordState
     ).stateIn(
@@ -78,11 +82,27 @@ internal class BackupsPasswordViewModel @Inject constructor(
         passwordState.value = newPassword
     }
 
+    internal fun onCheckPasswordChange(newPassword: String) {
+        checkPasswordState.value = newPassword
+    }
+
     internal fun onPasswordVisibilityChange(newIsVisible: Boolean) {
         isPasswordVisibleFlow.update { newIsVisible }
     }
 
+    internal fun onCheckPasswordVisibilityChange(newIsVisible: Boolean) {
+        isCheckPasswordVisibleFlow.update { newIsVisible }
+    }
+
     internal fun onEnableBackupWithPassword() {
+        if (passwordState.value != checkPasswordState.value) {
+            AuthenticatorLogger.w(
+                TAG,
+                "Backup enable failed: Password and check password do not match"
+            )
+            return
+        }
+
         passwordState.value?.let { password ->
             if (password.isBlank()) {
                 AuthenticatorLogger.w(TAG, "Backup enable failed: Password cannot be blank")

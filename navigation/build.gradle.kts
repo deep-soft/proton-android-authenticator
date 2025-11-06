@@ -11,6 +11,12 @@ android {
     namespace = "proton.android.authenticator.navigation"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(libs.androidx.material.navigation)
     implementation(libs.androidx.material3)

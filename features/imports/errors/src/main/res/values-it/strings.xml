@@ -21,4 +21,6 @@
   <string name="imports_error_dialog_message_bad_content">Importazione del file non riuscita</string>
   <string name="imports_error_dialog_message_bad_encryption">Decrittografia del file non riuscita</string>
   <string name="imports_error_dialog_message_file_too_large">Limite di dimensione del file superato</string>
+  <string name="imports_error_dialog_message_bad_password">Password errata</string>
+  <string name="imports_error_dialog_message_missing_password">È necessaria una password per importare questo file.</string>
 </resources>

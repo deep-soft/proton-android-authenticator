@@ -21,4 +21,6 @@
   <string name="imports_error_dialog_message_bad_content">Het geselecteerde bestand kon niet worden geïmporteerd.</string>
   <string name="imports_error_dialog_message_bad_encryption">Het geselecteerde bestand kon niet worden ontsleuteld.</string>
   <string name="imports_error_dialog_message_file_too_large">Limiet voor bestandsgrootte overschreden</string>
+  <string name="imports_error_dialog_message_bad_password">Onjuist wachtwoord verstrekt.</string>
+  <string name="imports_error_dialog_message_missing_password">Wachtwoord is vereist om dit bestand te importeren.</string>
 </resources>

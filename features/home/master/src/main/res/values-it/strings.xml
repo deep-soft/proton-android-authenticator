@@ -29,4 +29,8 @@
   <string name="home_snackbar_message_entry_sync_disabled">Sincronizzazione non abilitata</string>
   <string name="home_snackbar_message_entry_sync_unauthorized">La sincronizzazione è stata disabilitata. Effettua nuovamente l\'accesso.</string>
   <string name="home_snackbar_message_entry_sync_failed">Sincronizzazione degli elementi non riuscita</string>
+  <string name="backups_password_alert_dialog_title">Il backup crittografato è ora disponibile</string>
+  <string name="backups_password_alert_dialog_message">Per una maggiore sicurezza, il backup automatico non crittografato è stato disabilitato. Puoi riattivarlo nelle Impostazioni.</string>
+  <string name="backups_password_alert_dialog_warning">Hai alcuni backup sul tuo dispositivo. Assicurati di rimuoverli.</string>
+  <string name="backups_password_alert_dialog_got_it">Capito</string>
 </resources>

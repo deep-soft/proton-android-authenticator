@@ -17,7 +17,7 @@ internal abstract class AndroidApplicationConventionPlugin : ConventionPlugin() 
                 applicationId = PlatformAndroidConfig.APPLICATION_ID
                 minSdk = PlatformAndroidConfig.MIN_SDK
                 targetSdk = PlatformAndroidConfig.TARGET_SDK
-                versionCode = PlatformAndroidConfig.VERSION_CODE
+                versionCode = PlatformAndroidConfig.getVersionCode()
                 versionName = PlatformAndroidConfig.VERSION_NAME
                 testInstrumentationRunner = PlatformAndroidConfig.TEST_INSTRUMENTATION_RUNNER
 

@@ -5,3 +5,9 @@ plugins {
 android {
     namespace = "proton.android.authenticator.features.sync.shared"
 }
+
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}

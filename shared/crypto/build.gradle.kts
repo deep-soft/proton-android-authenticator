@@ -9,6 +9,12 @@ android {
     namespace = "proton.android.authenticator.shared.crypto"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(libs.core.crypto)
     implementation(libs.core.key)

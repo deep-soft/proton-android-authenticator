@@ -18,6 +18,7 @@
 
 package proton.android.authenticator.features.backups.master.ui
 
+import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,16 +27,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import proton.android.authenticator.business.backups.domain.Backup
+import proton.android.authenticator.business.backups.domain.BackupFrequencyType
 import proton.android.authenticator.features.backups.master.R
 import proton.android.authenticator.features.backups.master.presentation.BackupMasterEvent
+import proton.android.authenticator.features.backups.master.presentation.BackupsMasterState
 import proton.android.authenticator.features.backups.master.presentation.BackupsMasterViewModel
+import proton.android.authenticator.features.shared.entries.presentation.EntryModel
 import proton.android.authenticator.shared.ui.domain.components.bars.SmallTopBar
 import proton.android.authenticator.shared.ui.domain.models.UiIcon
 import proton.android.authenticator.shared.ui.domain.models.UiText
 import proton.android.authenticator.shared.ui.domain.modifiers.backgroundScreenGradient
 import proton.android.authenticator.shared.ui.domain.screens.ScaffoldScreen
+import proton.android.authenticator.shared.ui.domain.theme.Theme
 import proton.android.authenticator.shared.ui.domain.theme.ThemePadding
 import proton.android.authenticator.shared.ui.R as uiR
 
@@ -48,6 +55,33 @@ fun BackupsMasterScreen(
 ) = with(hiltViewModel<BackupsMasterViewModel>()) {
     val state by stateFlow.collectAsStateWithLifecycle()
 
+    InternalBackupsMasterScreen(
+        state = state,
+        snackbarHostState = snackbarHostState,
+        onNavigationClick = onNavigationClick,
+        onBackupError = onBackupError,
+        onBackupPassword = onBackupPassword,
+        onConsumeEvent = ::onConsumeEvent,
+        onDisableBackup = ::onDisableBackup,
+        onFolderPicked = ::onFolderPicked,
+        onUpdateFrequencyType = ::onUpdateFrequencyType,
+        onCreateBackup = ::onCreateBackup
+    )
+}
+
+@Composable
+private fun InternalBackupsMasterScreen(
+    state: BackupsMasterState,
+    snackbarHostState: SnackbarHostState,
+    onNavigationClick: () -> Unit,
+    onBackupError: (Int) -> Unit,
+    onBackupPassword: (String) -> Unit,
+    onConsumeEvent: (BackupMasterEvent) -> Unit,
+    onDisableBackup: () -> Unit,
+    onFolderPicked: (Uri) -> Unit,
+    onUpdateFrequencyType: (BackupFrequencyType) -> Unit,
+    onCreateBackup: (List<EntryModel>) -> Unit
+) {
     LaunchedEffect(key1 = state.event) {
         when (val event = state.event) {
             BackupMasterEvent.Idle -> Unit
@@ -55,7 +89,7 @@ fun BackupsMasterScreen(
             is BackupMasterEvent.OnBackupPassword -> onBackupPassword(event.uri)
         }
 
-        onConsumeEvent(event = state.event)
+        onConsumeEvent(state.event)
     }
 
     ScaffoldScreen(
@@ -77,10 +111,59 @@ fun BackupsMasterScreen(
                 .padding(paddingValues = innerPaddingValues)
                 .padding(horizontal = ThemePadding.Medium),
             state = state,
-            onDisableBackup = ::onDisableBackup,
-            onFolderPicked = ::onFolderPicked,
-            onFrequencyChange = ::onUpdateFrequencyType,
-            onBackupNowClick = ::onCreateBackup
+            onDisableBackup = onDisableBackup,
+            onFolderPicked = onFolderPicked,
+            onFrequencyChange = onUpdateFrequencyType,
+            onBackupNowClick = onCreateBackup
         )
     }
 }
+
+@Composable
+@Preview
+private fun BackupsMasterScreenPreview() {
+    Theme {
+        InternalBackupsMasterScreen(
+            state = BackupsMasterState.Initial,
+            snackbarHostState = SnackbarHostState(),
+            onNavigationClick = {},
+            onBackupError = {},
+            onBackupPassword = {},
+            onConsumeEvent = {},
+            onDisableBackup = {},
+            onFolderPicked = {},
+            onUpdateFrequencyType = {},
+            onCreateBackup = {}
+        )
+    }
+}
+
+
+@Composable
+@Preview
+private fun BackupsMasterScreenPreviewToggleOn() {
+    Theme {
+        InternalBackupsMasterScreen(
+            state = BackupsMasterState.Initial.copy(
+                backup = Backup(
+                    isEnabled = true,
+                    frequencyType = BackupFrequencyType.Daily,
+                    count = 1,
+                    lastBackupMillis = 1,
+                    directoryUri = Uri.EMPTY,
+                    encryptedPassword = "encryptedPassword"
+                )
+            ),
+            snackbarHostState = SnackbarHostState(),
+            onNavigationClick = {},
+            onBackupError = {},
+            onBackupPassword = {},
+            onConsumeEvent = {},
+            onDisableBackup = {},
+            onFolderPicked = {},
+            onUpdateFrequencyType = {},
+            onCreateBackup = {}
+        )
+    }
+}
+

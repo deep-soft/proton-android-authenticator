@@ -6,6 +6,12 @@ android {
     namespace = "proton.android.authenticator.features.backups.errors"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(projects.business.backups)
 }

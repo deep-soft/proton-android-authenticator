@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
 import proton.android.authenticator.business.backups.domain.BackupFrequencyType
 import proton.android.authenticator.features.backups.master.R
@@ -56,6 +57,7 @@ import proton.android.authenticator.shared.ui.domain.modifiers.backgroundSection
 import proton.android.authenticator.shared.ui.domain.screens.AlertDialogScreen
 import proton.android.authenticator.shared.ui.domain.theme.Theme
 import proton.android.authenticator.shared.ui.domain.theme.ThemeSpacing
+import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 
 @Composable
 internal fun BackupsMasterContent(
@@ -82,6 +84,15 @@ internal fun BackupsMasterContent(
         }
     }
 
+    val launchFolderPicker = {
+        runCatching {
+            folderLauncher.launch(backupModel.directoryUri)
+        }.onFailure { exception ->
+            AuthenticatorLogger.w(TAG, exception)
+            AuthenticatorLogger.w(TAG, "Failed to launch document tree picker")
+        }
+    }
+
     var hasNotificationPermission by remember {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             return@remember mutableStateOf(true)
@@ -97,7 +108,7 @@ internal fun BackupsMasterContent(
         contract = ActivityResultContracts.RequestPermission(),
         onResult = { isGranted ->
             hasNotificationPermission = isGranted
-            folderLauncher.launch(backupModel.directoryUri)
+            launchFolderPicker()
         }
     )
 
@@ -118,7 +129,7 @@ internal fun BackupsMasterContent(
                             onCheckedChange = { isEnablingBackup ->
                                 if (isEnablingBackup) {
                                     if (hasNotificationPermission) {
-                                        folderLauncher.launch(backupModel.directoryUri)
+                                        launchFolderPicker()
                                     } else {
                                         showNotificationsExplanationDialog = true
                                     }
@@ -141,7 +152,7 @@ internal fun BackupsMasterContent(
                                 ),
                                 showNavigationIcon = true,
                                 onClick = {
-                                    folderLauncher.launch(backupModel.directoryUri)
+                                    launchFolderPicker()
                                 }
                             )
                         }
@@ -205,7 +216,7 @@ internal fun BackupsMasterContent(
             cancelText = UiText.Resource(id = R.string.backups_notifications_permission_dialog_deny),
             onCancellation = {
                 showNotificationsExplanationDialog = false
-                folderLauncher.launch(backupModel.directoryUri)
+                launchFolderPicker()
             },
             onConfirmation = {
                 showNotificationsExplanationDialog = false
@@ -214,3 +225,19 @@ internal fun BackupsMasterContent(
         )
     }
 }
+
+@Preview
+@Composable
+private fun BackupsMasterContentPreview() {
+    Theme {
+        BackupsMasterContent(
+            state = BackupsMasterState.Initial,
+            onDisableBackup = {},
+            onFolderPicked = {},
+            onFrequencyChange = {},
+            onBackupNowClick = {}
+        )
+    }
+}
+
+private const val TAG = "BackupsMasterContent"

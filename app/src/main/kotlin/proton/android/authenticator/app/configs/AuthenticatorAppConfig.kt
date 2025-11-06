@@ -52,7 +52,7 @@ internal class AuthenticatorAppConfig @Inject constructor() : AppConfig {
 
     override val isDebug: Boolean = BuildConfig.DEBUG
 
-    override val product: Product = Product.Pass
+    override val product: Product = Product.Authenticator
 
     override val productOnlyPaidPlans: Boolean = false
 

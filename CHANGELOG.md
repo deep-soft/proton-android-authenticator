@@ -6,6 +6,24 @@
 
 ### Other
 
+## 1.3.3 (2025-11-04)
+
+### Fixes :bug:
+
+- Bug fixes and improvements.
+
+## 1.3.2 (2025-10-31)
+
+### Fixes :bug:
+
+- Bug fixes and improvements.
+
+### Other
+
+- Enforce encrypted backups for enhanced security.
+- Updated core libraries.
+- Translation updates.
+
 ## 1.3.1 (2025-09-22)
 
 ### Fixes :bug:

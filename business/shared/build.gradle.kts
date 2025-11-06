@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("proton.android.authenticator.plugins.libraries.android")
+    id("org.jetbrains.kotlin.kapt")
 
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
@@ -12,8 +13,18 @@ plugins {
 
 android {
     namespace = "proton.android.authenticator.business.shared"
+    
+    defaultConfig {
+        testInstrumentationRunner = "proton.android.authenticator.shared.testing.HiltRunner"
+    }
 
-    ksp {
+    sourceSets {
+        getByName("androidTest").assets.srcDir("$projectDir/schemas")
+    }
+}
+
+kapt {
+    arguments {
         arg("room.schemaLocation", "$projectDir/schemas")
     }
 }
@@ -96,6 +107,13 @@ dependencies {
     implementation(libs.protobuf.lite)
     implementation(projects.shared.common)
 
-    ksp(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     ksp(libs.hilt.compiler)
+
+    // Test dependencies
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.room.testing)
+    androidTestImplementation(libs.hilt.android.testing)
+    androidTestImplementation(projects.shared.testing)
 }

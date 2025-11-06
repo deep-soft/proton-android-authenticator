@@ -1,0 +1,18 @@
+Protect your accounts with Proton Authenticator, a private and secure cross-device two-factor authentication (2FA) that works offline. Created by Proton, the creators of Proton Mail, Proton VPN, Proton Drive, and Proton Pass.
+
+Proton Authenticator is open-source, end-to-end encrypted, and backed by Swiss privacy laws. It’s the safest way to generate and store your one-time passwords (TOTP) for 2FA Login.
+
+Why Proton Authenticator?
+
+- Free to use: No Proton account required, ad-free.
+- Offline support, on mobile and desktop apps
+- Sync your 2FA codes to all your devices with end-to-end encryption.
+- Enable automatic backups for peace of mind
+- Easily import from other 2FA apps, or export from Proton Authenticator.
+- Protect your account with biometrics or a PIN code.
+- Open-source transparency, verifiable code.
+- Protected by Switzerland’s privacy laws.
+
+Trusted by millions. Built by Proton.
+
+Take control of your digital security today.

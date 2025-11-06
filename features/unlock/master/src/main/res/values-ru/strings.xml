@@ -20,5 +20,5 @@
   <string name="unlock_screen_title" comment="The placeholder will be replaced by app name. (e.g. Unlock Proton Authenticator)">Разблокировать %1$s</string>
   <string name="unlock_screen_description">Подтвердите свою личность с помощью зарегистрированных биометрических данных, чтобы продолжить.</string>
   <string name="unlock_screen_promtp_title">Приложение заблокировано</string>
-  <string name="unlock_screen_promtp_subtitle">Разблокируйте, используя блокировку вашего устройства</string>
+  <string name="unlock_screen_promtp_subtitle">Разблокируйте с помощью блокировки вашего устройства</string>
 </resources>

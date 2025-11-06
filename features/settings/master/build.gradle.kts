@@ -6,6 +6,12 @@ android {
     namespace = "proton.android.authenticator.features.settings.master"
 }
 
+androidComponents {
+    beforeVariants { variant ->
+        variant.enableAndroidTest = false
+    }
+}
+
 dependencies {
     implementation(projects.business.anonymousData)
     implementation(projects.business.appLock)

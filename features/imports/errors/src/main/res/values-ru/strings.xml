@@ -21,4 +21,6 @@
   <string name="imports_error_dialog_message_bad_content">Выбранный файл не удалось импортировать.</string>
   <string name="imports_error_dialog_message_bad_encryption">Выбранный файл не удалось расшифровать.</string>
   <string name="imports_error_dialog_message_file_too_large">Превышен лимит размера файла</string>
+  <string name="imports_error_dialog_message_bad_password">Incorrect password provided.</string>
+  <string name="imports_error_dialog_message_missing_password">Password is required to import this file.</string>
 </resources>

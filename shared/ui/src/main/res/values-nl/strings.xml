@@ -34,7 +34,6 @@
   <string name="action_share">Delen</string>
   <string name="action_skip">Overslaan</string>
   <string name="action_unlock">Ontgrendelen</string>
-  <string name="action_yes">Ja</string>
   <string name="camera_scan_qr_code_hint">Richt uw camera op de QR-code.</string>
   <string name="date_format_today">Vandaag, %1$s</string>
   <string name="date_format_yesterday">Gisteren, %1$s</string>

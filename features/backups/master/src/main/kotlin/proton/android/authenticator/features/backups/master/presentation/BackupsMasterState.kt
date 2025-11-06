@@ -50,7 +50,6 @@ internal data class BackupsMasterState(
             event = BackupMasterEvent.Idle,
             backup = Backup.Default
         )
-
     }
 
 }

@@ -20,6 +20,7 @@ package proton.android.authenticator.business.keys.infrastructure
 
 import kotlinx.coroutines.withContext
 import me.proton.core.crypto.common.context.CryptoContext
+import me.proton.core.crypto.common.pgp.VerificationStatus
 import me.proton.core.domain.entity.UserId
 import me.proton.core.key.domain.decryptAndVerifyData
 import me.proton.core.key.domain.getArmored
@@ -31,6 +32,7 @@ import proton.android.authenticator.business.keys.infrastructure.network.CreateK
 import proton.android.authenticator.business.keys.infrastructure.network.KeyDto
 import proton.android.authenticator.business.keys.infrastructure.network.retrofit.RetrofitKeysDataSource
 import proton.android.authenticator.shared.common.domain.dispatchers.AppDispatchers
+import proton.android.authenticator.shared.common.logs.AuthenticatorLogger
 import proton.android.authenticator.shared.crypto.domain.contexts.EncryptionContextProvider
 import proton.android.authenticator.shared.crypto.domain.extensions.tryUseKeys
 import javax.inject.Inject
@@ -45,7 +47,7 @@ internal class KeysApiImpl @Inject constructor(
     private val userRepository: UserRepository
 ) : KeysApi {
 
-    override suspend fun create(userId: String, encryptedKey: String): Key = apiProvider
+    override suspend fun create(userId: String, encryptedKey: String): Key? = apiProvider
         .get<RetrofitKeysDataSource>(userId = UserId(id = userId))
         .invoke { createKey(request = CreateKeyRequestDto(key = encryptedKey)) }
         .valueOrThrow
@@ -58,13 +60,10 @@ internal class KeysApiImpl @Inject constructor(
         .valueOrThrow
         .keys
         .keys
-        .map { keyDto -> keyDto.toDomain(userId = userId) }
+        .mapNotNull { keyDto -> keyDto.toDomain(userId = userId) }
 
     @OptIn(ExperimentalEncodingApi::class)
-    private suspend fun KeyDto.toDomain(userId: String) = UserId(id = userId)
-        .let { sessionUserId ->
-            userRepository.getUser(sessionUserId = sessionUserId)
-        }
+    private suspend fun KeyDto.toDomain(userId: String) = userRepository.getUser(sessionUserId = UserId(id = userId))
         .let { user ->
             withContext(appDispatchers.default) {
                 key
@@ -74,27 +73,29 @@ internal class KeysApiImpl @Inject constructor(
                             decryptAndVerifyData(getArmored(decodedKey))
                         }
                     }
-                    .data
             }
         }
-        .let { decryptedKey ->
-            encryptionContextProvider.withEncryptionContext {
-                encrypt(decryptedKey)
+        .let { decryptedData ->
+            if (decryptedData.status == VerificationStatus.Success) {
+                encryptionContextProvider.withEncryptionContext {
+                    Key(
+                        id = keyId,
+                        key = key,
+                        userId = userId,
+                        userKeyId = userKeyId,
+                        encryptedKey = encrypt(decryptedData.data)
+                    )
+                }
+            } else {
+                AuthenticatorLogger.i(TAG, "Key with $keyId not verified")
+                null
             }
-        }
-        .let { encryptedKey ->
-            Key(
-                id = keyId,
-                key = key,
-                userId = userId,
-                userKeyId = userKeyId,
-                encryptedKey = encryptedKey
-            )
         }
 
     private companion object {
 
         private const val KEY_MESSAGE = "reencrypt authenticator key request"
+        private const val TAG = "KeysApiImpl"
 
     }
 

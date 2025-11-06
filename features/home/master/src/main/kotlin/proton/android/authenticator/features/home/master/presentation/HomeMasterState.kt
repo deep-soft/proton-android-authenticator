@@ -29,6 +29,11 @@ import proton.android.authenticator.features.shared.entries.presentation.EntryMo
 import proton.android.authenticator.shared.ui.domain.models.UiTextMask
 import proton.android.authenticator.shared.ui.domain.theme.ThemeType
 
+data class SyncDialogState(
+    val showWarningPasswordDialog: Boolean = false,
+    val enableWarningMessage: Boolean = false
+)
+
 @Immutable
 internal sealed interface HomeMasterState {
 
@@ -135,7 +140,8 @@ internal sealed interface HomeMasterState {
 
         internal val entryModelsMap: Map<String, HomeMasterEntryModel> = run {
             val sortedEntries = entries.sort(sortingType = settings.sortingType)
-            val uriToCodeMap = entries.zip(entryCodes).associate { (entry, code) -> entry.uri to code }
+            val uriToCodeMap =
+                entries.zip(entryCodes).associate { (entry, code) -> entry.uri to code }
             sortedEntries.mapNotNull { entry ->
                 uriToCodeMap[entry.uri]?.let { code ->
                     HomeMasterEntryModel(entry, code)
@@ -154,7 +160,8 @@ internal sealed interface HomeMasterState {
 
         internal val isSyncEnabled: Boolean = settings.isSyncEnabled
 
-        internal val needsBottomExtraSpace: Boolean = settings.searchBarType == SettingsSearchBarType.Top
+        internal val needsBottomExtraSpace: Boolean =
+            settings.searchBarType == SettingsSearchBarType.Top
 
         internal fun getRemainingSeconds(totalSeconds: Int): Int = entryCodesRemainingTimes.getOrDefault(
             key = totalSeconds,

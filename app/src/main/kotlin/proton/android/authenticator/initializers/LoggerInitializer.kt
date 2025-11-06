@@ -23,7 +23,6 @@ import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.components.SingletonComponent
-import me.proton.core.util.android.sentry.TimberLogger
 import me.proton.core.util.kotlin.CoreLogger
 import proton.android.authenticator.BuildConfig
 import proton.android.authenticator.common.deviceInfo
@@ -49,7 +48,7 @@ internal class LoggerInitializer : Initializer<Unit> {
             Timber.plant(getLogsFileTreeProvider().provide())
 
             // Forward Core Logs to Timber, using TimberLogger.
-            CoreLogger.set(TimberLogger)
+            initSentryLogger(CoreLogger)
 
             registerAuthenticatorLogger(getAuthenticatorLogger())
 
